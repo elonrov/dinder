@@ -18,6 +18,12 @@ const receieveSessionErrors = errors => { // errors action to allow errors to be
   };
 };
 
+export const receieveClearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
+};
+
 export const fetchSession = sessionId => dispatch => {  // sends axios request to get session from ID
   return APIUtil.fetchSession(sessionId)
     .then(session => dispatch(receieveSession(session)))
