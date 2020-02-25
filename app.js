@@ -13,6 +13,7 @@ mongoose
 
 
 app.get("/", (req, res) => res.send("Welcome to Dinder"));
+
 // app.use("/api/users", users); 
 // app.use("/api/sessions", sessions)
 app.use(bodyParser.urlencoded({ extended: false }));
