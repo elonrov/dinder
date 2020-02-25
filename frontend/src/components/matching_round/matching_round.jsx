@@ -10,12 +10,16 @@ class MatchingRound extends Component{
 
   handleX(e){
     e.preventDefault();
-    e.target.parentElement.parentElement.setAttribute("id", "HIDDEN-LEFT");
+    e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
+    e.target.parentElement.nextElementSibling.setAttribute("id", "BYE-LI");
+    e.target.parentElement.setAttribute("id", "BYE-LI");
   }
-
+  
   handleCheck(e){
     e.preventDefault();
-    e.target.parentElement.parentElement.setAttribute("id", "HIDDEN-RIGHT");
+    e.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
+    e.target.parentElement.previousElementSibling.setAttribute("id", "BYE-LI");
+    e.target.parentElement.setAttribute("id", "BYE-LI");
   }
 
   render(){
@@ -38,7 +42,8 @@ class MatchingRound extends Component{
         <li key={`${food}${Date.now()}`} className="cards">
           <span className="food-info">
             <h2>{food}</h2>
-
+            <h3>New York, NY</h3>
+            <p>Here are some details about the food. I mean I dunno what should go here but I also couldn't find lorem ipsum so this is whatchu got.</p>
           </span>
           <button className="x-out" onClick={this.handleX}><img src={window.xMark} /></button>
           <button className="check" onClick={this.handleCheck}><img src={window.checkMark} /></button>
