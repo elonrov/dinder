@@ -5,11 +5,14 @@ class Splash extends React.Component {
         super(props); 
     
         this.state = { active: false }
+        
+        this.toggleClass = this.toggleClass.bind(this);
     };
 
-    addActiveClass() {
-        this.setState( {active: true} )
-    }
+    toggleClass() {
+        const currentState = this.state.active;
+        this.setState( {active: !currentState} )
+    };
 
     render () {
         <div>
@@ -18,7 +21,7 @@ class Splash extends React.Component {
                 <h3>The end of group decision paralysis.</h3>
                 <p>Lorem ipsum dolor sit amet, ex vide graecis mei. Eu wisi facete vocibus vix, eu duo altera oblique. Mel te iisque elaboraret, sea case omnis in. Tota integre sea cu, sumo alterum blandit ei usu. Ad eum molestie assentior incorrupte, ei quem soleat lucilius vim.</p>
             </header>
-            <div className="visible">
+            <div className={this.state.active ? 'invisible' : 'visible'}>
                 <ul>
                     <li>Step 1
                         <span>content inside step one</span>
@@ -33,11 +36,15 @@ class Splash extends React.Component {
                         <span>content inside step four</span>
                     </li>
                 </ul>
-                <button>
+                <button 
+                    onClick={this.toggleClass}>
                     Get Started Now
                 </button>
             </div>
-            <SessionForm className="invisible"/>
+            <section className={this.state.active ? 'visible' : 'invisible'} />
+            <SessionForm />
         </div>
     }
 }
+
+export default Splash;
