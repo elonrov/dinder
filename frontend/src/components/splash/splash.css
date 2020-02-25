@@ -2,9 +2,9 @@ body {
     margin: 0;
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(#f86bfa, #fabafc);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-image: url('../../assets/images/background.png'), linear-gradient(#fa8afc, #fac3fc);
+    background-size: 30%;
+    /* background-repeat: repeat; */
     /* background-image:  ; */
 }
 
@@ -23,7 +23,7 @@ body {
 .header {
     color: white; 
     text-align: center;
-    text-shadow: 2px 0px 11px grey;
+    /* text-shadow: 2px 0px 11px grey; */
 
 }
 
@@ -34,17 +34,19 @@ body {
     margin: 45px 0px 0px 0px;
     letter-spacing: 4px;
     line-height: 100px; 
+    -webkit-text-stroke: .2px #363738;
 }
 
 .header h3 {
     font-family: 'Montserrat';
     font-size: 28px;
     margin-top: 0px;
+    color: #363738;
 }
 
 .about {
     font-family: 'Montserrat';
-    color: white; 
+    color: #363738; 
     max-width: 80%; 
     /* text-align: center; */
     margin: 0 auto;
@@ -60,33 +62,52 @@ body {
     display: flex; 
     flex-direction: row; 
     /* align-items: space-around; */
-    text-align: center; 
+    text-align: center;
     max-width: 80%;
     padding: 30px 0px 10px 0px;
 }
 
+.step-number {
+    background-color: white; 
+    margin: 0 auto; 
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    /* text-align: center; */
+    justify-content: center; 
+    font-size: 26px;
+    font-family: Baloo Da;
+    line-height: 1.5;    
+}
+
 .how-to li {
-    font-family: 'Montserrat';
-    color: white; 
-    max-width: 25%; 
-    font-size: 25px;
+    font-family: 'Hind';
+    color: #363738; 
+    width: 25%; 
+    font-size: 16px;
     /* text-align: center; */
     margin: 0 auto;
     /* font-weight: 200; */
-    text-shadow: 2px 0px 7px grey;
-    padding: 20px;
+    /* text-shadow: 2px 0px 7px grey; */
+    padding: 10px;
+    margin: 15px; 
+    border: 4px solid white; 
+    border-radius: 4px;
 }
 
 .how-to span {
-    color: white;
-    font-family: 'Montserrat';
-    font-size: 18px;
+    color: #363738;
+    font-family: 'Hind';
+    font-size: 16px;
     text-shadow: none;
+    line-height: 2px;
 }
 
 .submit {
     display: flex; 
     justify-content: center;
+    /* padding: 45px; */
+    /* margin-bottom: 45px; */
 }
 
 .get-started {
@@ -94,11 +115,11 @@ body {
     width: 300px; 
     height: 50px; 
     background-color: white; 
-    color: #f86bfa;
+    color: #fa8afc;
     font-family: Baloo Da;
     font-size: 22px;
     border-radius: 5px;
-    box-shadow: 2px 0px 7px silver;
+    border: 2px solid #363738;
 }
 
 .get-started:hover {

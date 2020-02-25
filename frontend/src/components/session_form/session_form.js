@@ -15,7 +15,6 @@ class SessionForm extends React.Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     incrementUserCount () {
