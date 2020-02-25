@@ -19,24 +19,24 @@ class Splash extends React.Component {
             <section className="splash-all">
                 <header className="header">
                     <h1>dinder</h1>
-                    <h3>the end of group decision paralysis.</h3>
+                    <h3>the end of group decision paralysis</h3>
                 </header>
                 <div className={this.state.active ? 'invisible' : 'visible'}>
                     <p className="about">Can't decide where to get dinner with your friends? Dinder is here to help. Leave no room for that bossy friend to bulldoze or for that flakey friend to spend hours going back and forth.</p>
                     <ul className="how-to">
-                        <li>step 1
+                        <li><div className="step-number">1</div>
                             <br />
                             <span>Invite your friends via email below.</span>
                         </li>
-                        <li>step 2
+                        <li><div className="step-number">2</div>
                             <br />
                             <span>For each option, let us know if you're def down or def not down. </span>
                         </li>
-                        <li>step 3
+                        <li><div className="step-number">3</div>
                             <br />
-                            <span>Based on you preferences, we'll pick a spot for you to meet that you'll all enjoy.</span>
+                            <span>We'll find a match that you'll all enjoy.</span>
                         </li>
-                        <li>step 4
+                        <li><div className="step-number">4</div>
                             <br />
                             <span>Meet up, eat up, and sldfsldkfj.</span>
                         </li>
