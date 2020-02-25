@@ -19,28 +19,35 @@ class Splash extends React.Component {
             <section className="splash-all">
                 <header className="header">
                     <h1>dinder</h1>
-                    <h3>The end of group decision paralysis.</h3>
+                    <h3>the end of group decision paralysis.</h3>
                 </header>
                 <div className={this.state.active ? 'invisible' : 'visible'}>
-                    <p className="about">Lorem ipsum dolor sit amet, ex vide graecis mei. Eu wisi facete vocibus vix, eu duo altera oblique. Mel te iisque elaboraret, sea case omnis in. Tota integre sea cu, sumo alterum blandit ei usu. Ad eum molestie assentior incorrupte, ei quem soleat lucilius vim.</p>
+                    <p className="about">Can't decide where to get dinner with your friends? Dinder is here to help. Leave no room for that bossy friend to bulldoze or for that flakey friend to spend hours going back and forth.</p>
                     <ul className="how-to">
-                        <li>Step 1
-                            <span>content inside step one</span>
+                        <li>step 1
+                            <br />
+                            <span>Invite your friends via email below.</span>
                         </li>
-                        <li>Step 2
-                            <span>content inside step two</span>
+                        <li>step 2
+                            <br />
+                            <span>For each option, let us know if you're def down or def not down. </span>
                         </li>
-                        <li>Step 3
-                            <span>content inside step three</span>
+                        <li>step 3
+                            <br />
+                            <span>Based on you preferences, we'll pick a spot for you to meet that you'll all enjoy.</span>
                         </li>
-                        <li>Step 4
-                            <span>content inside step four</span>
+                        <li>step 4
+                            <br />
+                            <span>Meet up, eat up, and sldfsldkfj.</span>
                         </li>
                     </ul>
-                    <button 
-                        onClick={this.toggleClass}>
-                        Get Started Now
-                    </button>
+                    <div className="submit">
+                        <button 
+                            className="get-started"
+                            onClick={this.toggleClass}>
+                            Get Started Now
+                        </button>
+                    </div>
                 </div>
                 <section className={!this.state.active ? 'invisible' : 'visible'}>
                     <span><SessionForm /></span>

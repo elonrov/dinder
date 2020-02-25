@@ -30,7 +30,7 @@ body {
 .header h1 {
     /* font-family: 'Major Mono Display'; */
     font-family: Baloo Da;
-    font-size: 130px;
+    font-size: 110px;
     margin: 45px 0px 0px 0px;
     letter-spacing: 4px;
     line-height: 100px; 
@@ -48,21 +48,64 @@ body {
     max-width: 80%; 
     /* text-align: center; */
     margin: 0 auto;
-    font-size: 18px;
+    font-size: 17px;
+    padding: 15px;
+    text-align: center;
+}
+
+.how-to {
+    list-style: none; 
+    padding-left: 0px; 
+    margin: 0 auto;
+    display: flex; 
+    flex-direction: row; 
+    /* align-items: space-around; */
+    text-align: center; 
+    max-width: 80%;
+    padding: 30px 0px 10px 0px;
 }
 
 .how-to li {
     font-family: 'Montserrat';
     color: white; 
-    max-width: 80%; 
+    max-width: 25%; 
+    font-size: 25px;
     /* text-align: center; */
     margin: 0 auto;
-
+    /* font-weight: 200; */
+    text-shadow: 2px 0px 7px grey;
+    padding: 20px;
 }
 
 .how-to span {
     color: white;
     font-family: 'Montserrat';
+    font-size: 18px;
+    text-shadow: none;
+}
+
+.submit {
+    display: flex; 
+    justify-content: center;
+}
+
+.get-started {
+    margin-top: 20px;
+    width: 300px; 
+    height: 50px; 
+    background-color: white; 
+    color: #f86bfa;
+    font-family: Baloo Da;
+    font-size: 22px;
+    border-radius: 5px;
+    box-shadow: 2px 0px 7px silver;
+}
+
+.get-started:hover {
+    cursor: pointer;
+}
+.get-started:focus {
+    outline: none;
 }
 
 .visible {
@@ -73,4 +116,5 @@ body {
     display: none;
     
 }
+
 
