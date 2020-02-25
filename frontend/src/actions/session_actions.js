@@ -2,6 +2,7 @@ import * as APIUtil from "../util/session_util";
 
 export const RECEIVE_SESSION = "RECEIVE_SESSION";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 const receieveSession = session => { // receive action to allow session to be dispatch to sessionReducer
   return {

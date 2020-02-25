@@ -5,14 +5,14 @@ import Splash from './splash';
 const mapStateToProps = state => {
     return {
         // filler just to render the container
-        sdlfkjs: sldkmxnv
+        // sdlfkjs: sldkmxnv
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         // filler 
-        lsdkfj: sdlkfjf
+        // lsdkfj: sdlkfjf
     }
 }; 
 

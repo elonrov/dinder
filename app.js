@@ -12,7 +12,7 @@ mongoose
     .catch((err) => console.log(err));
 
 
-app.get("/", (req, res) => res.send("Welcome to Dinder"));
+// app.get("/", (req, res) => res.send("Welcome to Dinder"));
 
 // app.use("/api/users", users); 
 // app.use("/api/sessions", sessions)
