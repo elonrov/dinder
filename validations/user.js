@@ -5,8 +5,6 @@ module.exports = function validateUserInput(data) {
   let errors = {};
 
   data.email = validText(data.email) ? data.email : '';
-  // data.session_code = validText(data.session_code) ? data.session_code : ''
-
 
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Email is invalid';

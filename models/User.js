@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     session_code: {
         type: Number,
         required: true,
-        default: 123456
+        default: ''
     }
 
 });
