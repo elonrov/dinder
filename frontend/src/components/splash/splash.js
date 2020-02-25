@@ -25,15 +25,19 @@ class Splash extends React.Component {
                     <p className="about">Lorem ipsum dolor sit amet, ex vide graecis mei. Eu wisi facete vocibus vix, eu duo altera oblique. Mel te iisque elaboraret, sea case omnis in. Tota integre sea cu, sumo alterum blandit ei usu. Ad eum molestie assentior incorrupte, ei quem soleat lucilius vim.</p>
                     <ul className="how-to">
                         <li>Step 1
+                            <br />
                             <span>content inside step one</span>
                         </li>
                         <li>Step 2
+                            <br />
                             <span>content inside step two</span>
                         </li>
                         <li>Step 3
+                            <br />
                             <span>content inside step three</span>
                         </li>
                         <li>Step 4
+                            <br />
                             <span>content inside step four</span>
                         </li>
                     </ul>
