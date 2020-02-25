@@ -13,19 +13,30 @@ ul {
   min-height: fit-content;
 }
 
-li {
+h2 {
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 18px;
+}
+
+span.food-info {
   box-sizing: border-box;
   font-family: sans-serif;
   font-size: 28px;
   position: absolute;
   top: 20%;
-  left: 35%;
+  left: 37%;
   padding: 20px 20px;
   width: 350px;
   height: 450px;
-  border: 5px solid #888888;
+  border: 5px solid #444444;
   border-radius: 15px;
-  text-transform: uppercase;
   text-align: center;
   opacity: 100%;
   background: linear-gradient(#FFFFFF,#DDDDDD);
@@ -38,11 +49,15 @@ li button {
 }
 
 .x-out {
-  left: -75%;
+  position: fixed;
+  left: 18%;
+  top: 40%;
 }
 
 .check {
-  right: -75%;
+  position: fixed;
+  right: 11%;
+  top: 40%;
 }
 
 li img {
@@ -55,19 +70,34 @@ li button:focus {
 }
 
 #HIDDEN-RIGHT {
-  transform: rotate(45deg) translate(800px,0px);
+  transform: rotate(45deg) translate(600px,-600px);
   opacity: 0%;
   transition: 1.25s ease;
   background: linear-gradient(#FFF,#0D0);
 }
 
 #HIDDEN-LEFT {
-  transform: rotate(-45deg) translate(-800px,0px);
+  transform: rotate(-45deg) translate(-600px,-600px);
   opacity: 0%;
   transition: 1.25s ease;
   background: linear-gradient(#FFF,#D00);
 }
 
-#HIDDEN-RIGHT img, #HIDDEN-LEFT img {
+#BYE-LI {
+  transform: rotate(-45deg) translate(-800px,0px);
   opacity: 0%;
+  transition: 1.25s ease;
+  z-index: -1000;
+}
+
+#BYE-LI.x-out img, #BYE-LI img {
+  opacity: 0%;
+  top: 200px;
+  z-index: -1000;
+}
+
+#BYE-LI.x-out button, #BYE-LI.check button {
+  opacity: 0%;
+  top: 200px;
+  z-index: -1000;
 }
