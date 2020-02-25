@@ -5,7 +5,7 @@ const Session = require("../../models/Session");
 router.get("/test", (req, res) => res.json({ msg: "This is the sessions route" }));
 
 router.post("/session/new", (req, res) => {
-  const newSess = new Session(); // choices array should auto populate unless otherwise specified
+  const newSess = new Session({}); // choices array should auto populate unless otherwise specified
 
   newSess
     .save()
