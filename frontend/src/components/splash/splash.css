@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(#f86bfa, #fabafc);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* background-image:  ; */
+}
+
+.splash-all {
+    width: 100%; 
+    height: 100%; 
+    /* background-color: #fb7aff; */
+    /* background-color: #fab3fc; */
+    display: flex; 
+    /* background: transparent; */
+    flex-direction: column; 
+    justify-content: center;
+    /* margin: 0 auto; */
+}
+
+.header {
+    color: white; 
+    text-align: center;
+    text-shadow: 2px 0px 11px grey;
+
+}
+
+.header h1 {
+    /* font-family: 'Major Mono Display'; */
+    font-family: Baloo Da;
+    font-size: 130px;
+    margin: 45px 0px 0px 0px;
+    letter-spacing: 4px;
+    line-height: 100px; 
+}
+
+.header h3 {
+    font-family: 'Montserrat';
+    font-size: 28px;
+    margin-top: 0px;
+}
+
+.about {
+    font-family: 'Montserrat';
+    color: white; 
+    max-width: 80%; 
+    /* text-align: center; */
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.how-to li {
+    font-family: 'Montserrat';
+    color: white; 
+    max-width: 80%; 
+    /* text-align: center; */
+    margin: 0 auto;
+
+}
+
+.how-to span {
+    color: white;
+    font-family: 'Montserrat';
+}
+
+.visible {
+    display: block; 
+}
+
+.invisible {
+    display: none;
+    
+}
+
