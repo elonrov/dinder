@@ -29,3 +29,9 @@ export const fetchSession = sessionId => dispatch => {  // sends axios request t
     .then(session => dispatch(receieveSession(session)))
     .catch(err => dispatch(receieveSessionErrors(err)));
 };
+
+export const updateSession = sessionData => dispatch => {  // sends axios request to update session
+  return APIUtil.updateSession(sessionData)
+    .then(session => dispatch(receieveSession(session)))
+    .catch(err => dispatch(receieveSessionErrors(err)));
+};

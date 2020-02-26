@@ -8,7 +8,6 @@ class MatchingRound extends Component{
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.rejections = [];
-    this.completedUsers = [];
   }
 
   handleX(e){
@@ -30,6 +29,14 @@ class MatchingRound extends Component{
 
   handleSubmit(e){
     e.preventDefault();
+
+    const sessionData = {
+      sessionId: this.props.session.id,
+      completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
+    };
+
+    this.props.updateSession(sessionData)
+      .then(this.props.history.push('/success'));
   }
 
   componentDidMount(){
