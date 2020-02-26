@@ -36,3 +36,9 @@ export const createSession = sessionData => dispatch => {  // sends axios reques
     .then(session => dispatch(receieveSession(session)))
     .catch(err => dispatch(receieveSessionErrors(err)));
 };
+
+export const updateSession = sessionData => dispatch => {  // sends axios request to update session
+  return APIUtil.updateSession(sessionData)
+    .then(session => dispatch(receieveSession(session)))
+    .catch(err => dispatch(receieveSessionErrors(err)));
+};

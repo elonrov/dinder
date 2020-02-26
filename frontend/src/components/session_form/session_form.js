@@ -1,4 +1,6 @@
 import React from 'react'; 
+import './session_form.css';
+import { withRouter, Link } from 'react-router-dom';
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -57,13 +59,15 @@ class SessionForm extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault();
+
         const numUsers = this.userCount(this.state);
         this.props.createSession({ numUsers })
             .then(sessionAction => {
                 debugger
                 // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
-                this.createUsers(sessionAction.session._id);
-            }); // takes 
+                this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
+                this.props.history.push('/thankyou');
+            });
     }
 
     update(field) {
@@ -86,7 +90,7 @@ class SessionForm extends React.Component {
                         />
                     </label>
                     <br />
-                    <section>Your friends' emails
+                    {/* <section>Your friends' emails
                         <br />
                         <label>Friend #1
                             <input 
@@ -96,7 +100,6 @@ class SessionForm extends React.Component {
                                 value={this.state.friend1Email}
                                 onChange={this.update('friend1Email')}
                             />
-                            {/* plus sign to reveal next row and increment counter */}
                         </label>
                         <br />
                         <label>Friend #2
@@ -125,12 +128,60 @@ class SessionForm extends React.Component {
                                 onChange={this.update('friend4Email')}
                             />
                         </label>
-                    </section>
-                    <button className="submit-button" type="submit">Send Invites</button>
+                         */}
+                        <section>
+                            <br />
+                            <label>Your friends' emails
+                                <br />
+                                <input 
+                                    className="friend-1-input"
+                                    type="email"
+                                    placeholder="Friend #1's Email"
+                                    value={this.state.friend1Email}
+                                    onChange={this.update('friend1Email')}
+                                />
+                                {/* plus sign to reveal next row and increment counter */}
+                            </label>
+                            <br />
+                            <label>
+                                <input
+                                    className="friend-2-input"
+                                    type="email"
+                                    placeholder="Friend #2's Email"
+                                    value={this.state.friend2Email}
+                                    onChange={this.update('friend2Email')}
+                                />
+                            </label>
+                            <br />
+                            <label>
+                                <input
+                                    className="friend-3-input"                            
+                                    type="text"
+                                    placeholder="Friend #3's Email"
+                                    value={this.state.friend3Email}
+                                    onChange={this.update('friend3Email')}
+                                />
+                            </label>
+                            <br />
+                            <label>
+                                <input
+                                    className="friend-4-input"
+                                    type="text"
+                                    placeholder="Friend #4's Email"
+                                    value={this.state.friend4Email}
+                                    onChange={this.update('friend4Email')}
+                                />
+                            </label>
+                            <h5>* This isn't Myspace, order doesn't matter *<br /></h5>
+                        </section>
+                    {/* </section> */}
+                    <div className="submit">
+                        <button className="get-started" type="submit">Send Invites</button>
+                    </div>
                 </form>
             </div>
         )
     }
 }; 
 
-export default SessionForm; 
+export default withRouter(SessionForm); 
