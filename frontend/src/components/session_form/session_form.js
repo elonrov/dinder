@@ -1,4 +1,6 @@
 import React from 'react'; 
+import './session_form.css';
+import { withRouter, Link } from 'react-router-dom';
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -49,6 +51,7 @@ class SessionForm extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault();
+
         const numUsers = this.userCount(this.state);
         this.props.createSession({ numUsers })
             .then(session => {
@@ -117,12 +120,60 @@ class SessionForm extends React.Component {
                                 onChange={this.update('friend4Email')}
                             />
                         </label>
+                        
+                        <section>
+                            <br />
+                            <label>Your friends' emails
+                                <br />
+                                <input 
+                                    className="friend-1-input"
+                                    type="text"
+                                    placeholder="Friend #1's Email"
+                                    value={this.state.emails.friend1Email}
+                                    onChange={this.update('Friend #1')}
+                                />
+                                {/* plus sign to reveal next row and increment counter */}
+                            </label>
+                            <br />
+                            <label>
+                                <input
+                                    className="friend-2-input"
+                                    type="text"
+                                    placeholder="Friend #3's Email"
+                                    value={this.state.emails.friend2Email}
+                                    onChange={this.update('Friend #2')}
+                                />
+                            </label>
+                            <br />
+                            <label>
+                                <input
+                                    className="friend-4-input"                            
+                                    type="text"
+                                    placeholder="Friend #3's Email"
+                                    value={this.state.emails.friend3Email}
+                                    onChange={this.update('Friend #3')}
+                                />
+                            </label>
+                            <br />
+                            <label>
+                                <input
+                                    className="friend-4-input"
+                                    type="text"
+                                    placeholder="Friend #4's Email"
+                                    value={this.state.emails.friend4Email}
+                                    onChange={this.update('Friend #4')}
+                                />
+                            </label>
+                            <h5>* This isn't Myspace, order doesn't matter *<br /></h5>
+                        </section>
                     </section>
-                    <button className="submit-button" type="submit">Send Invites</button>
+                    <div className="submit">
+                        <button className="get-started" type="submit">Send Invites</button>
+                    </div>
                 </form>
             </div>
         )
     }
 }; 
 
-export default SessionForm; 
+export default withRouter(SessionForm); 

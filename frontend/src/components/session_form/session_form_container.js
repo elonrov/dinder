@@ -5,12 +5,14 @@ import { createUser } from "../../actions/users_actions";
 
 const mapStateToProps = (state, ownProps) => {
     return {
+
         // maybe ui stuff otherwise null
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+
         clearErrors: () => dispatch(receieveClearErrors()),
         createSession: sessionData => dispatch(createSession(sessionData)),
         createUser: userData => dispatch(createUser(userData))

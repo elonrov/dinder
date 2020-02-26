@@ -22,22 +22,18 @@ class Splash extends React.Component {
                     <h3>the end of group decision paralysis</h3>
                 </header>
                 <div className={this.state.active ? 'invisible' : 'visible'}>
-                    <p className="about">Can't decide where to get dinner with your friends? Dinder is here to help. Leave no room for that bossy friend to bulldoze or for that flakey friend to spend hours going back and forth.</p>
+                    <p className="about">Can't decide where to get dinner with your friends? Dinder is here to help.</p>
                     <ul className="how-to">
                         <li><div className="step-number">1</div>
-                            <br />
                             <span>Invite your friends via email below.</span>
                         </li>
                         <li><div className="step-number">2</div>
-                            <br />
                             <span>For each option, let us know if you're def down or def not down. </span>
                         </li>
                         <li><div className="step-number">3</div>
-                            <br />
                             <span>We'll find a match that you'll all enjoy.</span>
                         </li>
                         <li><div className="step-number">4</div>
-                            <br />
                             <span>Meet up, eat up, and sldfsldkfj.</span>
                         </li>
                     </ul>
@@ -51,6 +47,9 @@ class Splash extends React.Component {
                 </div>
                 <section className={!this.state.active ? 'invisible' : 'visible'}>
                     <span><SessionForm /></span>
+                    <div className="submit">
+                        <button className="refresh" onClick={this.toggleClass}>Take me back.</button>
+                    </div>
                 </section>
             </section>
         )
