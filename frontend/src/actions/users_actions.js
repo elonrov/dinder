@@ -20,7 +20,7 @@ const receiveUserErrors = errors => {
 export const createUser = userData => dispatch => {
   return APIUtil.createUser(userData)
     .then(user => dispatch(receiveUser(user)))
-    .catch(err => dispatch(receiveUserErrors(err)));
+    .catch(err => dispatch(receiveUserErrors(err.responseJSON)));
 };
 
 // export const fetchUser = userId => dispatch => {
