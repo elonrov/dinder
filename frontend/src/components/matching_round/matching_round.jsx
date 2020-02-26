@@ -7,7 +7,28 @@ class MatchingRound extends Component{
     this.handleX = this.handleX.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkCode = this.checkCode.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.rejections = [];
+    this.state = {
+      sessionCode: ""
+    };
+  }
+
+  handleInput(e){
+    this.setState({
+      sessionCode: e.target.value
+    });
+  }
+
+  checkCode(e){
+    e.preventDefault();
+    const userVerificationData = {
+      sessionId: this.props.session.id,
+      sessionCode: this.state.sessionCode
+    };
+
+    this.props.verifyUser(userVerificationData);
   }
 
   handleX(e){
@@ -35,8 +56,19 @@ class MatchingRound extends Component{
       completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
     };
 
-    this.props.updateSession(sessionData)
-      .then(this.props.history.push('/success'));
+    const userData = {
+      userId: this.props.currentUser.id,
+      rejections: this.rejections
+    };
+
+    // this.props.updateSession(sessionData)
+    //       .then(this.props.history.push('/success'));
+
+    this.props.updateUser(userData)
+      .then(() => {
+        this.props.updateSession(sessionData)
+          .then(this.props.history.push('/success'));
+      });    
   }
 
   componentDidMount(){
@@ -49,6 +81,16 @@ class MatchingRound extends Component{
   render(){
 
     if(this.props.session === undefined) return <h1>Loading Session...</h1>;
+
+    if(this.props.currentUser === undefined) {
+      return (
+        <form onSubmit={this.checkCode} id="verify-user-form">
+          <label> Please enter your verification code:
+            <input onChange={this.handleInput} type="password"/>
+          </label>
+        </form>
+      )
+    }
 
     const cats = [
       "tacos",
