@@ -82,45 +82,6 @@ class SessionForm extends React.Component {
                         />
                     </label>
                     <br />
-                    {/* <section>Your friends' emails
-                        <br />
-                        <label>Friend #1
-                            <input 
-                                className="friend-1-input"
-                                type="email"
-                                placehold="This isn't Myspace, order doesn't matter"
-                                value={this.state.friend1Email}
-                                onChange={this.update('friend1Email')}
-                            />
-                        </label>
-                        <br />
-                        <label>Friend #2
-                            <input
-                                className="friend-2-input"
-                                type="email"
-                                value={this.state.friend2Email}
-                                onChange={this.update('friend2Email')}
-                            />
-                        </label>
-                        <br />
-                        <label>Friend #3
-                            <input
-                                className="friend-3-input"                            
-                                type="email"
-                                value={this.state.friend3Email}
-                                onChange={this.update('friend3Email')}
-                            />
-                        </label>
-                        <br />
-                        <label>Friend #4
-                            <input
-                                className="friend-4-input"
-                                type="email"
-                                value={this.state.friend4Email}
-                                onChange={this.update('friend4Email')}
-                            />
-                        </label>
-                         */}
                         <section>
                             <br />
                             <label>Your friends' emails
@@ -132,7 +93,6 @@ class SessionForm extends React.Component {
                                     value={this.state.friend1Email}
                                     onChange={this.update('friend1Email')}
                                 />
-                                {/* plus sign to reveal next row and increment counter */}
                             </label>
                             <br />
                             <label>
@@ -166,7 +126,6 @@ class SessionForm extends React.Component {
                             </label>
                             <h5>* This isn't Myspace, order doesn't matter *<br /></h5>
                         </section>
-                    {/* </section> */}
                     <div className="submit">
                         <button className="get-started" type="submit">Send Invites</button>
                     </div>
