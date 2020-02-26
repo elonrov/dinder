@@ -4,11 +4,10 @@ const User = require('../../models/User');
 const validateUserInfo = require('../../validations/user')
 const db = require('../../config/keys').mongoURI;
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer')
-require('dotenv').config()
-
-
-
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path')
 
 
 router.post("/create",
@@ -36,7 +35,7 @@ router.post("/create",
 
 
 
-const transporter = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL,
@@ -44,21 +43,29 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+transporter.use('compile', hbs({
+  viewEngine: {
+    extName: '.handlebars',
+    partialsDir: './views/api/users',
+    layoutsDir: './views/api/users',
+    defaultLayout: 'create.handlebars'},
+  viewPath: './views/api/users',
+}));
+
+
 const mailOptions = {
     from: 'dinderappaa@gmail.com',
-    to: email, //where to send the email,
-    subject: 'meet hoes on dinder',
-    text: 'sup u fucking pussy'
+    to: email, 
+    subject: "You've been invited to a Dinder party!",
+    template: 'create',
+    context: {
+      email: email,
+      session_code: session_number
+    }
 }
 
-// const emailbody = (
-
-//   <h1>SUUUUP</h1>
-
-// )
-
   newUser.save()
-        .then(user => res.json(user))
+        .then((user) => res.json(user))
         .then(() => transporter.sendMail(mailOptions, function(err, data) {
           if (err) {
               console.log('Error Occurs', err)
@@ -66,6 +73,7 @@ const mailOptions = {
               console.log('Email sent!!!')
           }
       }) )
+        .catch((errors) => console.log('you have errors!', errors)) 
 })
 
   
