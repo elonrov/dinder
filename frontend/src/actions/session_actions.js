@@ -18,7 +18,7 @@ const receieveSessionErrors = errors => { // errors action to allow errors to be
   };
 };
 
-export const receieveClearErrors = () => {
+export const receieveClearErrors = () => { // allows errors to be cleared from state
   return {
     type: CLEAR_ERRORS
   };
@@ -26,6 +26,12 @@ export const receieveClearErrors = () => {
 
 export const fetchSession = sessionId => dispatch => {  // sends axios request to get session from ID
   return APIUtil.fetchSession(sessionId)
+    .then(session => dispatch(receieveSession(session)))
+    .catch(err => dispatch(receieveSessionErrors(err)));
+};
+
+export const createSession = sessionData => dispatch => {  // sends axios request to create session with given data
+  return APIUtil.createSession(sessionData)
     .then(session => dispatch(receieveSession(session)))
     .catch(err => dispatch(receieveSessionErrors(err)));
 };
