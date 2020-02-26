@@ -1,6 +1,8 @@
 .session-form {
     display: flex;
     flex-direction: column;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 .form-inputs {
@@ -8,6 +10,7 @@
     flex-direction: column;
     justify-content: space-between; 
     margin: 0 auto;
+
 }
 
 .session-form label {
@@ -17,15 +20,18 @@
     flex-direction: column;
     /* justify-content: center;  */
     text-align: center;
+    margin: 0 auto;
 }
 
 .session-form input {
     font-family: 'Montserrat';
     border-radius: 4px; 
-    width: 87%;
+    min-width: 200px;
+    width: 40%;
     margin: 4px; 
     padding: 8px;
     font-size: 13px;
+    margin: 0 auto;
 }
 
 .session-form input:focus {
@@ -36,5 +42,6 @@
     font-family: 'Hind';
     font-size: 12px;
     text-align: center;
-    margin-top: 5px;
+    /* margin-top: 5px; */
+    margin: 10px 0px 0px 0px;
 }
