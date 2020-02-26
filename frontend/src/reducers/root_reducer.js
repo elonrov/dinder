@@ -7,7 +7,7 @@ import usersReducer from "./users_reducer";
 
 const rootReducer = combineReducers({
   matches: matchesReducer,
-  users: usersReducer,
+  currentUser: usersReducer,
   errors: errorsReducer
 });
 

@@ -7,14 +7,15 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 const receieveSession = session => { // receive action to allow session to be dispatch to sessionReducer
   return {
     type: RECEIVE_SESSION,
-    session
+    session: session.data
   };
 };
 
 const receieveSessionErrors = errors => { // errors action to allow errors to be dispatch to sessionErrorsReducer
+  debugger
   return {
     type: RECEIVE_SESSION_ERRORS,
-    errors
+    errors: errors.data
   };
 };
 
