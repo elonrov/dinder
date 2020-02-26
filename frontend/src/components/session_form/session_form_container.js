@@ -4,15 +4,13 @@ import SessionForm from './session_form';
 
 const mapStateToProps = state => {
     return {
-        // filler just to render the container
-        // sdlfkjs: sldkmxnv
+        
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // filler 
-        // lsdkfj: sdlkfjf
+        
     }
 };
 

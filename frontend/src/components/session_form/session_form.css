@@ -1,0 +1,40 @@
+.session-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-inputs {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between; 
+    margin: 0 auto;
+}
+
+.session-form label {
+    font-family: 'Montserrat';
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+    /* justify-content: center;  */
+    text-align: center;
+}
+
+.session-form input {
+    font-family: 'Montserrat';
+    border-radius: 4px; 
+    width: 87%;
+    margin: 4px; 
+    padding: 8px;
+    font-size: 13px;
+}
+
+.session-form input:focus {
+    outline: none;
+}
+
+.session-form h5 {
+    font-family: 'Hind';
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+}
