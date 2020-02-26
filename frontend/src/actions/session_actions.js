@@ -18,7 +18,7 @@ const receieveSessionErrors = errors => { // errors action to allow errors to be
   };
 };
 
-export const receieveClearErrors = () => {
+export const receieveClearErrors = () => { // allows errors to be cleared from state
   return {
     type: CLEAR_ERRORS
   };

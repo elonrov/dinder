@@ -26,7 +26,7 @@ export const createUser = userData => dispatch => {
 // export const fetchUser = userId => dispatch => {
 //   return APIUtil.fetchUser(userId)
 //     .then(user => dispatch(receiveUser(user)))
-//     .catch(err => dispatch(receiveUserErrors(err)))
+//     .catch(err => dispatch(receiveUserErrors(err.responseJSON)))
 // }
 
 // may need to add if we need a user fetch

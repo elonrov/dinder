@@ -31,12 +31,13 @@
     "jwt-decode": "^2.2.0",
     "mongoose": "^5.9.2",
     "nodemailer": "^6.4.3",
+    "nodemailer-express-handlebars": "^3.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
     "validator": "^12.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
