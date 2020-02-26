@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Splash from './splash/splash_container';
-import MatchingRound from './matching_round/matching_round';
+import MatchingRound from './matching_round/matching_round_container';
 import ThankYou from './thank_you/thank_you';
 import Winner from './winner/winner_container';
 
