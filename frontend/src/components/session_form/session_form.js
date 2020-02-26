@@ -22,14 +22,22 @@ class SessionForm extends React.Component {
 
     createUsers(sessionId) {
         const emails = this.state;
-        debugger
-        for (let email in emails) {
-            debugger
-            if (emails[email]) {
-                this.props.createUser({
-                    session: sessionId,
-                    email
-                });
+        for (let key in emails) {
+            if (emails[key]) {
+                if (key === "hostEmail"){ // allows host to be recognized
+                    debugger
+                    this.props.createUser({
+                        session: sessionId,
+                        email: emails[key],
+                        host: true
+                    });
+                } else {
+                    debugger
+                    this.props.createUser({
+                        session: sessionId,
+                        email: emails[key]
+                    });
+                }
             }
         }
     }
@@ -45,21 +53,21 @@ class SessionForm extends React.Component {
         return count
     }
 
-    incrementUserCount () {
-        this.setState({total: this.state.total + 1}) // increments total in state on click
-    }
+    // incrementUserCount () {
+    //     this.setState({total: this.state.total + 1}) // increments total in state on click
+    // }
 
     handleSubmit (e) {
         e.preventDefault();
 
         const numUsers = this.userCount(this.state);
         this.props.createSession({ numUsers })
-            .then(session => {
+            .then(sessionAction => {
                 debugger
-                // this.props.history.push(`/round?${session.id}`);
-                this.props.history.push('/thankyou')
-                this.props.createUsers(session.id);
-            }); // maybe have to do ._id? not sure what id is name in mongo
+                // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
+                this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
+                this.props.history.push('/thankyou');
+            });
     }
 
     update(field) {
