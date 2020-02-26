@@ -1,12 +1,14 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import SplashContainer from './splash/splash_container';
+import Splash from './splash/splash_container';
+import MatchingRound from './matching_round/matching_round';
 
 const App = () => (
-    <div>
-        <SplashContainer />
-    </div>
+    <Switch>
+        <Route exact path="/" component={Splash} />
+        <Route path="/round" component={MatchingRound} />
+    </Switch>
 ); 
 
 export default App;

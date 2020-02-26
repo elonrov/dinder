@@ -5,12 +5,15 @@ const fs = require('fs');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the sessions route" }));
 
+
 router.post("/new", (req, res) => {
  
 
   const newSess = new Session({
     numUsers: req.body.numUsers
   }); // choices array should auto populate unless otherwise specified
+
+
 
   newSess
     .save()
