@@ -25,16 +25,14 @@ class SessionForm extends React.Component {
         for (let key in emails) {
             if (emails[key]) {
                 if (key === "hostEmail"){ // allows host to be recognized
-                    debugger
                     this.props.createUser({
-                        session: sessionId,
+                        sessionId: sessionId,
                         email: emails[key],
                         host: true
                     });
                 } else {
-                    debugger
                     this.props.createUser({
-                        session: sessionId,
+                        sessionId: sessionId,
                         email: emails[key]
                     });
                 }

@@ -10,7 +10,7 @@ const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Session = require('../../models/Session')
 
-router.get('/show', (req, res)=> {
+router.post('/show', (req, res)=> {
   User.find({sessionId: req.body.sessionId}, (err, users) =>{
     
     let correctUser = null;
@@ -28,18 +28,6 @@ router.get('/show', (req, res)=> {
     }
   })
 })
-  // let users = await User.find({sessionId: req.body.sessionId})
-  // debugger
-  // let users = users.filter( user => user.sessionId === req.body.sessionId)
-  
-  // users.forEach(user => {
-  //   if (user.sessionCode === req.body.sessionCode) {
-  //     return res.json(user)
-  //   }
-  // })
-
-  // return res.status(404).json({err: 'Incorrect Session Code'})
-
 
 router.post("/create",
   (req, res) => {
@@ -58,47 +46,98 @@ router.post("/create",
     session_number += realNum
   }
 
+  if (!req.body.host) {
+
   const newUser = new User({
     email: email,
     sessionId: sessionId,
     sessionCode: session_number
   })
 
+  let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD
+      }
+  });
+
+  transporter.use('compile', hbs({
+    viewEngine: {
+      extName: '.handlebars',
+      partialsDir: './views/api/users',
+      layoutsDir: './views/api/users',
+      defaultLayout: 'create.handlebars'},
+    viewPath: './views/api/users',
+  }));
+
+  const url = `localhost:3000/#/round?${sessionId}`
 
 
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
+  const mailOptions = {
+      from: 'dinderappaa@gmail.com',
+      to: email, 
+      subject: "You've been invited to a Dinder party!",
+      template: 'create',
+      context: {
+        email: email,
+        sessionCode: session_number,
+        sessionurl: url
+      }
     }
-});
-
-transporter.use('compile', hbs({
-  viewEngine: {
-    extName: '.handlebars',
-    partialsDir: './views/api/users',
-    layoutsDir: './views/api/users',
-    defaultLayout: 'create.handlebars'},
-  viewPath: './views/api/users',
-}));
-
-const url = `localhost:3000/#/round?${sessionId}`
-
-
-const mailOptions = {
-    from: 'dinderappaa@gmail.com',
-    to: email, 
-    subject: "You've been invited to a Dinder party!",
-    template: 'create',
-    context: {
-      email: email,
-      sessionCode: session_number,
-      sessionurl: url
-    }
-}
-
+  
   newUser.save()
+      .then((user) => res.json(user))
+      .then(() => transporter.sendMail(mailOptions, function(err, data) {
+        if (err) {
+            console.log('Error Occurs', err)
+        } else {
+            console.log('Email sent!!!')
+        }
+    }) )
+      .catch((errors) => console.log('you have errors!', errors)) 
+  } else {
+
+    const newUser = new User({
+      email: email,
+      sessionId: sessionId,
+      sessionCode: session_number,
+      host: true
+    })
+  
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
+        }
+    });
+  
+    transporter.use('compile', hbs({
+      viewEngine: {
+        extName: '.handlebars',
+        partialsDir: './views/api/users',
+        layoutsDir: './views/api/users',
+        defaultLayout: 'createHost.handlebars'},
+      viewPath: './views/api/users',
+    }));
+  
+    const url = `localhost:3000/#/round?${sessionId}`
+  
+  
+    const mailOptions = {
+        from: 'dinderappaa@gmail.com',
+        to: email, 
+        subject: "You've been invited to a Dinder party!",
+        template: 'createHost',
+        context: {
+          email: email,
+          sessionCode: session_number,
+          sessionurl: url
+        }
+      }
+    
+    newUser.save()
         .then((user) => res.json(user))
         .then(() => transporter.sendMail(mailOptions, function(err, data) {
           if (err) {
@@ -108,9 +147,35 @@ const mailOptions = {
           }
       }) )
         .catch((errors) => console.log('you have errors!', errors)) 
-})
+
+  }
 
   
+})
+
+router.patch("/:userId", (req, res) => {
+  User.findOne({ _id: req.params.userId}, (err, user) => {
+    debugger
+    if(user){
+      if (req.body.rejections) {
+        user.rejections = req.body.rejections
+      }
+
+      user.save(function(errors, updatedUser){
+        if(errors) {
+          return res.status(500).json({err: errors})
+        } else {
+          return res.json(updatedUser)
+        }
+      })
+
+    } else {
+      return res.status(404).json({err: 'That user does not exist'})
+    }
+  })
+})
+
+
 
 
 
