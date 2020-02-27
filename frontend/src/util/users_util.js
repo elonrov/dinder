@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchUser = (userData) => { // WORKED IN POSTMAN BUT NOT IN CONSOLE
+export const verifyUser = (userData) => { // WORKED IN POSTMAN BUT NOT IN CONSOLE
   return axios.get('/api/users/show', userData);
 }; // gets user based on given session and their special sessionCode
 
