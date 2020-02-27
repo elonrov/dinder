@@ -23,13 +23,18 @@ class SessionRound extends Component{
 
   checkCode(e){
     e.preventDefault();
+    debugger
     const userVerificationData = {
-      sessionId: this.props.session.id,
+      sessionId: this.props.session._id,
       sessionCode: this.state.sessionCode
     };
-
+    const session = this.props.session;
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-      // .catch(err => )
+      .then (user => { 
+        if (!session.completedUsers.includes(user.email)) {
+          this.props.history.push(`/sessions/${session._id}/winner`);
+        }
+      });
   }
 
   handleX(e){
@@ -51,14 +56,14 @@ class SessionRound extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-
+    debugger
     const sessionData = {
-      sessionId: this.props.session.id,
+      sessionId: this.props.session._id,
       completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
     };
 
     const userData = {
-      userId: this.props.currentUser.id,
+      userId: this.props.currentUser._id,
       rejections: this.rejections
     };
 
@@ -67,13 +72,14 @@ class SessionRound extends Component{
 
     this.props.updateUser(userData)
       .then(() => {
+        debugger
         this.props.updateSession(sessionData)
-          .then(this.props.history.push('/success'));
+          .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
       });    
   }
 
   componentDidMount(){
-    if(this.props.session === undefined){
+    if (Object.keys(this.props.session).length === 0) {
       debugger
       const sessionId = this.props.history.location.search.slice(1);
       this.props.fetchSession(sessionId);
@@ -81,14 +87,16 @@ class SessionRound extends Component{
   }
 
   render(){
+    debugger
+    if (Object.keys(this.props.session).length === 0) return <h1>Loading Session...</h1>;
 
-    if(this.props.session === undefined) return <h1>Loading Session...</h1>;
-
-    if(this.props.currentUser === undefined) {
+    if (Object.keys(this.props.currentUser).length === 0) {
+      debugger
       return (
         <form onSubmit={this.checkCode} id="verify-user-form">
           <label> Please enter your verification code:
-            <input onChange={this.handleInput} type="password"/>
+            <input onChange={this.handleInput} type="text"/>
+            <button>Submit</button>
           </label>
         </form>
       )
@@ -145,10 +153,10 @@ class SessionRound extends Component{
         )
       }
     }).reverse();
-
+    debugger
     return (
       <div className="session-round">
-        <h1>Session Round</h1>
+        <h1>Matching Round</h1>
         <ul>
           {cards}
         </ul>

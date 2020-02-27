@@ -4,7 +4,6 @@ import { fetchSession, updateSession } from '../../actions/session_actions';
 import { updateUser, verifyUser } from '../../actions/users_actions';
 
 const mSTP = (state) => {
-  debugger
   return {
     session: state.session,
     currentUser: state.currentUser,
