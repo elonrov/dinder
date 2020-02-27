@@ -10,7 +10,7 @@ const mSTP = (state) => ({
 const mDTP = (dispatch) => ({
   fetchSession: (sessionId) => dispatch(fetchSession(sessionId)),
   updateSession: (sessionData) => dispatch(updateSession(sessionData)),
-  updateUser: (userData) => dispatch(updateUser(userData))
+  // updateUser: (userData) => dispatch(updateUser(userData))
 });
 
 export default connect(mSTP,mDTP)(MatchingRound);
