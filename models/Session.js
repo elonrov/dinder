@@ -6,9 +6,6 @@ const SessionSchema = new Schema({
         type: Number,
         required: true
     },
-    completedUsers: {
-        type: Array
-    },
     choices: {
         type: Array,
         default: [
@@ -28,6 +25,10 @@ const SessionSchema = new Schema({
     date: {
         type: Date, 
         default: Date.now
+    }, 
+    completedUsers: {
+        type: Array,
+        default: []
     }
 });
 

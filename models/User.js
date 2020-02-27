@@ -6,14 +6,22 @@ const UserSchema = new Schema({
         type: String, 
         required: true
     }, 
-    session: {
+    sessionId: {
         type: Schema.Types.ObjectId, 
         ref: 'sessions'
     },
-    session_code: {
+    sessionCode: {
         type: Number,
         required: true,
         default: ''
+    }, 
+    rejections: {
+        type: Array,
+        default: []
+    },
+    host: {
+        type: Boolean,
+        default: false
     }
 
 });

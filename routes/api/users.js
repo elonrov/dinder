@@ -8,12 +8,36 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
+const Session = require('../../models/Session')
 
+router.get('/show', (req, res)=> {
+  User.find({ sessionId: req.body.sessionId}, (err, users) => {
+    users.forEach(user => {
+      debugger
+      if (user.sessionCode === req.body.sessionCode) {
+        return res.json(user)
+      }
+    })
+  
+    return res.status(404).json({err: 'Incorrect Session Code'})
+  })
+  // let users = await User.find({sessionId: req.body.sessionId})
+  // debugger
+  // let users = users.filter( user => user.sessionId === req.body.sessionId)
+  
+  // users.forEach(user => {
+  //   if (user.sessionCode === req.body.sessionCode) {
+  //     return res.json(user)
+  //   }
+  // })
+
+  // return res.status(404).json({err: 'Incorrect Session Code'})
+})
 
 router.post("/create",
   (req, res) => {
   const { errors, isValid } = validateUserInfo(req.body)
-  const { session, email } = req.body
+  const { sessionId, email } = req.body
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -29,8 +53,8 @@ router.post("/create",
 
   const newUser = new User({
     email: email,
-    session: session,
-    session_code: session_number
+    sessionId: sessionId,
+    sessionCode: session_number
   })
 
 
@@ -52,6 +76,8 @@ transporter.use('compile', hbs({
   viewPath: './views/api/users',
 }));
 
+const url = `localhost:3000/#/round?${sessionId}`
+
 
 const mailOptions = {
     from: 'dinderappaa@gmail.com',
@@ -60,7 +86,8 @@ const mailOptions = {
     template: 'create',
     context: {
       email: email,
-      session_code: session_number
+      sessionCode: session_number,
+      sessionurl: url
     }
 }
 
