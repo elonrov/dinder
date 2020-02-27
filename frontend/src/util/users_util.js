@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const verifyUser = (userData) => { // WORKED IN POSTMAN BUT NOT IN CONSOLE
-  return axios.get('/api/users/show', userData);
-}; // gets user based on given session and their special sessionCode
+export const verifyUser = (userData) => {   // changed to post request in order to send data
+  return axios.post('/api/users/show', userData);
+}; // acts as a GET to get user based on given session and their special sessionCode
 
 export const createUser = userData => {
   return axios.post('/api/users/create', userData);
