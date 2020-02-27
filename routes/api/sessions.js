@@ -6,6 +6,19 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
 
+router.get("/test", (req, res) => res.json({ msg: "This is the sessions route" }));
+
+router.get("/:sessionId", (req, res) => {
+  Session.findOne({ _id: req.params.sessionId }, (err, session) => {
+    // debugger
+    if (session) {
+      return res.json(session);
+    } else {
+      return res.status(404).json({ err: 'Session Not Found' });
+    }
+  });
+});
+
 router.get('/index', (req, res) => {
   Session.find({}, (err, data) => {
     return res.json(data)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './matching_round.css';
+import './session_round.css';
 
-class MatchingRound extends Component{
+class SessionRound extends Component{
   constructor(props){
     super(props);
     this.handleX = this.handleX.bind(this);
@@ -28,7 +28,8 @@ class MatchingRound extends Component{
       sessionCode: this.state.sessionCode
     };
 
-    this.props.verifyUser(userVerificationData);
+    this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
+      // .catch(err => )
   }
 
   handleX(e){
@@ -73,7 +74,8 @@ class MatchingRound extends Component{
 
   componentDidMount(){
     if(this.props.session === undefined){
-      const sessionId = this.props.history.location.search.split(1);
+      debugger
+      const sessionId = this.props.history.location.search.slice(1);
       this.props.fetchSession(sessionId);
     }
   }
@@ -145,8 +147,8 @@ class MatchingRound extends Component{
     }).reverse();
 
     return (
-      <div className="matching-round">
-        <h1>Matching Round</h1>
+      <div className="session-round">
+        <h1>Session Round</h1>
         <ul>
           {cards}
         </ul>
@@ -155,4 +157,4 @@ class MatchingRound extends Component{
   }
 }
 
-export default MatchingRound;
+export default SessionRound;

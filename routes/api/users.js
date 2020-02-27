@@ -10,7 +10,7 @@ const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Session = require('../../models/Session')
 
-router.get('/show', (req, res)=> {
+router.post('/show', (req, res)=> {
   User.find({sessionId: req.body.sessionId}, (err, users) =>{
     
     let correctUser = null;
