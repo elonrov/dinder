@@ -1,11 +1,12 @@
 import React from 'react';
+import './thank_you.css';
 
 class ThankYou extends React.Component {
 
     render () {
         return (
             <div>
-                <header>
+                <header className="thank-you">
                     <h1>Thank you for using dinder!</h1>
                     <h3>Check your email for a link to begin your matching round.</h3>
                     <h5>We'll notify you once you and all of your friends have completed 
