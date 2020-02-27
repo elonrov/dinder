@@ -1,12 +1,16 @@
 import { connect } from 'react-redux';
-import MatchingRound from './matching_round';
+import SessionRound from './session_round';
 import { fetchSession, updateSession } from '../../actions/session_actions';
 import { updateUser, verifyUser } from '../../actions/users_actions';
 
-const mSTP = (state) => ({
-  session: state.session,
-  currentUser: state.currentUser
-});
+const mSTP = (state) => {
+  debugger
+  return {
+    session: state.session,
+    currentUser: state.currentUser,
+    errors: state.errors.user
+  }
+};
 
 const mDTP = (dispatch) => ({
   fetchSession: (sessionId) => dispatch(fetchSession(sessionId)),
@@ -15,4 +19,4 @@ const mDTP = (dispatch) => ({
   verifyUser: (userData) => dispatch(verifyUser(userData))
 });
 
-export default connect(mSTP,mDTP)(MatchingRound);
+export default connect(mSTP,mDTP)(SessionRound);
