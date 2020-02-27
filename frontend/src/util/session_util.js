@@ -9,5 +9,5 @@ export const createSession = sessionData => {
 };
 
 export const updateSession = sessionData => {
-  return axios.patch(`api/sessions/${sessionData.sessionId}`, sessionData);
+  return axios.patch(`api/session/${sessionData.sessionId}`, sessionData);
 }

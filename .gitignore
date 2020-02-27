@@ -1,5 +1,4 @@
 config
 node_modules
 frontend/node_modules
-keys_dev
-.env
+.DS_Store
