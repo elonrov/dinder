@@ -29,6 +29,10 @@ const SessionSchema = new Schema({
     completedUsers: {
         type: Array,
         default: []
+    },
+    winner: {
+        type: String, 
+        default: null
     }
 });
 
