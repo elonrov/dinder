@@ -11,16 +11,23 @@ const path = require('path')
 const Session = require('../../models/Session')
 
 router.get('/show', (req, res)=> {
-  User.find({ sessionId: req.body.sessionId}, (err, users) => {
+  User.find({sessionId: req.body.sessionId}, (err, users) =>{
+    
+    let correctUser = null;
     users.forEach(user => {
-      debugger
-      if (user.sessionCode === req.body.sessionCode) {
-        return res.json(user)
+      
+      if (user.sessionCode === parseInt(req.body.sessionCode)) {
+        correctUser = user;
       }
     })
-  
-    return res.status(404).json({err: 'Incorrect Session Code'})
+    
+    if (correctUser) {
+      return res.json(correctUser)
+    } else {
+      return res.status(404).json({err: 'Incorrect Session Code'})
+    }
   })
+})
   // let users = await User.find({sessionId: req.body.sessionId})
   // debugger
   // let users = users.filter( user => user.sessionId === req.body.sessionId)
@@ -32,7 +39,7 @@ router.get('/show', (req, res)=> {
   // })
 
   // return res.status(404).json({err: 'Incorrect Session Code'})
-})
+
 
 router.post("/create",
   (req, res) => {

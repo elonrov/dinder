@@ -22,14 +22,22 @@ class SessionForm extends React.Component {
 
     createUsers(sessionId) {
         const emails = this.state;
-        debugger
-        for (let email in emails) {
-            debugger
-            if (emails[email]) {
-                this.props.createUser({
-                    session: sessionId,
-                    email
-                });
+        for (let key in emails) {
+            if (emails[key]) {
+                if (key === "hostEmail"){ // allows host to be recognized
+                    debugger
+                    this.props.createUser({
+                        session: sessionId,
+                        email: emails[key],
+                        host: true
+                    });
+                } else {
+                    debugger
+                    this.props.createUser({
+                        session: sessionId,
+                        email: emails[key]
+                    });
+                }
             }
         }
     }
@@ -45,21 +53,21 @@ class SessionForm extends React.Component {
         return count
     }
 
-    incrementUserCount () {
-        this.setState({total: this.state.total + 1}) // increments total in state on click
-    }
+    // incrementUserCount () {
+    //     this.setState({total: this.state.total + 1}) // increments total in state on click
+    // }
 
     handleSubmit (e) {
         e.preventDefault();
 
         const numUsers = this.userCount(this.state);
         this.props.createSession({ numUsers })
-            .then(session => {
+            .then(sessionAction => {
                 debugger
-                // this.props.history.push(`/round?${session.id}`);
-                this.props.history.push('/thankyou')
-                this.props.createUsers(session.id);
-            }); // maybe have to do ._id? not sure what id is name in mongo
+                // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
+                this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
+                this.props.history.push('/thankyou');
+            });
     }
 
     update(field) {
@@ -82,45 +90,6 @@ class SessionForm extends React.Component {
                         />
                     </label>
                     <br />
-                    {/* <section>Your friends' emails
-                        <br />
-                        <label>Friend #1
-                            <input 
-                                className="friend-1-input"
-                                type="email"
-                                placehold="This isn't Myspace, order doesn't matter"
-                                value={this.state.friend1Email}
-                                onChange={this.update('friend1Email')}
-                            />
-                        </label>
-                        <br />
-                        <label>Friend #2
-                            <input
-                                className="friend-2-input"
-                                type="email"
-                                value={this.state.friend2Email}
-                                onChange={this.update('friend2Email')}
-                            />
-                        </label>
-                        <br />
-                        <label>Friend #3
-                            <input
-                                className="friend-3-input"                            
-                                type="email"
-                                value={this.state.friend3Email}
-                                onChange={this.update('friend3Email')}
-                            />
-                        </label>
-                        <br />
-                        <label>Friend #4
-                            <input
-                                className="friend-4-input"
-                                type="email"
-                                value={this.state.friend4Email}
-                                onChange={this.update('friend4Email')}
-                            />
-                        </label>
-                         */}
                         <section>
                             <br />
                             <label>Your friends' emails
@@ -132,7 +101,6 @@ class SessionForm extends React.Component {
                                     value={this.state.friend1Email}
                                     onChange={this.update('friend1Email')}
                                 />
-                                {/* plus sign to reveal next row and increment counter */}
                             </label>
                             <br />
                             <label>
@@ -166,7 +134,6 @@ class SessionForm extends React.Component {
                             </label>
                             <h5>* This isn't Myspace, order doesn't matter *<br /></h5>
                         </section>
-                    {/* </section> */}
                     <div className="submit">
                         <button className="get-started" type="submit">Send Invites</button>
                     </div>
