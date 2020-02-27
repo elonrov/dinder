@@ -21,20 +21,20 @@ export const createUser = userData => dispatch => {
   return APIUtil.createUser(userData)
     .then(user => dispatch(receiveUser(user)))
     .catch(err => { 
-      return dispatch(receiveUserErrors(err))
+      return dispatch(receiveUserErrors(err.response))
     });
 };
 
 export const verifyUser = userData => dispatch => {
   return APIUtil.verifyUser(userData)
     .then(user => dispatch(receiveUser(user)))
-    .catch(err => dispatch(receiveUserErrors(err)))
+    .catch(err => dispatch(receiveUserErrors(err.response)))
 }
 
 export const updateUser = userData => dispatch => {
   return APIUtil.updateUser(userData)
     .then(user => dispatch(receiveUser(user)))
-    .catch(err => dispatch(receiveUserErrors(err)))
+    .catch(err => dispatch(receiveUserErrors(err.response)))
 }
 
 // may need to add if we need a user fetch

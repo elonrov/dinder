@@ -15,7 +15,7 @@ const receiveSessionErrors = errors => { // errors action to allow errors to be 
   debugger
   return {
     type: RECEIVE_SESSION_ERRORS,
-    errors: errors.data
+    errors: errors
   };
 };
 
