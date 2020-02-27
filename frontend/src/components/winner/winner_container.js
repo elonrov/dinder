@@ -5,7 +5,7 @@ import Winner from './winner';
 const mapStateToProps = (state, ownProps) => {
     return {
         session: this.state.session,
-        winner: this.state.session.winner, 
+        winner: this.state.session.winner
         //make sure winner is added to session schema
     }
 };
