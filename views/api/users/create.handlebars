@@ -1,48 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Da&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind:700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {{!-- <link rel="stylesheet" type="text/css" href="./style.css"> --}}
+  
   <title>Document</title>
-  <style>
-    .title {
-        display: block;
-        height: 50px;
-        width: 50px;
-        font-size: 50px;
-        box-shadow: 2px;
-        background-image: url('https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=85');
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-
-    .header {
-          color: rgb(255, 57, 90);
-      }
-
-      .sup {
-        display: block;
-        width: fit-content;
-        padding: 10px;
-        height: 30px;
-        border: 1px solid black;
-        cursor: pointer;
-      }
-
-  </style>
 </head>
-<body>
-  {{!-- <h2>Hello world</h2> --}}
-
-    <div>
-      <a href={{sessionurl}} class='sup'>AHHHHHHHHH</a>
-      <p>Sup {{email}}</p>
-      <p>Here is yo number {{sessionCode}}</p>
-      <h1 class='header'>Hey email</h1>
-      <p>here is a picture</p>
-      <div class='title'></div>
-      <h2>Group {session} does not really want you here</h2>
+<body style="background-image: linear-gradient(#fa81fc, #f4c1f7);padding:25px;">
+    <div class="dinder-email" style="font-family:Trebuchet MS (trebuchet ms, sans-serif);color:#363738;font-size:16px;">
+      <h1 class="logo" style="color:white;font-size:45px;line-height:40px;text-transform:none;text-align:center;">dinder!</h1>
+      <h2 class="greeting" style="color:#363738;font-size:14px;text-decoration:none;">Hi {{email}},</h2>
+      <p class="intro">{{host}} has invited you to a dinder party! <br><br> Click on the link below
+        to help decide where you should eat. Gone are the days of your one bossy
+        friend picking the restaurant every time, and the days of your flakey friend never
+        being able to make up their mind.
+      </p>
+      <p class="ver-code">To begin your matching round, enter your verification code: <div class="code" style="font-weight:bold;letter-spacing:2px;font-size:18px;">{{sessionCode}}
+      </div>
+      </p>
+      <a class="session-link" style="text-align:center;font-size:16px;font-color:blue;" href={{sessionurl}}><h1 style="text-align:center;font-size:16px;font-color:blue;">Begin matching now!</h1></a>
+      <div class="signoff">
+        <p>Enjoy!<p>
+        <p>-Team Dinder</p>
+      </div>
     </div>
   
 </body>
