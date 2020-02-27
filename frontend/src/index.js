@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
-import axios from "axios";
+import axios from "axios"; // REMOVE IN PROD
 // import './index.css';
 // import App from './App';
 // import * as serviceWorker from './serviceWorker';
@@ -10,7 +10,7 @@ import axios from "axios";
 document.addEventListener('DOMContentLoaded', () => {
     const store = configureStore({});
     const root = document.getElementById('root');
-    window.axios = axios;
+    window.axios = axios; // REMOVE IN PROD
     
     ReactDOM.render(<Root store={store}/>, root);
 })
