@@ -73,7 +73,7 @@ router.post("/create",
     viewPath: './views/api/users',
   }));
 
-  const url = `https://dinderparty.herokuapp.com/#/round?${sessionId}`
+  const url = `https://dinderparty.herokuapp.com/#/restaurantround?${sessionId}`
 
 
   const mailOptions = {
@@ -129,7 +129,7 @@ router.post("/create",
       viewPath: './views/api/users',
     }));
   
-    const url = `https://dinderparty.herokuapp.com/#/round?${sessionId}`
+    const url = `https://dinderparty.herokuapp.com/#/restaurantround?${sessionId}`
   
   
     const mailOptions = {
