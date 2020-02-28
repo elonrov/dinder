@@ -157,7 +157,7 @@ class SessionRound extends Component{
     debugger
     return (
       <div className="session-round">
-        <h1>Cuisine Round</h1>
+        {/* <h1>Cuisine Round</h1> */}
         <ul>
           {cards}
         </ul>

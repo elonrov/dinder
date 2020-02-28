@@ -84,14 +84,14 @@ li button:focus {
 
 #HIDDEN-RIGHT {
   transform: rotate(45deg) translate(600px,-600px);
-  opacity: 0%;
+  /* opacity: 0%; */
   transition: 1.25s ease;
   background: linear-gradient(#FFF,#0D0);
 }
 
 #HIDDEN-LEFT {
   transform: rotate(-45deg) translate(-600px,-600px);
-  opacity: 0%;
+  /* opacity: 0%; */
   transition: 1.25s ease;
   background: linear-gradient(#FFF,#D00);
 }
