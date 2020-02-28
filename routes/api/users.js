@@ -73,7 +73,7 @@ router.post("/create",
     viewPath: './views/api/users',
   }));
 
-  const url = `localhost:3000/#/round?${sessionId}`
+  const url = `https://dinderparty.herokuapp.com/#/round?${sessionId}`
 
 
   const mailOptions = {
@@ -129,7 +129,7 @@ router.post("/create",
       viewPath: './views/api/users',
     }));
   
-    const url = `localhost:3000/#/round?${sessionId}`
+    const url = `https://dinderparty.herokuapp.com/#/round?${sessionId}`
   
   
     const mailOptions = {
@@ -159,7 +159,6 @@ router.post("/create",
           }
       }) )
         .catch((errors) => console.log('you have errors!', errors)) 
-
   }
 
   

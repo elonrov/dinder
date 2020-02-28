@@ -104,11 +104,11 @@ router.patch("/:sessionId", (req, res) => {
           viewPath: './views/api/users',
         }));
 
-        const url = `localhost:3000/#/what do i put here`
+        const url = `https://dinderparty.herokuapp.com/#/sessions/${session._id}/winner`
 
         const emailList = []
 
-        sessoion.completedUsers.forEach(user => {
+        session.completedUsers.forEach(user => {
           emailList.push(user.email)
         })
 
@@ -120,7 +120,8 @@ router.patch("/:sessionId", (req, res) => {
           context: {
             email: email,
             sessionCode: session_number,
-            sessionurl: url
+            sessionurl: url, 
+            winner: session.winner
           }
         }
 
