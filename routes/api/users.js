@@ -3,9 +3,11 @@ const router = express.Router();
 const User = require('../../models/User');
 const validateUserInfo = require('../../validations/user')
 const db = require('../../config/keys').mongoURI;
+const emailaddress = require('../../config/keys').EMAIL;
+const emailpw = require('../../config/keys').PASSWORD;
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+// require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Session = require('../../models/Session')
@@ -57,8 +59,8 @@ router.post("/create",
   let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASSWORD
+          user: emailaddress,
+          pass: emailpw
       }
   });
 
@@ -71,7 +73,7 @@ router.post("/create",
     viewPath: './views/api/users',
   }));
 
-  const url = `localhost:3000/#/round?${sessionId}`
+  const url = `https://dinderparty.herokuapp.com/#/round?${sessionId}`
 
 
   const mailOptions = {
@@ -113,8 +115,8 @@ router.post("/create",
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PASSWORD
+            user: emailaddress,
+            pass: emailpw
         }
     });
   
@@ -127,7 +129,7 @@ router.post("/create",
       viewPath: './views/api/users',
     }));
   
-    const url = `localhost:3000/#/round?${sessionId}`
+    const url = `https://dinderparty.herokuapp.com/#/round?${sessionId}`
   
   
     const mailOptions = {
@@ -157,7 +159,6 @@ router.post("/create",
           }
       }) )
         .catch((errors) => console.log('you have errors!', errors)) 
-
   }
 
   

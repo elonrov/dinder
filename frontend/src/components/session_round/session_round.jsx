@@ -29,8 +29,8 @@ class SessionRound extends Component{
       sessionCode: this.state.sessionCode
     };
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-      .then (() => { 
-        if (session.completedUsers.includes(this.props.currentUser.email)) {
+      .then (user => { 
+        if (session.completedUsers.includes(user.email)) {
           this.props.history.push(`/sessions/${session._id}/winner`);
         }
       });
@@ -156,7 +156,7 @@ class SessionRound extends Component{
     debugger // Do we want it to say Matching Round?
     return (
       <div className="session-round">
-        <h1>Cuisine Round</h1>
+        {/* <h1>Cuisine Round</h1> */}
         <ul>
           {cards}
         </ul>

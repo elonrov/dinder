@@ -47,7 +47,7 @@ span.food-info {
   border: 5px solid #FFFFFF;
   border-radius: 5px;
   text-align: center;
-  opacity: 100%;
+  /* opacity: 100%; */
   background: linear-gradient(#EEEEEE,#DDDDDD);
 }
 

@@ -28,13 +28,13 @@ class Splash extends React.Component {
                             <span>Invite your friends via email below.</span>
                         </li>
                         <li><div className="step-number">2</div>
-                            <span>For each option, let us know if you're def down or def not down. </span>
+                            <span>Dinder will generate options based on your given location and price range. </span>
                         </li>
                         <li><div className="step-number">3</div>
-                            <span>We'll find a match that you'll all enjoy.</span>
+                            <span>Follow the link in your email to begin the matching round and submit your preferences.</span>
                         </li>
                         <li><div className="step-number">4</div>
-                            <span>Meet up, eat up, and sldfsldkfj.</span>
+                            <span>We'll find a match that you and your friends will all enjoy.</span>
                         </li>
                     </ul>
                     <div className="submit">
