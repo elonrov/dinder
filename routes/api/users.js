@@ -185,6 +185,18 @@ router.patch("/:userId", (req, res) => {
   })
 })
 
+router.get("/:sessionId", (req, res) => {
+  debugger
+  User.find({ sessionId: req.params.sessionId }, (err, users) => {
+    debugger
+    if (users) {
+      return res.json(users);
+    } else {
+      return res.status(404).json({ err: 'Invalid Session Id' });
+    }
+  });
+});
+
 
 
 

@@ -29,9 +29,10 @@ class SessionRound extends Component{
       sessionCode: this.state.sessionCode
     };
     const session = this.props.session;
+    debugger
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-      .then (user => { 
-        if (!session.completedUsers.includes(user.email)) {
+      .then (() => { 
+        if (session.completedUsers.includes(this.props.currentUser.email)) {
           this.props.history.push(`/sessions/${session._id}/winner`);
         }
       });
