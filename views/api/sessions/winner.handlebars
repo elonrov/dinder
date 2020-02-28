@@ -2,48 +2,29 @@
 <html lang="en">
 
 <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Document</title>
-    <style>
-        .title {
-            display: block;
-            height: 50px;
-            width: 50px;
-            font-size: 50px;
-            box-shadow: 2px;
-            background-image: url('https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=85');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .header {
-            color: rgb(255, 57, 90);
-        }
-
-        .sup {
-            display: block;
-            width: fit-content;
-            padding: 10px;
-            height: 30px;
-            border: 1px solid black;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
-<body>
-    {{!-- <h2>Hello world</h2> --}}
+<body style="background-image: linear-gradient(#fa81fc, #f6ccf8);padding:25px;">
+    <div class="dinder-email" style="font-family:Trebuchet MS (trebuchet ms, sans-serif);color:#363738;font-size:16px;">
+        {{!-- <h1 class="logo" style="color:white;font-size:45px;line-height:40px;text-transform:none;text-align:center;">dinder!</h1> --}}
+        <img src="cid:logo" alt="dinder!" style="width:200px;height:auto;" />
+        <p class="greeting" style="color:#363738;font-size:16px;text-decoration:none;">Hi!</p>
+        <p class="intro" style="font-size:16px;">Drumroll please.... <br><br> And the winner is {{winner}}! <br><br>You'll have to figure 
+        out timing and reservations yourselves (for now) but we hope this dinder party was helpful in your 
+        decision making process. Check out our code base on <a href="github.com">github</a> to learn more about Dinder.
+        </p>
+        
 
-    <div>
-        <a href={{winnerurl}} class='sup'>Dinder</a>
-        <p>Sup {{email}}</p>
-        <p>You're having dinner at</p>
-        <h1 class='header'>{{winner}}</h1>
-        <p>here is a picture</p>
-        <div class='title'></div>
-        {{!-- <h2>Group {session} does not really want you here</h2> --}}
+        <div class="signoff">
+            <p style="font-size:16px;">Enjoy!<p>
+                    <p style="font-size:16px;">-Team Dinder</p>
+        </div>
     </div>
 
 </body>
