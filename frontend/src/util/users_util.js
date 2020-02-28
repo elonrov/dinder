@@ -11,3 +11,7 @@ export const createUser = userData => {
 export const updateUser = userData => {
   return axios.patch(`/api/users/${userData.userId}`, userData);
 };  // will send updates to user when finished selecting to update rejections arr
+
+export const fetchSessionUsers = sessionId => {
+  return axios.get(`api/session/${sessionId}/users`);
+}
