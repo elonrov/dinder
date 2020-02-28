@@ -73,7 +73,7 @@ router.post("/create",
     viewPath: './views/api/users',
   }));
 
-  const url = `localhost:3000/#/round?${sessionId}`
+  const url = `https://pacific-castle-42945.herokuapp.com/#/round?${sessionId}`
 
 
   const mailOptions = {
@@ -129,7 +129,7 @@ router.post("/create",
       viewPath: './views/api/users',
     }));
   
-    const url = `localhost:3000/#/round?${sessionId}`
+    const url = `https://pacific-castle-42945.herokuapp.com/#/round?${sessionId}`
   
   
     const mailOptions = {
