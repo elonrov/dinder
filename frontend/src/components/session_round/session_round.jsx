@@ -73,8 +73,21 @@ class SessionRound extends Component{
     this.props.updateUser(userData)
       .then(() => {
         debugger
-        this.props.updateSession(sessionData)
-          .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+        if(this.props.session.winningCuisine){
+          const completionData = {
+            cuisine: this.props.session.winningCuisine,
+            location: this.props.session.location
+          };
+          this.props.fetchRestaurants(completionData)
+            .then(() => {
+              const completeSessionData = Object.assign({},sessionData, completionData);
+              this.props.updateSession(completeSessionData)
+                .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+            });
+        } else {
+          this.props.updateSession(sessionData)
+            .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+        }
       });    
   }
 
