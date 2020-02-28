@@ -19,11 +19,18 @@ h2 {
 
 h3 {
   font-size: 24px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 22px;
+  margin: 0 0 15px 0;
 }
 
 p {
   font-size: 18px;
   font-family: Hind;
+  margin: 0;
 }
 
 span.food-info {
@@ -65,6 +72,10 @@ li button {
 li img {
   height: 100px;
   cursor: pointer;
+}
+
+li > span > img {
+  margin-top: 15px;
 }
 
 li button:focus {

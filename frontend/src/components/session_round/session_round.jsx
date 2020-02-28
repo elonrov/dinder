@@ -115,19 +115,7 @@ class SessionRound extends Component{
       )
     }
 
-    const cats = [
-      "tacos",
-      "pizza",
-      "sushi",
-      "thai",
-      'burgers',
-      "soup dumplings",
-      "subs",
-      "bbq",
-      "pho",
-      "ramen",
-      "tapas"
-    ];
+    const cats = this.props.session.choices;
 
     const cards = cats.reverse().map((food, idx) => {
       if(idx === cats.length - 1){
@@ -169,7 +157,7 @@ class SessionRound extends Component{
     debugger
     return (
       <div className="session-round">
-        <h1>Matching Round</h1>
+        <h1>Cuisine Round</h1>
         <ul>
           {cards}
         </ul>

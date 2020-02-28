@@ -47,7 +47,8 @@ router.get('/restaurants', (req, res) => {
           reviews: rest.review_count,
           rating: rest.rating,
           dollarSigns: rest.price,
-          address: rest.location.display_address
+          street: rest.location.display_address[0] || "",
+          city: rest.location.display_address[1] || ""
         });
       });
 
