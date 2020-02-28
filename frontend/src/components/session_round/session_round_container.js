@@ -17,7 +17,7 @@ const mDTP = (dispatch) => ({
   updateSession: (sessionData) => dispatch(updateSession(sessionData)),
   updateUser: (userData) => dispatch(updateUser(userData)),
   verifyUser: (userData) => dispatch(verifyUser(userData)),
-  fetchRestaurants: (cuisine) => dispatch(fetchRestaurants(cuisine))
+  fetchRestaurants: (apiData) => dispatch(fetchRestaurants(apiData))
 });
 
 export default connect(mSTP,mDTP)(SessionRound);
