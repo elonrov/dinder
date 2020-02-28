@@ -5,6 +5,7 @@ const db = require('./config/keys').mongoURI;
 const users = require('./routes/api/users'); 
 const sessions = require('./routes/api/sessions')
 const bodyParser = require('body-parser');
+const path = require('path');
 
 mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
