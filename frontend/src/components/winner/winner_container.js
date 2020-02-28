@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchSession, updateSession } from '../../actions/session_actions';
 import Winner from './winner';
+import { fetchSessionUsers } from '../../actions/users_actions';
 
 const mapStateToProps = (state, ownProps) => {
     return {
