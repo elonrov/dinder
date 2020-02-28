@@ -5,15 +5,16 @@ import Winner from './winner';
 const mapStateToProps = (state, ownProps) => {
     return {
         session: state.session || {},
-        winner: state.session.winner
-        //make sure winner is added to session schema
+        winner: state.session.winner,
+        // users: state.users
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchSession: (sessionId) => dispatch(fetchSession(sessionId)), 
-        updateWinner: (winner) => dispatch(updateSession(winner))
+        updateWinner: (winner) => dispatch(updateSession(winner)),
+        // fetchSessionUsers: (sessionId) => dispatch(fetchSessionUsers(sessionId))
     }
 };
 
