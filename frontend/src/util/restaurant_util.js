@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const fetchRestarants = (cuisine) => (
-  axios.get("/api/session/restaurants", cuisine)
+export const fetchRestarants = (apiData) => (
+  axios.get("/api/session/restaurants", apiData)
 );

@@ -73,8 +73,21 @@ class SessionRound extends Component{
     this.props.updateUser(userData)
       .then(() => {
         debugger
-        this.props.updateSession(sessionData)
-          .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+        if(this.props.session.winningCuisine){
+          const completionData = {
+            cuisine: this.props.session.winningCuisine,
+            location: this.props.session.location
+          };
+          this.props.fetchRestaurants(completionData)
+            .then(() => {
+              const completeSessionData = Object.assign({},sessionData, completionData);
+              this.props.updateSession(completeSessionData)
+                .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+            });
+        } else {
+          this.props.updateSession(sessionData)
+            .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+        }
       });    
   }
 
@@ -87,11 +100,11 @@ class SessionRound extends Component{
   }
 
   render(){
-    debugger
+    // debugger
     if (Object.keys(this.props.session).length === 0) return <h1>Loading Session...</h1>;
 
+    debugger
     if (Object.keys(this.props.currentUser).length === 0) {
-      debugger
       return (
         <form onSubmit={this.checkCode} id="verify-user-form">
           <label> Please enter your verification code:
@@ -102,24 +115,12 @@ class SessionRound extends Component{
       )
     }
 
-    const cats = [
-      "tacos",
-      "pizza",
-      "sushi",
-      "thai",
-      'burgers',
-      "soup dumplings",
-      "subs",
-      "bbq",
-      "pho",
-      "ramen",
-      "tapas"
-    ];
+    const cats = this.props.session.choices;
 
     const cards = cats.reverse().map((food, idx) => {
       if(idx === cats.length - 1){
         return (
-          <span>
+          <span key={`LastoCardo`}>
             <li key={`LAST${Date.now()}`} className="cards" id="last-card">
               <span className="food-info">
                 <h2>DONE!</h2>
@@ -156,7 +157,7 @@ class SessionRound extends Component{
     debugger
     return (
       <div className="session-round">
-        <h1>Matching Round</h1>
+        <h1>Cuisine Round</h1>
         <ul>
           {cards}
         </ul>

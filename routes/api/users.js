@@ -24,7 +24,7 @@ router.post('/show', (req, res)=> {
     if (correctUser) {
       return res.json(correctUser)
     } else {
-      return res.status(404).json({err: 'Incorrect Session Code'})
+      return res.status(404).json({err: 'Incorrect Session Code'});
     }
   })
 })
@@ -97,7 +97,7 @@ router.post("/create",
         if (err) {
             console.log('Error Occurs', err)
         } else {
-            console.log('Email sent!!!')
+            // console.log('Email sent!!!')
         }
     }) )
       .catch((errors) => console.log('you have errors!', errors)) 

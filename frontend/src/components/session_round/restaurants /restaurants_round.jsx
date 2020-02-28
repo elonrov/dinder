@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './session_round.css';
+import '../session_round.css';
 
-class SessionRound extends Component{
+class RestaurantRound extends Component{
   constructor(props){
     super(props);
     this.handleX = this.handleX.bind(this);
@@ -67,8 +67,18 @@ class SessionRound extends Component{
 
     this.props.updateUser(userData)
       .then(() => {
-        this.props.updateSession(sessionData)
-          .then(this.props.history.push('/success'));
+        if (this.props.session.winningRestaurant) {
+          const completionData = {
+            restaurant: this.props.session.winningRestaurant,
+            location: this.props.session.location
+          };
+          const completeSessionData = Object.assign({}, sessionData, completionData);
+          this.props.updateSession(completeSessionData)
+            .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+        } else {
+          this.props.updateSession(sessionData)
+            .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
+        }
       });    
   }
 
@@ -94,24 +104,65 @@ class SessionRound extends Component{
       )
     }
 
-    const cats = [
-      "tacos",
-      "pizza",
-      "sushi",
-      "thai",
-      'burgers',
-      "soup dumplings",
-      "subs",
-      "bbq",
-      "pho",
-      "ramen",
-      "tapas"
-    ];
+    const troll = [
+      {
+        name: "McDonald's",
+        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
+        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
+        reviews: 1000000,
+        rating: 2.5,
+        dollarSigns: "$",
+        street: "Um...",
+        city: "Everywhere"
+      },
+      {
+        name: "McDonald's",
+        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
+        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
+        reviews: 1000000,
+        rating: 2.5,
+        dollarSigns: "$",
+        street: "Um...",
+        city: "Everywhere"
+      },
+      {
+        name: "McDonald's",
+        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
+        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
+        reviews: 1000000,
+        rating: 2.5,
+        dollarSigns: "$",
+        street: "Um...",
+        city: "Everywhere"
+      },
+      {
+        name: "McDonald's",
+        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
+        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
+        reviews: 1000000,
+        rating: 2.5,
+        dollarSigns: "$",
+        street: "Um...",
+        city: "Everywhere"
+      },
+      {
+        name: "McDonald's",
+        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
+        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
+        reviews: 1000000,
+        rating: 2.5,
+        dollarSigns: "$",
+        street: "Um...",
+        city: "Everywhere"
+      }
+    ]
 
-    const cards = cats.reverse().map((food, idx) => {
-      if(idx === cats.length - 1){
+    const restaurants = this.props.session.restaurants || troll; 
+
+    const cards = restaurants.reverse().map((place, idx) => {
+      if(idx === restaurants.length - 1){
         return (
-          <span>
+          <span key={`LastoCardo`}>
             <li key={`LAST${Date.now()}`} className="cards" id="last-card">
               <span className="food-info">
                 <h2>DONE!</h2>
@@ -120,12 +171,15 @@ class SessionRound extends Component{
                 <button onClick={this.handleSubmit} id="submit-session">Submit Choices</button>
               </span>
             </li>
-            <li key={`${food}${Date.now()}`} className="cards">
+            <li key={`${place.name}${Date.now()}`} className="cards">
               <span className="food-info">
-                <h2>{food}</h2>
-                <h3>New York, NY</h3>
-                <p>Here are some details about the food. I mean I dunno what should go here but I also couldn't find lorem ipsum so this is whatchu got.</p>
-              </span>
+                <h2><a href={place.sauceUrl}>{place.name}</a></h2>
+                <h3>{place.street}</h3>
+                <h4>{place.city}</h4>
+                <p>Rating: {place.rating}</p>
+                <p>Reviews: {place.reviews}</p>
+                <p>Price: {place.dollarSigns}</p>
+                <img src={place.imgUrl} alt="quick-peek" />              </span>
               <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
               <button className="check" onClick={this.handleCheck}><img src={window.checkMark} alt="check-mark"/></button>
             </li>
@@ -133,11 +187,15 @@ class SessionRound extends Component{
         )
       } else {
         return (
-          <li key={`${food}${Date.now()}`} className="cards">
+          <li key={`${place.name}${Date.now()}`} className="cards">
             <span className="food-info">
-              <h2>{food}</h2>
-              <h3>New York, NY</h3>
-              <p>Here are some details about the food. I mean I dunno what should go here but I also couldn't find lorem ipsum so this is whatchu got.</p>
+              <h2><a href={place.sauceUrl}>{place.name}</a></h2>
+              <h3>{place.street}</h3>
+              <h4>{place.city}</h4>
+              <p>Rating: {place.rating}</p>
+              <p>Reviews: {place.reviews}</p>
+              <p>Price: {place.dollarSigns}</p>
+              <img src={place.imgUrl} alt="quick-peek"/>
             </span>
             <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
             <button className="check" onClick={this.handleCheck}><img src={window.checkMark} alt="check-mark"/></button>
@@ -148,7 +206,7 @@ class SessionRound extends Component{
 
     return (
       <div className="session-round">
-        <h1>Session Round</h1>
+        <h1>Restaurant Round</h1>
         <ul>
           {cards}
         </ul>
@@ -157,4 +215,4 @@ class SessionRound extends Component{
   }
 }
 
-export default SessionRound;
+export default RestaurantRound;

@@ -7,7 +7,7 @@ export const receiveRestaurants = (restaurants) => ({
   restaurants
 });
 
-export const fetchRestaurants = (cuisine) => dispatch => (
-  RestaurantAPIUtil.fetchRestarants(cuisine)
+export const fetchRestaurants = (apiData) => dispatch => (
+  RestaurantAPIUtil.fetchRestarants(apiData)
     .then((restaurants) => dispatch(receiveRestaurants(restaurants)))
 );

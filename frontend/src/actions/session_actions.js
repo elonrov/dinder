@@ -5,6 +5,7 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 const receiveSession = session => { // receive action to allow session to be dispatch to sessionReducer
+  debugger
   return {
     type: RECEIVE_SESSION,
     session: session.data

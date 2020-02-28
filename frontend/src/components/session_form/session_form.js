@@ -1,6 +1,6 @@
 import React from 'react'; 
 import './session_form.css';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -11,7 +11,8 @@ class SessionForm extends React.Component {
             friend1Email: "",
             friend2Email: "",
             friend3Email: "",
-            friend4Email: ""
+            friend4Email: "",
+            location: ""
             // total: 1 // do we need this? revisit for making form dynamic
         };
 
@@ -61,10 +62,14 @@ class SessionForm extends React.Component {
         const numUsers = this.userCount(this.state);
         this.props.createSession({ numUsers })
             .then(sessionAction => {
-                debugger
-                // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
-                this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
-                this.props.history.push('/thankyou');
+                let where = this.state.location;
+                if(!where) where = "NYC";
+                this.props.updateSession({location: where})
+                    .then(() => {
+                        // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
+                        this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
+                        this.props.history.push('/thankyou');
+                    });
             });
     }
 
@@ -79,6 +84,15 @@ class SessionForm extends React.Component {
         return (
             <div>
                 <form className="session-form" onSubmit={this.handleSubmit}>
+                    <label>Neighborhood
+                        <input
+                            type="text"
+                            placeholder="try 'williamsburg' or '10003'"
+                            value={this.state.location}
+                            onChange={this.update('location')}
+                        />
+                    </label>
+                    <br />
                     <label>Your email
                         <input
                             type="email"
