@@ -85,6 +85,7 @@ class SessionForm extends React.Component {
                             placeholder="hostwiththemost@dinder.com"
                             value={this.state.hostEmail}
                             onChange={this.update('hostEmail')}
+                            required
                         />
                     </label>
                     <br />

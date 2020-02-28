@@ -12,7 +12,6 @@ const receiveSession = session => { // receive action to allow session to be dis
 };
 
 const receiveSessionErrors = errors => { // errors action to allow errors to be dispatch to sessionErrorsReducer
-  debugger
   return {
     type: RECEIVE_SESSION_ERRORS,
     errors: errors

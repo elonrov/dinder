@@ -6,14 +6,15 @@ class Winner extends React.Component {
         super(props); 
 
         this.state = { winner: this.props.winner};
+        this.hasWinner = this.hasWinner.bind(this);
     }
 
-    hasWinner() {
+    hasWinner(session) {
 
         // if total users equals completed users, concat an array of everyone's rejections without duplicates
-        if (this.state.session.numUsers === this.state.session.completedUsers.length) {
+        if (session.numUsers === session.completedUsers.length) {
             let rejects = []; 
-            this.state.session.users.forEach(user => { 
+            session.users.forEach(user => { 
                 user.rejections.forEach(rejection => {
                     if (!rejects.includes(rejection)) {
                         rejects.push(rejection);
@@ -23,7 +24,7 @@ class Winner extends React.Component {
             
             // iterate through all choices, adding them to new array if no one has rejected them
             let potentialWinners = []; 
-            this.state.session.choices.forEach(choice => {
+            session.choices.forEach(choice => {
                 if (!rejects.includes(choice)) {
                     potentialWinners.push(choice);
                 }
@@ -46,7 +47,19 @@ class Winner extends React.Component {
         }
     };
 
+    componentDidMount() {
+        debugger
+        const sessionId = this.props.match.params.sessionId;
+        this.props.fetchSession(sessionId)
+            .then(sessionAction => { 
+                debugger
+                return this.hasWinner(sessionAction.session);
+            });
+    }
+
     render () {
+
+        if (Object.keys(this.props.session).length === 0) return <h1>Determining Winner...</h1>;
         const { winner } = this.state;
             return (
                 <section>
