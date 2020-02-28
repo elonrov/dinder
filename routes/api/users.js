@@ -119,6 +119,11 @@ router.post("/create",
       to: email, 
       subject: "You've been invited to a Dinder party!",
       template: 'create',
+      attachments: [{
+        filename: 'logo.png',
+        path: __dirname + '/logo.png',
+        cid: 'logo'
+      }],
       context: {
         email: email,
         sessionCode: session_number,
@@ -168,8 +173,13 @@ router.post("/create",
     const mailOptions = {
         from: 'dinderappaa@gmail.com',
         to: email, 
-        subject: "You've been invited to a Dinder party!",
+        subject: "Thanks for using Dinder. Get matching now!",
         template: 'createHost',
+        attachments: [{
+          filename: 'logohost.png',
+          path: __dirname + '/logohost.png',
+          cid: 'logohost'
+        }],
         context: {
           email: email,
           sessionCode: session_number,

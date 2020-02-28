@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <title>Document</title>
 </head>
-<body>
 
-  <div>
-      <h1>Hello Host</h1>
-      <a href={{sessionurl}} class='sup'>AHHHHHHHHH</a>
-      <p>Sup {{email}}</p>
-      <p>Here is yo number {{sessionCode}}</p>
-      <h1 class='header'>Hey email</h1>
-      <p>here is a picture</p>
-      <div class='title'></div>
-      <h2>Group {session} does not really want you here</h2>
+<body style="background-image: linear-gradient(#fa81fc, #f4c1f7);padding:25px;">
+  <div class="dinder-email" style="font-family:Trebuchet MS (trebuchet ms, sans-serif);color:#363738;font-size:16px;">
+    {{!-- <h1 class="logo" style="color:white;font-size:45px;line-height:40px;text-transform:none;text-align:center;">dinder!</h1> --}}
+    <img src="cid:logohost" alt="dinder!" style="width:200px;height:auto;" />
+    <p class="greeting" style="color:#363738;font-size:16px;text-decoration:none;">Hi!</p>
+    <p class="intro" style="font-size:16px;">Thanks for hosting this dinder party! <br><br> Click on the link below
+      to help decide where you should eat. Gone are the days of your one bossy
+      friend picking the restaurant every time, and the days of your flakey friend never
+      being able to make up their mind.
+    </p>
+
+    <p class="ver-code" style="font-size:16px;">To begin your matching round, enter your verification code: <div
+        class="code" style="font-weight:bold;letter-spacing:2px;font-size:18px;">{{sessionCode}}
+      </div>
+    </p>
+
+    <a class="session-link" style="text-align:center;font-size:16px;font-color:blue;" href={{sessionurl}}>
+      <h1 style="text-align:center;font-size:16px;font-color:blue;">Begin matching now!</h1>
+    </a>
+    <div class="signoff">
+      <p style="font-size:16px;">Enjoy!<p>
+          <p style="font-size:16px;">-Team Dinder</p>
     </div>
+  </div>
 
 </body>
+
 </html>

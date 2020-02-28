@@ -4,7 +4,7 @@ import { CLEAR_ERRORS } from "../actions/session_actions";
 const usersErrorsReducer = (state=[], action) => {
   switch (action.type) {
     case RECEIVE_USER_ERRORS:
-      return action.errors;
+      return Object.values(action.errors.data);
     case CLEAR_ERRORS:
       return [];
     default:
