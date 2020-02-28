@@ -25,7 +25,7 @@ class Splash extends React.Component {
                     <p className="about">Can't decide where to get dinner with your friends? Dinder is here to help.</p>
                     <ul className="how-to">
                         <li><div className="step-number">1</div>
-                            <span>Invite your friends via email below.</span>
+                            <span>Invite your friends via email on the next page.</span>
                         </li>
                         <li><div className="step-number">2</div>
                             <span>Dinder will generate options based on your given location and price range. </span>
