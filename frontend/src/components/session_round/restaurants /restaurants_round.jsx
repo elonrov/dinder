@@ -29,7 +29,11 @@ class RestaurantRound extends Component{
     };
 
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-      // .catch(err => )
+      .then (user => { 
+        if (session.completedUsers.includes(user.email)) {
+          this.props.history.push(`/sessions/${session._id}/winner`);
+        }
+      });
   }
 
   handleX(e){
