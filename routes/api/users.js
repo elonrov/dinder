@@ -9,6 +9,46 @@ require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path')
 const Session = require('../../models/Session')
+const secret_sauce = process.env.DINDER_SECRET_SAUCE;
+const secret_key = process.env.DINDER_SECRET_KEY;
+const axios = require('axios');
+
+
+router.get('/restaurants', (req, res) => {
+  const cuisine = req.cuisine || 'taco';
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${secret_key}`
+    },
+    data: {
+      location: 'NYC',
+      limit: 10,
+      catagories: cuisine
+    }
+  }
+
+  axios.get(`${secret_sauce}?location=${options.data.location}&term=${options.data.catagories}&limit=10`, {headers: {Authorization: `Bearer ${secret_key}`}})
+    .then((api, err) => {
+
+      if (err) {
+        res.status(404).json({err: 'sup'})
+      }
+      const formattedres = api.data.businesses.map(rest => {
+        return ({
+          name: rest.name,
+          imgUrl: rest.image_url,
+          sauceUrl: rest.url,
+          reviews: rest.review_count,
+          rating: rest.rating, 
+          dollarSigns: rest.price,
+          address: rest.location.display_address
+        })
+      })
+
+      return res.json(formattedres)
+    })
+})
 
 router.post('/show', (req, res)=> {
   User.find({sessionId: req.body.sessionId}, (err, users) =>{
