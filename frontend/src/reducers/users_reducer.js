@@ -1,10 +1,10 @@
-import { RECEIVE_USER, RECEIVE_SESSION_USERS } from "../actions/users_actions";
+import { RECEIVE_SESSION_USERS, CLEAR_USER } from "../actions/users_actions";
 
-const usersReducer = (state={}, action) => {
+const usersReducer = (state=[], action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_USER:
-      return Object.assign({}, state, { [action.user._id]: action.user } )
+    case CLEAR_USER:
+      return [];
     case RECEIVE_SESSION_USERS:
       return action.users
     default:

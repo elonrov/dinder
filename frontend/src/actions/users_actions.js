@@ -4,6 +4,7 @@ export const RECEIVE_SESSION_USERS = "RECEIVE_SESSION_USERS";
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
+export const CLEAR_USER = "CLEAR_USER";
 
 const receiveUser = user => {
   return {
@@ -12,16 +13,16 @@ const receiveUser = user => {
   };
 };
 
-const receiveSessionUsers = users => {
-  const usersState = {};
+const clearUser = () => {
+  return {
+    type: CLEAR_USER
+  };
+};
 
-  for (let i = 0; i < users.data.length; i++) {
-    const user = users.data[i];
-    usersState[user._id] = user;
-  }
+const receiveSessionUsers = users => {
   return {
     type: RECEIVE_SESSION_USERS,
-    user: usersState
+    users
   };
 };
 
@@ -41,7 +42,7 @@ const receiveUserErrors = errors => {
 
 export const createUser = userData => dispatch => {
   return APIUtil.createUser(userData)
-    .then(user => dispatch(receiveUser(user)))
+    .then(user => dispatch(clearUser(user)))
     .catch(err => { 
       return dispatch(receiveUserErrors(err.response))
     });
@@ -67,7 +68,7 @@ export const verifyUser = userData => dispatch => {
 
 export const updateUser = userData => dispatch => {
   return APIUtil.updateUser(userData)
-    .then(user => dispatch(receiveUser(user)))
+    .then(user => dispatch(clearUser(user)))
     .catch(err => dispatch(receiveUserErrors(err.response)))
 }
 

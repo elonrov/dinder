@@ -4,9 +4,10 @@ import Winner from './winner';
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        session: state.session || {},
+        session: state.session,
         winner: state.session.winner,
-        // users: state.users
+        users: state.users,
+
     }
 };
 
@@ -14,7 +15,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchSession: (sessionId) => dispatch(fetchSession(sessionId)), 
         updateWinner: (winner) => dispatch(updateSession(winner)),
-        // fetchSessionUsers: (sessionId) => dispatch(fetchSessionUsers(sessionId))
+        fetchSessionUsers: (sessionId) => dispatch(fetchSessionUsers(sessionId))
     }
 };
 
