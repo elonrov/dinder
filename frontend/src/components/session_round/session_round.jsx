@@ -23,13 +23,11 @@ class SessionRound extends Component{
 
   checkCode(e){
     e.preventDefault();
-    debugger
+    const session = this.props.session;
     const userVerificationData = {
-      sessionId: this.props.session._id,
+      sessionId: session._id,
       sessionCode: this.state.sessionCode
     };
-    const session = this.props.session;
-    debugger
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
       .then (() => { 
         if (session.completedUsers.includes(this.props.currentUser.email)) {
@@ -167,7 +165,7 @@ class SessionRound extends Component{
         )
       }
     }).reverse();
-    debugger
+    debugger // Do we want it to say Matching Round?
     return (
       <div className="session-round">
         <h1>Matching Round</h1>

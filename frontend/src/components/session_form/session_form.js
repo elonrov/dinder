@@ -1,6 +1,6 @@
 import React from 'react'; 
 import './session_form.css';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -25,7 +25,9 @@ class SessionForm extends React.Component {
         const emails = this.state;
         for (let key in emails) {
             if (emails[key]) {
-                if (key === "hostEmail"){ // allows host to be recognized
+                if (key === "location") {
+                    continue;
+                } else if (key === "hostEmail"){ // allows host to be recognized
                     this.props.createUser({
                         sessionId: sessionId,
                         email: emails[key],
@@ -44,7 +46,9 @@ class SessionForm extends React.Component {
     userCount(emails) {
         let count = 0;
         for (let email in emails) {
-            if (emails[email]) {
+            if (email === "location") {
+                continue;
+            } else if (emails[email]) {
                 count++;
             }
         }
