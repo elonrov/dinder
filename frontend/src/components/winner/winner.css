@@ -1,0 +1,26 @@
+.winner-loading {
+    
+}
+
+.winner-message {
+    display: flex; 
+    flex-direction: column; 
+}
+
+.winner-message h2 {
+    font-family: Baloo Da;
+    font-size: 80px;
+    margin: 45px 0px 0px 0px;
+    letter-spacing: 4px;
+    line-height: 100px; 
+    -webkit-text-stroke: .2px #363738;
+}
+
+.winner-message h1 {
+    font-family: Baloo Da;
+    font-size: 110px;
+    margin: 45px 0px 0px 0px;
+    letter-spacing: 4px;
+    line-height: 100px; 
+    -webkit-text-stroke: .2px #363738;
+}
