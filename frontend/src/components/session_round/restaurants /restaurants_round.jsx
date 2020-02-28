@@ -28,7 +28,8 @@ class RestaurantRound extends Component{
       sessionCode: this.state.sessionCode
     };
 
-    this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
+    this.props.verifyUser(userVerificationData)    
+    // should update state to currentUser but will test
       // .catch(err => )
   }
 
@@ -67,18 +68,18 @@ class RestaurantRound extends Component{
 
     this.props.updateUser(userData)
       .then(() => {
-        if (this.props.session.winningRestaurant) {
-          const completionData = {
-            restaurant: this.props.session.winningRestaurant,
-            location: this.props.session.location
-          };
-          const completeSessionData = Object.assign({}, sessionData, completionData);
-          this.props.updateSession(completeSessionData)
-            .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
-        } else {
+        // if (this.props.session.winningRestaurant) {
+        //   const completionData = {
+        //     restaurant: this.props.session.winningRestaurant,
+        //     location: this.props.session.location
+        //   };
+        //   const completeSessionData = Object.assign({}, sessionData, completionData);
+        //   this.props.updateSession(completeSessionData)
+        //     .then(this.props.history.push(`/sessions/${this.props.session._id}/thankyou`));
+        // } else {
           this.props.updateSession(sessionData)
-            .then(this.props.history.push(`/sessions/${this.props.session._id}/winner`));
-        }
+            .then(this.props.history.push(`/sessions/${this.props.session._id}/thankyou`));
+        // }
       });    
   }
 
@@ -91,9 +92,13 @@ class RestaurantRound extends Component{
   }
 
   render(){
-
+    
     if(this.props.session === undefined) return <h1>Loading Session...</h1>;
 
+    if (this.props.session.completedUsers.length === this.props.sessions.numUsers) {
+      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
+    }
+    
     if(this.props.currentUser === undefined) {
       return (
         <form onSubmit={this.checkCode} id="verify-user-form">
