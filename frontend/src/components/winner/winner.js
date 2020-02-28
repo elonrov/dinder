@@ -59,10 +59,10 @@ class Winner extends React.Component {
 
     render () {
 
-        if (Object.keys(this.props.session).length === 0) return <h1>Determining Winner...</h1>;
+        if (Object.keys(this.props.session).length === 0) return <h1 className="winner-loading">Determining Winner...</h1>;
         const { winner } = this.state;
             return (
-                <section>
+                <section className="winner-message">
                     <h2>winner</h2>
                     <h2>winner</h2>
                     <h1>{winner}</h1>

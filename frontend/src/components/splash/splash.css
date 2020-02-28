@@ -6,6 +6,7 @@ body {
     background-size: 30%;
     /* background-repeat: repeat; */
     /* background-image:  ; */
+    position: relative;
 }
 
 .splash-all {
@@ -94,6 +95,7 @@ body {
     margin: 15px; 
     border: 4px solid white; 
     border-radius: 4px;
+    background-color: rgba(200, 200, 200, .4)
 }
 
 .how-to span {
@@ -138,21 +140,25 @@ body {
 
 .get-started:hover, .refresh:hover {
     cursor: pointer;
+    background-color: rgb(236, 235, 235);
 }
 .get-started:focus, .refresh:focus {
     outline: none;
 }
 
 .visible {
-    display: block; 
-    /* opacity: 100%; 
-    transition: 1s ease; */
+    /* display: block;  */
+    opacity: 100%; 
+    transition: 1s ease;
+    /* position: absolute; */
+    z-index: 1;
 }
 
 .invisible {
-    display: none;
-    /* opacity: 0%; */
-    
+    /* display: none; */
+    opacity: 0%;
+    position: absolute;
+    z-index: 0;
 }
 
 

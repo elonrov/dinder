@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import SessionRound from './session_round';
-import { fetchSession, updateSession } from '../../actions/session_actions';
-import { updateUser, verifyUser } from '../../actions/users_actions';
+import { fetchSession, updateSession } from '../../../actions/session_actions';
+import { updateUser, verifyUser } from '../../../actions/users_actions';
+import RestaurantRound from './restaurants_round';
 
 const mSTP = (state) => {
   debugger
   return {
     session: state.session,
     currentUser: state.currentUser,
+    restaurants: state.session.restaurants,
     errors: state.errors.user
   }
 };
@@ -19,4 +20,4 @@ const mDTP = (dispatch) => ({
   verifyUser: (userData) => dispatch(verifyUser(userData))
 });
 
-export default connect(mSTP,mDTP)(SessionRound);
+export default connect(mSTP,mDTP)(RestaurantRound);

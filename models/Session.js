@@ -22,6 +22,10 @@ const SessionSchema = new Schema({
             "tapas"
         ]
     },
+    restaurants: {
+        type: Array,
+        default: []
+    },
     date: {
         type: Date, 
         default: Date.now
@@ -30,7 +34,11 @@ const SessionSchema = new Schema({
         type: Array,
         default: []
     },
-    winner: {
+    winningCuisine: {
+        type: String, 
+        default: null
+    },
+    winningRestaurant: {
         type: String, 
         default: null
     }
