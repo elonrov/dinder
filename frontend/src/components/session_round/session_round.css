@@ -47,7 +47,7 @@ span.food-info {
   border: 5px solid #FFFFFF;
   border-radius: 5px;
   text-align: center;
-  opacity: 100%;
+  /* opacity: 100%; */
   background: linear-gradient(#EEEEEE,#DDDDDD);
 }
 
@@ -84,14 +84,14 @@ li button:focus {
 
 #HIDDEN-RIGHT {
   transform: rotate(45deg) translate(600px,-600px);
-  /* opacity: 0%; */
+  opacity: 0%;
   transition: 1.25s ease;
   background: linear-gradient(#FFF,#0D0);
 }
 
 #HIDDEN-LEFT {
   transform: rotate(-45deg) translate(-600px,-600px);
-  /* opacity: 0%; */
+  opacity: 0%;
   transition: 1.25s ease;
   background: linear-gradient(#FFF,#D00);
 }
