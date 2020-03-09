@@ -72,7 +72,7 @@ class SessionForm extends React.Component {
                     .then(() => {
                         // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
                         this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
-                        this.props.history.push('/thankyou');
+                        this.props.history.push(`/sessions/${sessionAction.session._id}/thankyou`);
                     });
             });
     }
