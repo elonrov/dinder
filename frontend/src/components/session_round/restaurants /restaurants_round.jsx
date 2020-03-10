@@ -96,19 +96,20 @@ class RestaurantRound extends Component{
         //     .then(this.props.history.push(`/sessions/${this.props.session._id}/thankyou`));
         // } else {
           this.props.updateSession(sessionData)
-            .then(session => {
-              this.pickWinner(session);
+            .then(() => {
+              this.pickWinner();
+              this.props.history.push(`/sessions/${this.props.session._id}/thankyou`)
             });
         // }
       });    
   }
 
-  pickWinner(session) { //update state to iterate through all users in this session
+  pickWinner() { //update state to iterate through all users in this session
 
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
-    if (session.numUsers === session.completedUsers.length) {
+    if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
-      session.users.forEach(user => {
+      this.props.session.users.forEach(user => {
         user.rejections.forEach(rejection => {
           if (!rejects.includes(rejection)) {
             rejects.push(rejection);
@@ -118,7 +119,7 @@ class RestaurantRound extends Component{
 
       // iterate through all choices, adding them to new array if no one has rejected them
       let potentialWinners = [];
-      session.restaurants.forEach(restaurant => {
+      this.props.session.restaurants.forEach(restaurant => {
         if (!rejects.includes(restaurant)) {
           potentialWinners.push(restaurant);
         }
