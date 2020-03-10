@@ -34,11 +34,15 @@ const SessionSchema = new Schema({
         type: Array,
         default: []
     },
-    winningCuisine: {
+    location: {
         type: String, 
         default: null
     },
-    winningRestaurant: {
+    cuisine: {
+        type: String, 
+        default: null
+    },
+    winner: {
         type: String, 
         default: null
     }

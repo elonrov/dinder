@@ -1,5 +1,6 @@
 import axios from "axios";
 
-export const fetchRestarants = (apiData) => (
-  axios.get("/api/session/restaurants", apiData)
-);
+export const fetchRestaurants = (apiData) => {
+
+  return axios.post("/api/session/restaurants", apiData)
+};

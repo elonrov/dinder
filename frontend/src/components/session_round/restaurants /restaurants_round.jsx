@@ -9,9 +9,20 @@ class RestaurantRound extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
     this.checkCode = this.checkCode.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.pickWinner = this.pickWinner.bind(this);
     this.rejections = [];
     this.state = {
       sessionCode: ""
+    };
+    this.troll = {
+      name: "McDonald's",
+      imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
+      sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
+      reviews: 1000000,
+      rating: 2.5,
+      dollarSigns: "$",
+      street: "Um...",
+      city: "Everywhere"
     };
   }
 
@@ -24,7 +35,7 @@ class RestaurantRound extends Component{
   checkCode(e){
     e.preventDefault();
     const userVerificationData = {
-      sessionId: this.props.session.id,
+      sessionId: this.props.session._id,
       sessionCode: this.state.sessionCode
     };
 
@@ -32,6 +43,10 @@ class RestaurantRound extends Component{
       .then (user => { 
         if (this.props.session.completedUsers.includes(user.email)) {
           this.props.history.push(`/sessions/${this.props.session._id}/winner`);
+        } else {
+          if (this.props.session.restaurants.length === 0) {
+            this.props.fetchRestaurants(this.props.session);
+          }
         }
       });
   }
@@ -57,12 +72,12 @@ class RestaurantRound extends Component{
     e.preventDefault();
 
     const sessionData = {
-      sessionId: this.props.session.id,
+      sessionId: this.props.session._id,
       completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
     };
 
     const userData = {
-      userId: this.props.currentUser.id,
+      userId: this.props.currentUser._id,
       rejections: this.rejections
     };
 
@@ -71,7 +86,7 @@ class RestaurantRound extends Component{
 
     this.props.updateUser(userData)
       .then(() => {
-        // if (this.props.session.winningRestaurant) {
+        // if (this.props.session.winner) {
         //   const completionData = {
         //     restaurant: this.props.session.winningRestaurant,
         //     location: this.props.session.location
@@ -81,14 +96,57 @@ class RestaurantRound extends Component{
         //     .then(this.props.history.push(`/sessions/${this.props.session._id}/thankyou`));
         // } else {
           this.props.updateSession(sessionData)
-            .then(this.props.history.push(`/sessions/${this.props.session._id}/thankyou`));
+            .then(session => {
+              this.pickWinner(session);
+            });
         // }
       });    
   }
 
+  pickWinner(session) { //update state to iterate through all users in this session
+
+    // if total users equals completed users, concat an array of everyone's rejections without duplicates
+    if (session.numUsers === session.completedUsers.length) {
+      let rejects = [];
+      session.users.forEach(user => {
+        user.rejections.forEach(rejection => {
+          if (!rejects.includes(rejection)) {
+            rejects.push(rejection);
+          }
+        })
+      });
+
+      // iterate through all choices, adding them to new array if no one has rejected them
+      let potentialWinners = [];
+      session.restaurants.forEach(restaurant => {
+        if (!rejects.includes(restaurant)) {
+          potentialWinners.push(restaurant);
+        }
+      });
+
+      // pick a winner from the potentialwinners array, depending on how many options everyone all agreed on
+      let winner = '';
+      if (potentialWinners.length === 1) {
+        winner = potentialWinners[0];
+      } else if (potentialWinners.length === 0) {
+        winner = this.troll;
+      } else {
+        winner = potentialWinners[Math.floor(Math.random() * (potentialWinners.length - 1))]
+      }
+
+      // send winner up with updateSession request
+      this.props.updateSession({ sessionId: this.props.session._id, winner: winner });
+    } else {
+      // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
+      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`)
+    }
+  };
+
   componentDidMount(){
-    if(this.props.session === undefined){
-      debugger
+      //implement redirect for invalid query string
+
+    // if(this.props.session === undefined){
+    if (Object.keys(this.props.session).length === 0) {
       const sessionId = this.props.history.location.search.slice(1);
       this.props.fetchSession(sessionId);
     }
@@ -96,76 +154,26 @@ class RestaurantRound extends Component{
 
   render(){
     
-    if(this.props.session === undefined) return <h1>Loading Session...</h1>;
+    if(this.props.session.numUsers === undefined) return <h1>Loading Session...</h1>;
 
-    if (this.props.session.completedUsers.length === this.props.sessions.numUsers) {
-      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
-    }
     
-    if(this.props.currentUser === undefined) {
+    
+    if(this.props.currentUser._id === undefined) {
       return (
         <form onSubmit={this.checkCode} id="verify-user-form">
           <label> Please enter your verification code:
             <input onChange={this.handleInput} type="password"/>
           </label>
+          <button>Submit</button>
         </form>
       )
     }
 
-    const troll = [
-      {
-        name: "McDonald's",
-        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
-        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
-        reviews: 1000000,
-        rating: 2.5,
-        dollarSigns: "$",
-        street: "Um...",
-        city: "Everywhere"
-      },
-      {
-        name: "McDonald's",
-        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
-        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
-        reviews: 1000000,
-        rating: 2.5,
-        dollarSigns: "$",
-        street: "Um...",
-        city: "Everywhere"
-      },
-      {
-        name: "McDonald's",
-        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
-        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
-        reviews: 1000000,
-        rating: 2.5,
-        dollarSigns: "$",
-        street: "Um...",
-        city: "Everywhere"
-      },
-      {
-        name: "McDonald's",
-        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
-        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
-        reviews: 1000000,
-        rating: 2.5,
-        dollarSigns: "$",
-        street: "Um...",
-        city: "Everywhere"
-      },
-      {
-        name: "McDonald's",
-        imgUrl: "https://i.cbc.ca/1.4598664.1522334234!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/i-m-lovin-it.jpg",
-        sauceUrl: "https://www.mcdonalds.com/us/en-us.html",
-        reviews: 1000000,
-        rating: 2.5,
-        dollarSigns: "$",
-        street: "Um...",
-        city: "Everywhere"
-      }
-    ]
+    if (this.props.session.completedUsers.includes(this.props.currentUser)) {
+      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
+    }
 
-    const restaurants = this.props.session.restaurants || troll; 
+    const restaurants = this.props.session.restaurants || this.troll; 
 
     const cards = restaurants.reverse().map((place, idx) => {
       if(idx === restaurants.length - 1){

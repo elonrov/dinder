@@ -55,7 +55,6 @@ class SessionRound extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-    debugger
     const sessionData = {
       sessionId: this.props.session._id,
       completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
@@ -71,7 +70,6 @@ class SessionRound extends Component{
 
     this.props.updateUser(userData)
       .then(() => {
-        debugger
         if(this.props.session.winningCuisine){
           const completionData = {
             cuisine: this.props.session.winningCuisine,
@@ -92,17 +90,14 @@ class SessionRound extends Component{
 
   componentDidMount(){
     if (Object.keys(this.props.session).length === 0) {
-      debugger
       const sessionId = this.props.history.location.search.slice(1);
       this.props.fetchSession(sessionId);
     }
   }
 
   render(){
-    // debugger
     if (Object.keys(this.props.session).length === 0) return <h1>Loading Session...</h1>;
 
-    debugger
     if (Object.keys(this.props.currentUser).length === 0) {
       return (
         <form onSubmit={this.checkCode} id="verify-user-form">
@@ -153,7 +148,6 @@ class SessionRound extends Component{
         )
       }
     }).reverse();
-    debugger // Do we want it to say Matching Round?
     return (
       <div className="session-round">
         {/* <h1>Cuisine Round</h1> */}

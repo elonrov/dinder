@@ -3,10 +3,10 @@ const router = express.Router();
 const Session = require("../../models/Session");
 const fs = require('fs');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+const keys = require('../../config/keys');
 const hbs = require('nodemailer-express-handlebars');
-const secret_sauce = process.env.DINDER_SECRET_SAUCE;
-const secret_key = process.env.DINDER_SECRET_KEY;
+const secret_sauce = keys.DINDER_SECRET_SAUCE;
+const secret_key = keys.DINDER_SECRET_KEY;
 const axios = require('axios');
 
 
@@ -18,10 +18,10 @@ router.get('/index', (req, res) => {
   });
 });
 
-router.get('/restaurants', (req, res) => {
-  const cuisine = req.cuisine || 'tacos';
-  const location = req.location || 'NYC';
-
+router.post('/restaurants', (req, res) => {
+  // console.log(req.body);
+  const cuisine = req.body.cuisine || 'restaurants';
+  const location = req.body.location || 'NYC';
   const options = {
     headers: {
       Authorization: `Bearer ${secret_key}`
@@ -29,17 +29,19 @@ router.get('/restaurants', (req, res) => {
     data: {
       location: location,
       limit: 10,
-      catagories: cuisine
+      categories: cuisine,
+      id: req.body._id
     }
   };
-
-  axios.get(`${secret_sauce}?location=${options.data.location}&term=${options.data.catagories}&limit=10`, { headers: { Authorization: `Bearer ${secret_key}` } })
+  
+  axios.get(`${secret_sauce}?location=${options.data.location}&term=${options.data.categories}&limit=10`, { headers: { Authorization: `Bearer ${secret_key}` } })
     .then((api, err) => {
 
       if (err) {
+     
         res.status(404).json({ err: 'sup' });
       }
-      const formattedres = api.data.businesses.map(rest => {
+      const formattedRes = api.data.businesses.map(rest => {
         return ({
           name: rest.name,
           imgUrl: rest.image_url,
@@ -51,9 +53,16 @@ router.get('/restaurants', (req, res) => {
           city: rest.location.display_address[1] || ""
         });
       });
-
-      return res.json(formattedres);
-    });
+      const returnInfo = {
+        restaurants: formattedRes,
+        session: options.data.id
+      };
+     
+      return res.json(returnInfo);
+    })
+    .catch(() => {
+      console.log("inside .catch")
+    })
 });
 
 router.get("/:sessionId", (req, res) => {
@@ -69,7 +78,9 @@ router.post("/new", (req, res) => {
  
 
   const newSess = new Session({
-    numUsers: req.body.numUsers
+    numUsers: req.body.numUsers,
+    cuisine: req.body.cuisine,
+    location: req.body.location
   }); // choices array should auto populate unless otherwise specified
 
 
@@ -104,8 +115,6 @@ router.patch("/:sessionId", (req, res) => {
           viewPath: './views/api/users',
         }));
 
-        const url = `https://dinderparty.herokuapp.com/#/sessions/${session._id}/winner`
-
         const emailList = []
 
         session.completedUsers.forEach(user => {
@@ -120,7 +129,6 @@ router.patch("/:sessionId", (req, res) => {
           context: {
             email: email,
             sessionCode: session_number,
-            sessionurl: url, 
             winner: session.winner
           }
         }
@@ -136,9 +144,9 @@ router.patch("/:sessionId", (req, res) => {
       } else if (req.body.completedUsers) {
         session.completedUsers = req.body.completedUsers
         
-      } else if (req.body.location) {
-        session.location = req.body.location;
-      }
+      } else if (req.body.restaurants) {
+        session.restaurants = req.body.restaurants;
+      } 
 
       session.save(function(err, updatedSession) {
         if(err) {

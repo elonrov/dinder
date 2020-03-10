@@ -48,11 +48,9 @@ class Winner extends React.Component {
     };
 
     componentDidMount() {
-        debugger
         const sessionId = this.props.match.params.sessionId;
         this.props.fetchSession(sessionId)
             // .then(sessionAction => { 
-            //     debugger
             //     return this.hasWinner(sessionAction.session);
             // });
         this.props.fetchSessionUsers(sessionId);

@@ -75,7 +75,6 @@ router.post("/create",
 
   const url = `https://dinderparty.herokuapp.com/#/restaurantround?${sessionId}`
 
-
   const mailOptions = {
       from: 'dinderappaa@gmail.com',
       to: email, 
@@ -166,7 +165,6 @@ router.post("/create",
 
 router.patch("/:userId", (req, res) => {
   User.findOne({ _id: req.params.userId}, (err, user) => {
-    debugger
     if(user){
       if (req.body.rejections) {
         user.rejections = req.body.rejections
@@ -187,9 +185,7 @@ router.patch("/:userId", (req, res) => {
 })
 
 router.get("/:sessionId", (req, res) => {
-  debugger
   User.find({ sessionId: req.params.sessionId }, (err, users) => {
-    debugger
     if (users) {
       return res.json(users);
     } else {

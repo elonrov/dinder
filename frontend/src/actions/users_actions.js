@@ -6,12 +6,12 @@ export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 export const CLEAR_USER = "CLEAR_USER";
 
-const receiveUser = user => {
-  return {
-    type: RECEIVE_USER,
-    user: user.data
-  };
-};
+// const receiveUser = user => {
+//   return {
+//     type: RECEIVE_USER,
+//     user: user.data
+//   };
+// };
 
 const clearUser = () => {
   return {
@@ -60,7 +60,6 @@ export const fetchSessionUsers = userData => dispatch => {
 export const verifyUser = userData => dispatch => {
   return APIUtil.verifyUser(userData)
     .then(user => { 
-      debugger
       return dispatch(receiveCurrentUser(user))
     })
     .catch(err => dispatch(receiveUserErrors(err.response)))

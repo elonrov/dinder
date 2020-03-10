@@ -12,7 +12,9 @@ class SessionForm extends React.Component {
             friend2Email: "",
             friend3Email: "",
             friend4Email: "",
-            location: ""
+            location: "",
+            cuisine: ""
+            
             // total: 1 // do we need this? revisit for making form dynamic
         };
 
@@ -25,7 +27,7 @@ class SessionForm extends React.Component {
         const emails = this.state;
         for (let key in emails) {
             if (emails[key]) {
-                if (key === "location") {
+                if (key === "location" || key ==='cuisine') {
                     continue;
                 } else if (key === "hostEmail"){ // allows host to be recognized
                     this.props.createUser({
@@ -46,7 +48,7 @@ class SessionForm extends React.Component {
     userCount(emails) {
         let count = 0;
         for (let email in emails) {
-            if (email === "location") {
+            if (email === "location" || email === 'cuisine') {
                 continue;
             } else if (emails[email]) {
                 count++;
@@ -62,19 +64,18 @@ class SessionForm extends React.Component {
 
     handleSubmit (e) {
         e.preventDefault();
-
+        let where = this.state.location;
+        if (!where) where = "NYC";
+        let cuisine = this.state.cuisine
         const numUsers = this.userCount(this.state);
-        this.props.createSession({ numUsers })
-            .then(sessionAction => {
-                let where = this.state.location;
-                if(!where) where = "NYC";
-                this.props.updateSession({location: where})
-                    .then(() => {
-                        // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
-                        this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
-                        this.props.history.push(`/sessions/${sessionAction.session._id}/thankyou`);
-                    });
+        const obj = { numUsers, location: where, cuisine: cuisine }
+        this.props.createSession(obj)
+            .then((sessionAction) => {
+                // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
+                this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
+                this.props.history.push(`/session/${sessionAction.session._id}/thankyou`);
             });
+           
     }
 
     update(field) {
@@ -88,6 +89,15 @@ class SessionForm extends React.Component {
         return (
             <div>
                 <form className="session-form" onSubmit={this.handleSubmit}>
+                    <label>Cuisine
+                        <input
+                            type="text"
+                            placeholder="try 'tacos' or 'dim sum'"
+                            value={this.state.cuisine}
+                            onChange={this.update('cuisine')}
+                        />
+                    </label>
+                    <br/>
                     <label>Neighborhood
                         <input
                             type="text"
