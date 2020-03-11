@@ -73,7 +73,8 @@ class RestaurantRound extends Component{
 
     const sessionData = {
       sessionId: this.props.session._id,
-      completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
+      // completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
+      completedUsers: [...this.props.session.completedUsers, this.props.currentUser]
     };
 
     const userData = {
@@ -110,6 +111,8 @@ class RestaurantRound extends Component{
     if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
       this.props.session.completedUsers.forEach(user => {
+        //doesn't work because user.rejections is undefined: the user in completedUsers is just the email, 
+        // but needs to be the entire user object
         user.rejections.forEach(rejection => {
           if (!rejects.includes(rejection)) {
             rejects.push(rejection);
