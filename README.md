@@ -1,3 +1,5 @@
+![](assets/banner.png)
+
 # Dinder Party 
 A group decision making app that answers: where should we get dinner tonight?	We'll find a restaurant option that you and your friends can all agree on, so you can circumvent the annoying 3 hour round-and-round of indecision. 
 
