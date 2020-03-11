@@ -137,6 +137,7 @@ class RestaurantRound extends Component{
 
       // send winner up with updateSession request
       this.props.updateSession({ sessionId: this.props.session._id, winner: winner });
+      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
     } else {
       // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
       this.props.history.push(`/sessions/${this.props.session._id}/thankyou`)
