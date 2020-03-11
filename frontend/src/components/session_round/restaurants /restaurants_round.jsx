@@ -109,7 +109,7 @@ class RestaurantRound extends Component{
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
     if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
-      this.props.session.users.forEach(user => {
+      this.props.session.completedUusers.forEach(user => {
         user.rejections.forEach(rejection => {
           if (!rejects.includes(rejection)) {
             rejects.push(rejection);
