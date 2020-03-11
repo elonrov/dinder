@@ -4,10 +4,10 @@
 A group decision making app that answers: where should we get dinner tonight?	We'll find a restaurant option that you and your friends can all agree on, so you can circumvent the annoying 3 hour round-and-round of indecision. 
 
 ## How it Works
-Step 1: Host initiates a Dinder Party by choosing a cuisine and a neighborhood, and inviting their friends to join via Email.\
-Step 2: Dinder sends an email to each participant, including the host, with a unique access code and link to the matching round.\
-* Step 3: In the matching round, participants are presented with 10 options, based on the Host's criteria, and 'swipe' left or right to either reject or approve each option, respectively.\ 
-* Step 4: Based on each participant's preferences, Dinder will pick an option that 100% of the group has approved of, and email everyone again to announce the winning restaurant.\
+Step 1: Host initiates a Dinder Party by choosing a cuisine and a neighborhood, and inviting their friends to join via Email\
+Step 2: Dinder sends an email to each participant, including the host, with a unique access code and link to the matching round\
+Step 3: In the matching round, participants are presented with 10 options, based on the Host's criteria, and 'swipe' left or right to either reject or approve each option, respectively\ 
+Step 4: Based on each participant's preferences, Dinder will pick an option that 100% of the group has approved of, and email everyone again to announce the winning restaurant\
 
 ## How it Works, Technically 
 [restate app flow in terms of what is happening in the code, including routes, requests, emails, and API calls]
