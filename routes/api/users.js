@@ -162,25 +162,19 @@ router.post("/create",
 })
 
 router.patch("/:userId", (req, res) => {
-  User.findOne({ _id: req.params.userId}, (err, user) => {
-    if(user){
-      if (req.body.rejections) {
-        user.rejections = req.body.rejections
-      }
-
-      user.save(function(errors, updatedUser){
-        if(errors) {
-          return res.status(500).json({err: errors})
-        } else {
-          return res.json(updatedUser)
-        }
-      })
-
-    } else {
-      return res.status(404).json({err: 'That user does not exist'})
-    }
+  User.findOneAndUpdate(
+    { _id: req.params.userId},
+    { rejections: req.body.rejections},
+    {upsert: false},
+    (err, user) => {
+    
+      if (err) {
+        return (res.status(422).json({err: err}))
+      } else {
+        return res.json(user);
+      };
   })
-})
+});
 
 router.get("/:sessionId", (req, res) => {
   User.find({ sessionId: req.params.sessionId }, (err, users) => {

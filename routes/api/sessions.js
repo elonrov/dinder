@@ -91,13 +91,38 @@ router.post("/new", (req, res) => {
 });
 
 router.patch("/:sessionId", (req, res) => {
-  Session.findOne({ _id: req.params.sessionId}, function(err, session){
-    if(err) {
-      return res.status(404).json({err: 'That session does not exist'})
-    } else {
-      if (req.body.winner) {
-        session.winner = req.body.winner
+  let arg2 = {};
+  if (req.body.winner) {
+    arg2.winner =  req.body.winner;
+  } else if (req.body.completedUsers) {
+    arg2.completedUsers = req.body.completedUsers;
+  } else if (req.body.restaurants) {
+    arg2.restaurants = req.body.restaurants; 
+  };
 
+  Session.findOneAndUpdate(
+    { _id: req.params.sessionId}, 
+    arg2,
+    {upsert: false}, 
+    (err, session) => {
+      if (err) {
+        return (res.status(422).json({err: err})); 
+      } else {
+        if (arg2.winner) {
+          sendEmails(arg2.session);
+        }
+        return res.json(session);
+      }
+    }
+  )
+  
+  // Session.findOne({ _id: req.params.sessionId}, function(err, session){
+  //   if(err) {
+  //     return res.status(404).json({err: 'That session does not exist'})
+  //   } else {
+  //     if (req.body.winner) {
+  //       session.winner = req.body.winner
+    function sendEmails (session) {
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -115,49 +140,45 @@ router.patch("/:sessionId", (req, res) => {
           viewPath: './views/api/users',
         }));
 
-        const emailList = []
 
         session.completedUsers.forEach(user => {
-          emailList.push(user.email)
-        })
-
-        const mailOptions = {
-          from: 'dinderappaa@gmail.com',
-          to: emailList, 
-          subject: "Dinder has been chosen!",
-          template: 'winner',
-          context: {
-            email: email,
-            sessionCode: session_number,
-            winner: session.winner
+          const mailOptions = {
+            from: 'dinderappaa@gmail.com',
+            to: user.email, 
+            subject: "Dinder has been chosen!",
+            template: 'winner',
+            context: {
+              email: user.email,
+              // sessionCode: session.number,
+              winner: session.winner
+            }
           }
-        }
 
-        transporter.sendMail(mailOptions, function(err, data) {
-          if (err) {
-              console.log('Error Occurs', err)
-          } else {
-              console.log('Email sent!!!')
-          }
+          transporter.sendMail(mailOptions, function(err, data) {
+            if (err) {
+                console.log('Error Occurs', err)
+            } else {
+                console.log('Email sent!!!')
+            }
+          })
         })
-
-      } else if (req.body.completedUsers) {
-        session.completedUsers = req.body.completedUsers
+      }
+      // } else if (req.body.completedUsers) {
+      //   session.completedUsers = req.body.completedUsers
         
-      } else if (req.body.restaurants) {
-        session.restaurants = req.body.restaurants;
-      } 
+      // } else if (req.body.restaurants) {
+      //   session.restaurants = req.body.restaurants;
+      // } 
 
-      session.save(function(err, updatedSession) {
-        if(err) {
-          return res.status(500).json({err: err})
-        } else {
-          return res.json(updatedSession)
-        }
-      })
+      // session.save(function(err, updatedSession) {
+      //   if(err) {
+      //     return res.status(500).json({err: err})
+      //   } else {
+      //     return res.json(updatedSession)
+      //   }
+      // })
     }
-  });
-
-});
+  );
+;
 
 module.exports = router;

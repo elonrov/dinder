@@ -53,7 +53,9 @@ class RestaurantRound extends Component{
 
   handleX(e){
     e.preventDefault();
+    // debugger
     const newRejs = [...this.rejections, e.target.parentElement.previousElementSibling.firstElementChild.textContent];
+    console.log(newRejs)
     this.rejections = newRejs;
     
     e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
@@ -63,6 +65,7 @@ class RestaurantRound extends Component{
   
   handleCheck(e){
     e.preventDefault();
+    // debugger
     e.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
     e.target.parentElement.previousElementSibling.setAttribute("id", "BYE-LI");
     e.target.parentElement.setAttribute("id", "BYE-LI");
@@ -70,24 +73,28 @@ class RestaurantRound extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-
-    const sessionData = {
-      sessionId: this.props.session._id,
-      // completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
-      completedUsers: [...this.props.session.completedUsers, this.props.currentUser]
-    };
-
+    // debugger
+    
     const userData = {
       userId: this.props.currentUser._id,
+      // rejections: this.props.currentUser.rejections
       rejections: this.rejections
     };
-
+    
     // this.props.updateSession(sessionData)
     //       .then(this.props.history.push('/success'));
-
+    
     this.props.updateUser(userData)
-      .then(() => {
-        // if (this.props.session.winner) {
+    .then(() => {
+      // debugger
+      let currentUser = this.props.currentUser; 
+      currentUser.rejections = this.rejections;
+      const sessionData = {
+        sessionId: this.props.session._id,
+        // completedUsers: [...this.props.session.completedUsers,this.props.currentUser.email]
+        completedUsers: [...this.props.session.completedUsers, currentUser]
+      };
+      // if (this.props.session.winner) {
         //   const completionData = {
         //     restaurant: this.props.session.winningRestaurant,
         //     location: this.props.session.location
@@ -98,21 +105,20 @@ class RestaurantRound extends Component{
         // } else {
           this.props.updateSession(sessionData)
             .then(() => {
+              // debugger
               this.pickWinner();
-              this.props.history.push(`/sessions/${this.props.session._id}/thankyou`)
+              // this.props.history.push(`/session/${this.props.session._id}/thankyou`)
             });
         // }
       });    
   }
 
   pickWinner() { //update state to iterate through all users in this session
-
+    debugger
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
     if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
       this.props.session.completedUsers.forEach(user => {
-        //doesn't work because user.rejections is undefined: the user in completedUsers is just the email, 
-        // but needs to be the entire user object
         user.rejections.forEach(rejection => {
           if (!rejects.includes(rejection)) {
             rejects.push(rejection);
@@ -140,10 +146,10 @@ class RestaurantRound extends Component{
 
       // send winner up with updateSession request
       this.props.updateSession({ sessionId: this.props.session._id, winner: winner });
-      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
+      this.props.history.push(`/session/${this.props.session._id}/thankyou`);
     } else {
       // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
-      this.props.history.push(`/sessions/${this.props.session._id}/thankyou`)
+      this.props.history.push(`/session/${this.props.session._id}/thankyou`)
     }
   };
 
