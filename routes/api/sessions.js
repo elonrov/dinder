@@ -108,9 +108,9 @@ router.patch("/:sessionId", (req, res) => {
       if (err) {
         return (res.status(422).json({err: err})); 
       } else {
-        console.log(session);
+        console.log(arg2.winner);
         if (arg2.winner) {
-          sendEmails(arg2.session);
+          sendEmails(session);
         }
         return res.json(session);
       }
@@ -159,7 +159,7 @@ router.patch("/:sessionId", (req, res) => {
             if (err) {
                 console.log('Error Occurs', err)
             } else {
-                console.log('Email sent!!!')
+                console.log('Winner email sent!!!')
             }
           })
         })

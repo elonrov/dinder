@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import Splash from './splash/splash_container';
 import ThankYou from './thank_you/thank_you_container';
-// import SessionRound from './session_round/session_round_container';
 import RestaurantRound from './session_round/restaurants /restaurants_round_container';
+// import SessionRound from './session_round/session_round_container';
 // import Winner from './winner/winner_container';
 
 const App = () => (

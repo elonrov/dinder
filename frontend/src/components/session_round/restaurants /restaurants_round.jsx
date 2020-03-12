@@ -38,14 +38,19 @@ class RestaurantRound extends Component{
       sessionId: this.props.session._id,
       sessionCode: this.state.sessionCode
     };
-
+    
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-      .then (user => { 
-        if (this.props.session.completedUsers.includes(user.email)) {
-          this.props.history.push(`/sessions/${this.props.session._id}/winner`);
+    .then (() => { 
+        let emails = this.props.session.completedUsers.map((user) => user.email);
+        if (emails.includes(this.props.currentUser.email)) {
+          this.props.history.push(`/session/${this.props.session._id}/thankyou`);
         } else {
+          const sessionId = this.props.history.location.search.slice(1);
           if (this.props.session.restaurants.length === 0) {
-            this.props.fetchRestaurants(this.props.session);
+            this.props.fetchRestaurants(this.props.session)
+              .then(() => this.props.fetchSession(sessionId));
+          } else {
+            this.props.fetchSession(sessionId);
           }
         }
       });
@@ -105,7 +110,7 @@ class RestaurantRound extends Component{
         // } else {
           this.props.updateSession(sessionData)
             .then(() => {
-              // debugger
+              debugger
               this.pickWinner();
               // this.props.history.push(`/session/${this.props.session._id}/thankyou`)
             });
@@ -114,9 +119,9 @@ class RestaurantRound extends Component{
   }
 
   pickWinner() { //update state to iterate through all users in this session
-    debugger
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
-    if (this.props.session.numUsers === this.props.session.completedUsers.length) {
+    debugger
+    if (this.props.session.numUsers === this.props.session.completedUsers.length + 1) {
       let rejects = [];
       this.props.session.completedUsers.forEach(user => {
         user.rejections.forEach(rejection => {
@@ -126,14 +131,15 @@ class RestaurantRound extends Component{
         })
       });
 
+      console.log(rejects);
       // iterate through all choices, adding them to new array if no one has rejected them
       let potentialWinners = [];
       this.props.session.restaurants.forEach(restaurant => {
-        if (!rejects.includes(restaurant)) {
+        if (!rejects.includes(restaurant.name)) {
           potentialWinners.push(restaurant);
         }
       });
-
+      console.log(potentialWinners);
       // pick a winner from the potentialwinners array, depending on how many options everyone all agreed on
       let winner = '';
       if (potentialWinners.length === 1) {
@@ -143,7 +149,7 @@ class RestaurantRound extends Component{
       } else {
         winner = potentialWinners[Math.floor(Math.random() * (potentialWinners.length - 1))]
       }
-
+      console.log(winner);
       // send winner up with updateSession request
       this.props.updateSession({ sessionId: this.props.session._id, winner: winner });
       this.props.history.push(`/session/${this.props.session._id}/thankyou`);
@@ -164,11 +170,9 @@ class RestaurantRound extends Component{
   }
 
   render(){
-    
+    // pre session load
     if(this.props.session.numUsers === undefined) return <h1>Loading Session...</h1>;
-
-    
-    
+    // pre verify user
     if(this.props.currentUser._id === undefined) {
       return (
         <form onSubmit={this.checkCode} id="verify-user-form">
@@ -179,11 +183,11 @@ class RestaurantRound extends Component{
         </form>
       )
     }
-
+    // if the user already submitted
     if (this.props.session.completedUsers.includes(this.props.currentUser)) {
       this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
     }
-
+    // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
 
     const cards = restaurants.reverse().map((place, idx) => {
