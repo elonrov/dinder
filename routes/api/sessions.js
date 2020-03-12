@@ -99,7 +99,7 @@ router.patch("/:sessionId", (req, res) => {
   } else if (req.body.restaurants) {
     arg2.restaurants = req.body.restaurants; 
   };
-
+  
   Session.findOneAndUpdate(
     { _id: req.params.sessionId}, 
     arg2,
@@ -108,6 +108,7 @@ router.patch("/:sessionId", (req, res) => {
       if (err) {
         return (res.status(422).json({err: err})); 
       } else {
+        console.log(session);
         if (arg2.winner) {
           sendEmails(arg2.session);
         }
