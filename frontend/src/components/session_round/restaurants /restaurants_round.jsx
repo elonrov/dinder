@@ -136,7 +136,7 @@ class RestaurantRound extends Component{
       let potentialWinners = [];
       this.props.session.restaurants.forEach(restaurant => {
         if (!rejects.includes(restaurant.name)) {
-          potentialWinners.push(restaurant);
+          potentialWinners.push(restaurant.name);
         }
       });
       console.log(potentialWinners);
