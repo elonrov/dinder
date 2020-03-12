@@ -4,6 +4,8 @@ const Session = require("../../models/Session");
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const keys = require('../../config/keys');
+const emailaddress = require('../../config/keys').EMAIL;
+const emailpw = require('../../config/keys').PASSWORD;
 const hbs = require('nodemailer-express-handlebars');
 const secret_sauce = keys.DINDER_SECRET_SAUCE;
 const secret_key = keys.DINDER_SECRET_KEY;
@@ -100,86 +102,72 @@ router.patch("/:sessionId", (req, res) => {
     arg2.restaurants = req.body.restaurants; 
   };
   
+  function sendEmails (session, winner) {
+    debugger
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: emailaddress,
+          pass: emailpw
+        }
+      });
+
+      transporter.use('compile', hbs({
+        viewEngine: {
+          extName: '.handlebars',
+          partialsDir: './views/api/sessions',
+          layoutsDir: './views/api/sessions',
+          defaultLayout: 'winner.handlebars'},
+        viewPath: './views/api/sessions',
+      }));
+      debugger
+      console.log(winner)
+      session.completedUsers.forEach(user => {
+        const mailOptions = {
+          from: 'dinderappaa@gmail.com',
+          to: user.email, 
+          subject: "Dinder has been chosen!",
+          template: 'winner',
+          attachments: [{
+            filename: 'logo.png',
+            path: __dirname + '/logo.png',
+            cid: 'logo'}],
+          context: {
+            email: user.email,
+            // sessionCode: session.number,
+            winner: winner,
+            hello: 'hello'
+          }
+        }
+        debugger
+        transporter.sendMail(mailOptions, function(err, data) {
+          if (err) {
+              console.log('Error Occurs', err)
+          } else {
+              console.log('Winner email sent!!!')
+          }
+        })
+      })
+    }
+
   Session.findOneAndUpdate(
     { _id: req.params.sessionId}, 
     arg2,
     {upsert: false}, 
     (err, session) => {
+      debugger
       if (err) {
         return (res.status(422).json({err: err})); 
       } else {
-        console.log(arg2.winner);
+        console.log(arg2.winner, ' 1 ');
         if (arg2.winner) {
-          sendEmails(session);
+          sendEmails(req.body.session, arg2.winner);
         }
         return res.json(session);
       }
     }
   )
-  
-  // Session.findOne({ _id: req.params.sessionId}, function(err, session){
-  //   if(err) {
-  //     return res.status(404).json({err: 'That session does not exist'})
-  //   } else {
-  //     if (req.body.winner) {
-  //       session.winner = req.body.winner
-    function sendEmails (session) {
-        let transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-              user: process.env.EMAIL,
-              pass: process.env.PASSWORD
-          }
-        });
+});
 
-        transporter.use('compile', hbs({
-          viewEngine: {
-            extName: '.handlebars',
-            partialsDir: './views/api/sessions',
-            layoutsDir: './views/api/sessions',
-            defaultLayout: 'winner.handlebars'},
-          viewPath: './views/api/users',
-        }));
-
-
-        session.completedUsers.forEach(user => {
-          const mailOptions = {
-            from: 'dinderappaa@gmail.com',
-            to: user.email, 
-            subject: "Dinder has been chosen!",
-            template: 'winner',
-            context: {
-              email: user.email,
-              // sessionCode: session.number,
-              winner: session.winner
-            }
-          }
-
-          transporter.sendMail(mailOptions, function(err, data) {
-            if (err) {
-                console.log('Error Occurs', err)
-            } else {
-                console.log('Winner email sent!!!')
-            }
-          })
-        })
-      }
-      // } else if (req.body.completedUsers) {
-      //   session.completedUsers = req.body.completedUsers
-        
-      // } else if (req.body.restaurants) {
-      //   session.restaurants = req.body.restaurants;
-      // } 
-
-      // session.save(function(err, updatedSession) {
-      //   if(err) {
-      //     return res.status(500).json({err: err})
-      //   } else {
-      //     return res.json(updatedSession)
-      //   }
-      // })
-    }
-  );
-;
 
 module.exports = router;

@@ -111,7 +111,10 @@ class RestaurantRound extends Component{
           this.props.updateSession(sessionData)
             .then(() => {
               debugger
-              this.pickWinner();
+              this.props.fetchSession(this.props.session._id)
+              .then( () => {
+                this.pickWinner();
+              })
               // this.props.history.push(`/session/${this.props.session._id}/thankyou`)
             });
         // }
@@ -121,7 +124,7 @@ class RestaurantRound extends Component{
   pickWinner() { //update state to iterate through all users in this session
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
     debugger
-    if (this.props.session.numUsers === this.props.session.completedUsers.length + 1) {
+    if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
       this.props.session.completedUsers.forEach(user => {
         user.rejections.forEach(rejection => {
@@ -151,7 +154,8 @@ class RestaurantRound extends Component{
       }
       console.log(winner);
       // send winner up with updateSession request
-      this.props.updateSession({ sessionId: this.props.session._id, winner: winner });
+      this.props.updateSession({ sessionId: this.props.session._id, completedUsers: this.props.session.completedUsers, winner: winner });
+      debugger
       this.props.history.push(`/session/${this.props.session._id}/thankyou`);
     } else {
       // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
