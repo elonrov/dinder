@@ -58,27 +58,29 @@ class RestaurantRound extends Component{
 
   handleX(e){
     e.preventDefault();
-    // debugger
     const newRejs = [...this.rejections, e.target.parentElement.previousElementSibling.firstElementChild.textContent];
-    console.log(newRejs)
     this.rejections = newRejs;
     
     e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
     e.target.parentElement.nextElementSibling.setAttribute("id", "BYE-LI");
     e.target.parentElement.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.previousSibling.previousSibling;
+    setTimeout(() => targ.classList.add("none"), 500);
+    // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
   
   handleCheck(e){
     e.preventDefault();
-    // debugger
     e.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
     e.target.parentElement.previousElementSibling.setAttribute("id", "BYE-LI");
     e.target.parentElement.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.previousSibling.previousSibling;
+    setTimeout(() => targ.classList.add("none"), 500);
+    // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
 
   handleSubmit(e){
     e.preventDefault();
-    // debugger
     
     const userData = {
       userId: this.props.currentUser._id,
@@ -91,7 +93,7 @@ class RestaurantRound extends Component{
     
     this.props.updateUser(userData)
     .then(() => {
-      // debugger
+
       let currentUser = this.props.currentUser; 
       currentUser.rejections = this.rejections;
       const sessionData = {
