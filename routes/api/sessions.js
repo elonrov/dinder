@@ -102,7 +102,7 @@ router.patch("/:sessionId", (req, res) => {
     arg2.restaurants = req.body.restaurants; 
   };
   
-  function sendEmails (session, winner) {
+  function sendEmails (completedUsers, winner) {
     debugger
       let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -138,10 +138,10 @@ router.patch("/:sessionId", (req, res) => {
         }
       };
 
-      session.completedUsers.forEach(user => {
+      completedUsers.forEach(user => {
           mailOptions.to = user.email, 
           mailOptions.context.email = user.email
-          
+          // console.log(mailOptions)
           transporter.sendMail(mailOptions, function(err, data) {
             if (err) {
                 console.log('Error Occurs', err)
@@ -157,13 +157,15 @@ router.patch("/:sessionId", (req, res) => {
     arg2,
     {upsert: false}, 
     (err, session) => {
-      debugger
+      // debugger
       if (err) {
         return (res.status(422).json({err: err})); 
       } else {
         // console.log(arg2.winner, ' 1 ');
         if (arg2.winner) {
-          sendEmails(req.body.session, arg2.winner);
+          // console.log(req.body)
+          // debugger
+          sendEmails(req.body.completedUsers, req.body.winner);
         }
         return res.json(session);
       }
