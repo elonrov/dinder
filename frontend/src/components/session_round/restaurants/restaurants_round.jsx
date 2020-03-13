@@ -204,6 +204,7 @@ class RestaurantRound extends Component{
     // if the user already submitted
     if (this.props.session.completedUsers.includes(this.props.currentUser)) {
       this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
+      return null;
     }
     // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
