@@ -15,6 +15,7 @@ ul {
 
 h2 {
   text-transform: uppercase;
+  font-size: 30px;
 }
 
 h3 {
@@ -37,13 +38,14 @@ span.food-info {
   font-family: Baloo Da;
   box-sizing: border-box;
   font-family: sans-serif;
+  word-wrap: break-word;
   font-size: 28px;
   position: absolute;
   top: 20%;
   left: 37%;
   padding: 20px 20px;
   width: 350px;
-  height: 450px;
+  height: 525px;
   border: 5px solid #FFFFFF;
   border-radius: 5px;
   text-align: center;
@@ -70,7 +72,7 @@ li button {
 }
 
 li img {
-  height: 100px;
+  height: 125px;
   cursor: pointer;
 }
 
@@ -121,6 +123,7 @@ li button:focus {
   border-radius: 5px;
   background: linear-gradient(#EEE, rgb(104, 139, 33));
   padding: 15px;
+  margin-top: 20px;
   cursor: pointer;
 }
 

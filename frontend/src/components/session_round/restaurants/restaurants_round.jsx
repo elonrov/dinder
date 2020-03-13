@@ -204,7 +204,7 @@ class RestaurantRound extends Component{
     // if the user already submitted
     if (this.props.session.completedUsers.includes(this.props.currentUser)) {
       this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
-      return null;
+      return <>null></>;
     }
     // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
@@ -216,7 +216,7 @@ class RestaurantRound extends Component{
             <li key={`LAST${Date.now()}`} className="cards" id="last-card">
               <span className="food-info">
                 <h2>DONE!</h2>
-                <h3>Thank you for participating!</h3>
+                <h3>Thank you for participating!</h3> <br/>
                 <p>Please wait for the others to finish, an email will be sent out with the final decision within the hour</p>
                 <button onClick={this.handleSubmit} id="submit-session">Submit Choices</button>
               </span>
