@@ -185,7 +185,6 @@ class RestaurantRound extends Component{
     if(this.props.session.numUsers === undefined) return <h1>Loading Session...</h1>;
     // pre verify user
     if(this.props.currentUser._id === undefined) {
-      console.log(this.props.errors);
       return (
         <>
           <form onSubmit={this.checkCode} id="verify-user-form">
