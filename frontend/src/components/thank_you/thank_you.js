@@ -1,6 +1,5 @@
 import React from 'react';
 import './thank_you.css';
-// import { fetchSession } from '../../util/session_util';
 
 class ThankYou extends React.Component {
 
@@ -18,10 +17,7 @@ class ThankYou extends React.Component {
                         eat that you all approve of.
                     </h5>
                     </div>
-                    <p>Dinder was created by <br />Akeem Nicholas, <br />Calvin Curnuck, <br />Elon Rov, <br />and Harry Zec. <br /><br />Explore dinder's codebase and find more of our work on <a href="github.com">GitHub.</a></p>
-                    {/* <ul>
-                        <li><img src=""/></li>
-                    </ul> */}
+                    <p>Dinder was created by <br /><a target="_blank" href="http://www.akeemnicholas.com">Akeem Nicholas, </a><br /><a target="_blank" href="http://www.calvincurnuck.com">Calvin Curnuck, </a><br /><a target="_blank" href="http://www.elonrov.com">Elon Rov, </a><br /><a target="_blank" href="#">and Harry Zec. </a><br /><br />Explore dinder's codebase and find more of our work on <a href="github.com">GitHub.</a></p>
                 </section>
             </div>
         )

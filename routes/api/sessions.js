@@ -11,7 +11,6 @@ const secret_sauce = keys.DINDER_SECRET_SAUCE;
 const secret_key = keys.DINDER_SECRET_KEY;
 const axios = require('axios');
 
-
 router.get("/test", (req, res) => res.json({ msg: "This is the sessions route" }));
 
 router.get('/index', (req, res) => {
@@ -21,7 +20,6 @@ router.get('/index', (req, res) => {
 });
 
 router.post('/restaurants', (req, res) => {
-  // console.log(req.body);
   const cuisine = req.body.cuisine || 'restaurants';
   const location = req.body.location || 'NYC';
   const options = {
@@ -77,15 +75,12 @@ router.get("/:sessionId", (req, res) => {
   });
 });
 router.post("/new", (req, res) => {
- 
 
   const newSess = new Session({
     numUsers: req.body.numUsers,
     cuisine: req.body.cuisine,
     location: req.body.location
-  }); // choices array should auto populate unless otherwise specified
-
-
+  }); 
 
   newSess
     .save()
@@ -123,7 +118,6 @@ router.patch("/:sessionId", (req, res) => {
 
       const mailOptions = {
         from: 'dinderappaa@gmail.com',
-        // to: user.email, 
         subject: "Dinder has been chosen!",
         template: 'winner',
         attachments: [{
@@ -131,17 +125,13 @@ router.patch("/:sessionId", (req, res) => {
           path: __dirname + '/logowinner.png',
           cid: 'logowinner'}],
         context: {
-          // email: user.email,
-          // sessionCode: session.number,
           winner: winner,
-          // hello: 'hello'
         }
       };
 
       completedUsers.forEach(user => {
           mailOptions.to = user.email, 
           mailOptions.context.email = user.email
-          // console.log(mailOptions)
           transporter.sendMail(mailOptions, function(err, data) {
             if (err) {
                 console.log('Error Occurs', err)
@@ -157,14 +147,10 @@ router.patch("/:sessionId", (req, res) => {
     arg2,
     {upsert: false}, 
     (err, session) => {
-      // debugger
       if (err) {
         return (res.status(422).json({err: err})); 
       } else {
-        // console.log(arg2.winner, ' 1 ');
         if (arg2.winner) {
-          // console.log(req.body)
-          // debugger
           sendEmails(req.body.completedUsers, req.body.winner);
         }
         return res.json(session);
@@ -172,7 +158,5 @@ router.patch("/:sessionId", (req, res) => {
     }
   )
 });
-
-
 
 module.exports = router;
