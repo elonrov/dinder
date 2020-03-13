@@ -114,42 +114,43 @@ router.patch("/:sessionId", (req, res) => {
 
       transporter.use('compile', hbs({
         viewEngine: {
-          extName: '.hbs',
+          extName: '.handlebars',
           partialsDir: './views/api/sessions',
           layoutsDir: './views/api/sessions',
-          defaultLayout: 'winner.hbs'},
+          defaultLayout: 'winner.handlebars'},
         viewPath: './views/api/sessions',
       }));
-      debugger
-      console.log(winner)
-      session.completedUsers.forEach(user => {
-        const mailOptions = {
-          from: 'dinderappaa@gmail.com',
-          to: user.email, 
-          subject: "Dinder has been chosen!",
-          template: 'winner',
-          attachments: [{
-            filename: 'logowinner.png',
-            path: __dirname + '/logowinner.png',
-            cid: 'logowinner'}],
-          context: {
-            email: user.email,
-            // sessionCode: session.number,
-            winner: winner,
-            hello: 'hello'
-          }
+
+      const mailOptions = {
+        from: 'dinderappaa@gmail.com',
+        // to: user.email, 
+        subject: "Dinder has been chosen!",
+        template: 'winner',
+        attachments: [{
+          filename: 'logowinner.png',
+          path: __dirname + '/logowinner.png',
+          cid: 'logowinner'}],
+        context: {
+          // email: user.email,
+          // sessionCode: session.number,
+          winner: winner,
+          // hello: 'hello'
         }
-        // debugger
-        console.log(mailOptions.context)
-        transporter.sendMail(mailOptions, function(err, data) {
-          if (err) {
-              console.log('Error Occurs', err)
-          } else {
-              console.log('Winner email sent!!!')
-          }
-        })
+      };
+
+      session.completedUsers.forEach(user => {
+          mailOptions.to = user.email, 
+          mailOptions.context.email = user.email
+          
+          transporter.sendMail(mailOptions, function(err, data) {
+            if (err) {
+                console.log('Error Occurs', err)
+            } else {
+                console.log('Winner email sent!!!')
+            }
+          })
       })
-    }
+    };
 
   Session.findOneAndUpdate(
     { _id: req.params.sessionId}, 
@@ -160,7 +161,7 @@ router.patch("/:sessionId", (req, res) => {
       if (err) {
         return (res.status(422).json({err: err})); 
       } else {
-        console.log(arg2.winner, ' 1 ');
+        // console.log(arg2.winner, ' 1 ');
         if (arg2.winner) {
           sendEmails(req.body.session, arg2.winner);
         }
@@ -169,6 +170,7 @@ router.patch("/:sessionId", (req, res) => {
     }
   )
 });
+
 
 
 module.exports = router;
