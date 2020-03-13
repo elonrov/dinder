@@ -174,17 +174,32 @@ class RestaurantRound extends Component{
   }
 
   render(){
+    let sessionErrors = null;
+    if (this.props.errors) {
+      sessionErrors = this.props.errors.map(err => {
+        return <li className="error-li">{err}</li>
+      });
+    }
+
     // pre session load
     if(this.props.session.numUsers === undefined) return <h1>Loading Session...</h1>;
     // pre verify user
     if(this.props.currentUser._id === undefined) {
+      console.log(this.props.errors);
       return (
-        <form onSubmit={this.checkCode} id="verify-user-form">
-          <label> Please enter your verification code:
-            <input onChange={this.handleInput} type="password"/>
-          </label>
-          <button>Submit</button>
-        </form>
+        <>
+          <form onSubmit={this.checkCode} id="verify-user-form">
+            <label> Please enter your verification code:
+              <input onChange={this.handleInput} type="password"/>
+            </label>
+            <button>Submit</button>
+          </form>
+          <section className="errors">
+            <ul>
+              {sessionErrors}
+            </ul>
+          </section>
+        </>
       )
     }
     // if the user already submitted
