@@ -114,10 +114,10 @@ router.patch("/:sessionId", (req, res) => {
 
       transporter.use('compile', hbs({
         viewEngine: {
-          extName: '.handlebars',
+          extName: '.hbs',
           partialsDir: './views/api/sessions',
           layoutsDir: './views/api/sessions',
-          defaultLayout: 'winner.handlebars'},
+          defaultLayout: 'winner.hbs'},
         viewPath: './views/api/sessions',
       }));
       debugger
@@ -129,9 +129,9 @@ router.patch("/:sessionId", (req, res) => {
           subject: "Dinder has been chosen!",
           template: 'winner',
           attachments: [{
-            filename: 'logo.png',
-            path: __dirname + '/logo.png',
-            cid: 'logo'}],
+            filename: 'logowinner.png',
+            path: __dirname + '/logowinner.png',
+            cid: 'logowinner'}],
           context: {
             email: user.email,
             // sessionCode: session.number,
