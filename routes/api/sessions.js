@@ -139,7 +139,8 @@ router.patch("/:sessionId", (req, res) => {
             hello: 'hello'
           }
         }
-        debugger
+        // debugger
+        console.log(mailOptions.context)
         transporter.sendMail(mailOptions, function(err, data) {
           if (err) {
               console.log('Error Occurs', err)
