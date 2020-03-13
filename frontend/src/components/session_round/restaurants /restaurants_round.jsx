@@ -134,7 +134,7 @@ class RestaurantRound extends Component{
         })
       });
 
-      console.log(rejects);
+      // console.log(rejects);
       // iterate through all choices, adding them to new array if no one has rejected them
       let potentialWinners = [];
       this.props.session.restaurants.forEach(restaurant => {
@@ -142,7 +142,7 @@ class RestaurantRound extends Component{
           potentialWinners.push(restaurant.name);
         }
       });
-      console.log(potentialWinners);
+      // console.log(potentialWinners);
       // pick a winner from the potentialwinners array, depending on how many options everyone all agreed on
       let winner = '';
       if (potentialWinners.length === 1) {
@@ -152,7 +152,7 @@ class RestaurantRound extends Component{
       } else {
         winner = potentialWinners[Math.floor(Math.random() * (potentialWinners.length - 1))]
       }
-      console.log(winner);
+      // console.log(winner);
       // send winner up with updateSession request
       this.props.updateSession({ sessionId: this.props.session._id, completedUsers: this.props.session.completedUsers, winner: winner });
       debugger

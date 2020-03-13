@@ -71,8 +71,7 @@ class SessionForm extends React.Component {
         const obj = { numUsers, location: where, cuisine: cuisine }
         this.props.createSession(obj)
             .then((sessionAction) => {
-                // this.props.history.push(`/round?${session.id}`); // was for redirect in case we decide to send host directly to room
-                this.createUsers(sessionAction.session._id); // had to do ._id for mongo data
+                this.createUsers(sessionAction.session._id); 
                 this.props.history.push(`/session/${sessionAction.session._id}/thankyou`);
             });
            
