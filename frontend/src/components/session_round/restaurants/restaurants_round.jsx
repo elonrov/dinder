@@ -64,7 +64,7 @@ class RestaurantRound extends Component{
     e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
     e.target.parentElement.nextElementSibling.setAttribute("id", "BYE-LI");
     e.target.parentElement.setAttribute("id", "BYE-LI");
-    const targ = e.currentTarget.previousSibling.previousSibling;
+    const targ = e.currentTarget.previousSibling;
     setTimeout(() => targ.classList.add("none"), 500);
     // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
