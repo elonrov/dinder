@@ -40,45 +40,47 @@ class RestaurantRound extends Component{
     };
     
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-    .then (() => { 
+      .then (() => { 
         let emails = this.props.session.completedUsers.map((user) => user.email);
-        if (emails.includes(this.props.currentUser.email)) {
-          this.props.history.push(`/session/${this.props.session._id}/thankyou`);
-        } else {
-          const sessionId = this.props.history.location.search.slice(1);
-          if (this.props.session.restaurants.length === 0) {
-            this.props.fetchRestaurants(this.props.session)
-              .then(() => this.props.fetchSession(sessionId));
+          if (emails.includes(this.props.currentUser.email)) {
+            this.props.history.push(`/session/${this.props.session._id}/thankyou`);
           } else {
-            this.props.fetchSession(sessionId);
+            const sessionId = this.props.history.location.search.slice(1);
+            if (this.props.session.restaurants.length === 0) {
+              this.props.fetchRestaurants(this.props.session)
+                .then(() => this.props.fetchSession(sessionId));
+            } else {
+              this.props.fetchSession(sessionId);
+            }
           }
-        }
       });
   }
 
   handleX(e){
     e.preventDefault();
-    // debugger
     const newRejs = [...this.rejections, e.target.parentElement.previousElementSibling.firstElementChild.textContent];
-    console.log(newRejs)
     this.rejections = newRejs;
     
     e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
     e.target.parentElement.nextElementSibling.setAttribute("id", "BYE-LI");
     e.target.parentElement.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.previousSibling;
+    setTimeout(() => targ.classList.add("none"), 500);
+    // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
   
   handleCheck(e){
     e.preventDefault();
-    // debugger
     e.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
     e.target.parentElement.previousElementSibling.setAttribute("id", "BYE-LI");
     e.target.parentElement.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.previousSibling.previousSibling;
+    setTimeout(() => targ.classList.add("none"), 500);
+    // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
 
   handleSubmit(e){
     e.preventDefault();
-    // debugger
     
     const userData = {
       userId: this.props.currentUser._id,
@@ -91,7 +93,7 @@ class RestaurantRound extends Component{
     
     this.props.updateUser(userData)
     .then(() => {
-      // debugger
+
       let currentUser = this.props.currentUser; 
       currentUser.rejections = this.rejections;
       const sessionData = {
@@ -110,7 +112,6 @@ class RestaurantRound extends Component{
         // } else {
           this.props.updateSession(sessionData)
             .then(() => {
-              debugger
               this.props.fetchSession(this.props.session._id)
               .then( () => {
                 this.pickWinner();
@@ -123,7 +124,6 @@ class RestaurantRound extends Component{
 
   pickWinner() { //update state to iterate through all users in this session
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
-    debugger
     if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
       this.props.session.completedUsers.forEach(user => {
@@ -155,7 +155,6 @@ class RestaurantRound extends Component{
       // console.log(winner);
       // send winner up with updateSession request
       this.props.updateSession({ sessionId: this.props.session._id, completedUsers: this.props.session.completedUsers, winner: winner });
-      debugger
       this.props.history.push(`/session/${this.props.session._id}/thankyou`);
     } else {
       // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
@@ -204,6 +203,7 @@ class RestaurantRound extends Component{
     // if the user already submitted
     if (this.props.session.completedUsers.includes(this.props.currentUser)) {
       this.props.history.push(`/sessions/${this.props.session._id}/thankyou`);
+      return <>null></>;
     }
     // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
@@ -215,14 +215,14 @@ class RestaurantRound extends Component{
             <li key={`LAST${Date.now()}`} className="cards" id="last-card">
               <span className="food-info">
                 <h2>DONE!</h2>
-                <h3>Thank you for participating!</h3>
+                <h3>Thank you for participating!</h3> <br/>
                 <p>Please wait for the others to finish, an email will be sent out with the final decision within the hour</p>
                 <button onClick={this.handleSubmit} id="submit-session">Submit Choices</button>
               </span>
             </li>
             <li key={`${place.name}${Date.now()}`} className="cards">
               <span className="food-info">
-                <h2><a href={place.sauceUrl}>{place.name}</a></h2>
+                <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
                 <h3>{place.street}</h3>
                 <h4>{place.city}</h4>
                 <p>Rating: {place.rating}</p>
@@ -238,7 +238,7 @@ class RestaurantRound extends Component{
         return (
           <li key={`${place.name}${Date.now()}`} className="cards">
             <span className="food-info">
-              <h2><a href={place.sauceUrl}>{place.name}</a></h2>
+              <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
               <h3>{place.street}</h3>
               <h4>{place.city}</h4>
               <p>Rating: {place.rating}</p>

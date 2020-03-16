@@ -66,7 +66,6 @@ export const verifyUser = userData => dispatch => {
 }
 
 export const updateUser = userData => dispatch => {
-  debugger
   return APIUtil.updateUser(userData)
     .then(user => dispatch(receiveCurrentUser(user)))
     .catch(err => dispatch(receiveUserErrors(err.response)))

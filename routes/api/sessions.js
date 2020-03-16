@@ -98,7 +98,6 @@ router.patch("/:sessionId", (req, res) => {
   };
   
   function sendEmails (completedUsers, winner) {
-    debugger
       let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
