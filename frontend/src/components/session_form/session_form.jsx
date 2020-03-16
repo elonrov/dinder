@@ -13,9 +13,8 @@ class SessionForm extends React.Component {
             friend3Email: "",
             friend4Email: "",
             location: "",
-            cuisine: ""
-            
-            // total: 1 // do we need this? revisit for making form dynamic
+            cuisine: "",
+            errors: []
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,9 +24,10 @@ class SessionForm extends React.Component {
 
     createUsers(sessionId) {
         const emails = this.state;
+
         for (let key in emails) {
             if (emails[key]) {
-                if (key === "location" || key ==='cuisine') {
+                if (key in ["location", "cuisine", "errors"]) {
                     continue;
                 } else if (key === "hostEmail"){ // allows host to be recognized
                     this.props.createUser({
@@ -45,44 +45,55 @@ class SessionForm extends React.Component {
         }
     }
 
-    userCount(emails) {
+    userCountAndVerify(emails) { // counts amount of valid users and checks for dupe emails
         let count = 0;
+        const validEmails = [];
+
         for (let email in emails) {
-            if (email === "location" || email === 'cuisine') {
+            let curEmail = emails[email];
+
+            if (email in ["location", "cuisine", "errors"]) {
                 continue;
-            } else if (emails[email]) {
+            } else if (validEmails.includes(curEmail)) {
+                return false;
+            } else if (curEmail) {
                 count++;
+                validEmails.push(curEmail);
             }
         }
 
-        return count
+        return count;
     }
 
-    // incrementUserCount () {
-    //     this.setState({total: this.state.total + 1}) // increments total in state on click
-    // }
+    componentWillUnmount() {
+        this.setState({ errors: [] });
+        // may not work as intended with the way we are displaying forms
+        // hard refresh should reset anyways but this is here in case
+    }
 
     handleSubmit (e) {
         e.preventDefault();
-        let where = this.state.location;
-        if (!where) where = "NYC";
-        let cuisine = this.state.cuisine
-        const numUsers = this.userCount(this.state);
-        const obj = { numUsers, location: where, cuisine: cuisine }
-        this.props.createSession(obj)
-            .then((sessionAction) => {
-                this.createUsers(sessionAction.session._id); 
-                this.props.history.push(`/session/${sessionAction.session._id}/thankyou`);
-            });
-           
+        const numUsers = this.userCountAndVerify(this.state);
+
+        if (numUsers) {
+            let where = this.state.location;
+            if (!where) where = "NYC";
+            let cuisine = this.state.cuisine;
+            const obj = { numUsers, location: where, cuisine: cuisine };
+            this.props.createSession(obj)
+                .then((sessionAction) => {
+                    this.createUsers(sessionAction.session._id); 
+                    this.props.history.push(`/session/${sessionAction.session._id}/thankyou`);
+                });
+        } else {
+            this.setState({ errors: "Uh oh, it looks like you've used the same email more than once." });
+            // adds email error message to state
+        }
     }
 
     update(field) {
-        return e => this.setState({ [field]: e.target.value }); //updates email value in state
+        return e => this.setState({ [field]: e.target.value }); // updates email value in state
     }
-
-    // verifyEmail
-
 
     render () {
         return (
@@ -116,50 +127,50 @@ class SessionForm extends React.Component {
                         />
                     </label>
                     <br />
-                        <section>
+                    <section>
+                        <p className="email-error">{this.state.errors}</p>
+                        <label>Your friends' emails
                             <br />
-                            <label>Your friends' emails
-                                <br />
-                                <input 
-                                    className="friend-1-input"
-                                    type="email"
-                                    placeholder="Friend #1's Email"
-                                    value={this.state.friend1Email}
-                                    onChange={this.update('friend1Email')}
-                                />
-                            </label>
-                            <br />
-                            <label>
-                                <input
-                                    className="friend-2-input"
-                                    type="email"
-                                    placeholder="Friend #2's Email"
-                                    value={this.state.friend2Email}
-                                    onChange={this.update('friend2Email')}
-                                />
-                            </label>
-                            <br />
-                            <label>
-                                <input
-                                    className="friend-3-input"                            
-                                    type="text"
-                                    placeholder="Friend #3's Email"
-                                    value={this.state.friend3Email}
-                                    onChange={this.update('friend3Email')}
-                                />
-                            </label>
-                            <br />
-                            <label>
-                                <input
-                                    className="friend-4-input"
-                                    type="text"
-                                    placeholder="Friend #4's Email"
-                                    value={this.state.friend4Email}
-                                    onChange={this.update('friend4Email')}
-                                />
-                            </label>
-                            <h5>* This isn't Myspace, order doesn't matter *<br /></h5>
-                        </section>
+                            <input 
+                                className="friend-1-input"
+                                type="email"
+                                placeholder="Friend #1's Email"
+                                value={this.state.friend1Email}
+                                onChange={this.update('friend1Email')}
+                            />
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                className="friend-2-input"
+                                type="email"
+                                placeholder="Friend #2's Email"
+                                value={this.state.friend2Email}
+                                onChange={this.update('friend2Email')}
+                            />
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                className="friend-3-input"                            
+                                type="text"
+                                placeholder="Friend #3's Email"
+                                value={this.state.friend3Email}
+                                onChange={this.update('friend3Email')}
+                            />
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                className="friend-4-input"
+                                type="text"
+                                placeholder="Friend #4's Email"
+                                value={this.state.friend4Email}
+                                onChange={this.update('friend4Email')}
+                            />
+                        </label>
+                        <h5>* This isn't Myspace, order doesn't matter *<br /></h5>
+                    </section>
                     <div className="submit">
                         <button className="get-started" type="submit">Send Invites</button>
                     </div>
