@@ -40,19 +40,19 @@ class RestaurantRound extends Component{
     };
     
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
-    .then (() => { 
+      .then (() => { 
         let emails = this.props.session.completedUsers.map((user) => user.email);
-        if (emails.includes(this.props.currentUser.email)) {
-          this.props.history.push(`/session/${this.props.session._id}/thankyou`);
-        } else {
-          const sessionId = this.props.history.location.search.slice(1);
-          if (this.props.session.restaurants.length === 0) {
-            this.props.fetchRestaurants(this.props.session)
-              .then(() => this.props.fetchSession(sessionId));
+          if (emails.includes(this.props.currentUser.email)) {
+            this.props.history.push(`/session/${this.props.session._id}/thankyou`);
           } else {
-            this.props.fetchSession(sessionId);
+            const sessionId = this.props.history.location.search.slice(1);
+            if (this.props.session.restaurants.length === 0) {
+              this.props.fetchRestaurants(this.props.session)
+                .then(() => this.props.fetchSession(sessionId));
+            } else {
+              this.props.fetchSession(sessionId);
+            }
           }
-        }
       });
   }
 
@@ -112,7 +112,6 @@ class RestaurantRound extends Component{
         // } else {
           this.props.updateSession(sessionData)
             .then(() => {
-              debugger
               this.props.fetchSession(this.props.session._id)
               .then( () => {
                 this.pickWinner();
@@ -125,7 +124,6 @@ class RestaurantRound extends Component{
 
   pickWinner() { //update state to iterate through all users in this session
     // if total users equals completed users, concat an array of everyone's rejections without duplicates
-    debugger
     if (this.props.session.numUsers === this.props.session.completedUsers.length) {
       let rejects = [];
       this.props.session.completedUsers.forEach(user => {
@@ -157,7 +155,6 @@ class RestaurantRound extends Component{
       // console.log(winner);
       // send winner up with updateSession request
       this.props.updateSession({ sessionId: this.props.session._id, completedUsers: this.props.session.completedUsers, winner: winner });
-      debugger
       this.props.history.push(`/session/${this.props.session._id}/thankyou`);
     } else {
       // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
@@ -225,7 +222,7 @@ class RestaurantRound extends Component{
             </li>
             <li key={`${place.name}${Date.now()}`} className="cards">
               <span className="food-info">
-                <h2><a href={place.sauceUrl}>{place.name}</a></h2>
+                <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
                 <h3>{place.street}</h3>
                 <h4>{place.city}</h4>
                 <p>Rating: {place.rating}</p>
@@ -241,7 +238,7 @@ class RestaurantRound extends Component{
         return (
           <li key={`${place.name}${Date.now()}`} className="cards">
             <span className="food-info">
-              <h2><a href={place.sauceUrl}>{place.name}</a></h2>
+              <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
               <h3>{place.street}</h3>
               <h4>{place.city}</h4>
               <p>Rating: {place.rating}</p>
