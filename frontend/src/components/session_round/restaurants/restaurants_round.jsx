@@ -181,19 +181,19 @@ class RestaurantRound extends Component{
     }
 
     // pre session load
-    if(this.props.session.numUsers === undefined) return <h1>Loading Session...</h1>;
+    if(this.props.session.numUsers === undefined) return <h1 className="loading-session">Loading Session...</h1>;
     // pre verify user
     if(this.props.currentUser._id === undefined) {
       return (
         <>
           <form onSubmit={this.checkCode} id="verify-user-form">
-            <label> Please enter your verification code:
-              <input onChange={this.handleInput} type="password"/>
+            <label className="verification-request"> Please enter your verification code:<br/>
+              <input className="code-input" onChange={this.handleInput}/>
             </label>
-            <button>Submit</button>
+            <button className="code-submit">submit</button>
           </form>
-          <section className="errors">
-            <ul>
+          <section className="session-errors">
+            <ul className="session-errors">
               {sessionErrors}
             </ul>
           </section>
@@ -255,7 +255,7 @@ class RestaurantRound extends Component{
 
     return (
       <div className="session-round">
-        <h1>Restaurant Round</h1>
+        {/* <h1>Restaurant Round</h1> */}
         <ul>
           {cards}
         </ul>

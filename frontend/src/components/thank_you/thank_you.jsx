@@ -21,7 +21,7 @@ class ThankYou extends React.Component {
                     <a rel="noopener noreferrer" target="_blank" href="http://www.akeemnicholas.com">Akeem Nicholas, </a><br />
                     <a rel="noopener noreferrer" target="_blank" href="http://www.calvincurnuck.com">Calvin Curnuck, </a><br />
                     <a rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Elon Rov, </a><br />
-                    <a rel="noopener noreferrer" target="_blank" href="#">and Harry Zec. </a><br /><br />Explore dinder's codebase and find more of our work on <a href="github.com">GitHub.</a></p>
+                    <a rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">and Harry Zec. </a><br /><br />Explore dinder's codebase and find more of our work on <a href="github.com">GitHub.</a></p>
                 </section>
             </div>
         )
