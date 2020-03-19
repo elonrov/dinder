@@ -200,6 +200,10 @@ li button:focus {
   font-weight: bold;
 }
 
+.code-submit:hover {
+  cursor: pointer;
+}
+
 .session-errors {
   display: flex; 
   flex-direction: column; 

@@ -17,15 +17,15 @@ class ThankYou extends React.Component {
                         eat that you all approve of.
                     </h5>
                     </div>
-                    <p>Dinder was created by <br />
+                    <div className="created-by">Dinder was created by <br />
                         <a rel="noopener noreferrer" target="_blank" href="http://www.akeemnicholas.com">Akeem Nicholas, </a><br />
                         <a rel="noopener noreferrer" target="_blank" href="http://www.calvincurnuck.com">Calvin Curnuck, </a><br />
                         <a rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Elon Rov, </a><br />
                         <a rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">and Harry Zec. </a><br /><br />Explore dinder's codebase and find more of our work on <a href="github.com">GitHub.</a>
-                        <a target="_blank" href="https://dinderparty.herokuapp.com/#/"><div className="home-link">
+                        <a rel="noopener noreferrer" target="_blank" href="https://dinderparty.herokuapp.com/#/"><div className="home-link">
                             about dinder
                         </div></a>
-                    </p>
+                    </div>
                 </section>
             </div>
         )
