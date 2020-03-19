@@ -76,7 +76,7 @@ router.post("/create",
   const url = `https://dinderparty.herokuapp.com/#/restaurantround?${sessionId}`
 
   const mailOptions = {
-      from: 'dinderappaa@gmail.com',
+      from: 'dinder.party@gmail.com',
       to: email, 
       subject: "You've been invited to a Dinder party!",
       template: 'create',
@@ -130,7 +130,7 @@ router.post("/create",
   
   
     const mailOptions = {
-        from: 'dinderappaa@gmail.com',
+        from: 'dinder.party@gmail.com',
         to: email, 
         subject: "Thanks for using Dinder. Get matching now!",
         template: 'createHost',
