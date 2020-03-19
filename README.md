@@ -9,6 +9,8 @@ Step 2: Dinder sends an email to each participant, including the host, with a un
 Step 3: In the matching round, participants are presented with 10 options, based on the Host's criteria, and 'swipe' left or right to either reject or approve each option, respectively<br>
 Step 4: Based on each participant's preferences, Dinder will pick an option that 100% of the group has approved of, and email everyone again to announce the winning restaurant<br>
 
+![](assets/readme/howitworks.png)
+
 ## How it Works, Technically 
 [restate app flow in terms of what is happening in the code, including routes, requests, emails, and API calls]
 
@@ -31,7 +33,7 @@ We integrated the Yelp API to pull restaurant options based on user-inputted sea
 ### 'Swiping' Functionality 
 The 'swiping' functionality was achieved using a combination of JavaScript, HTML, and CSS. 
 [sceenshot of the handle X and handle Check methods in restaurant round]. 
-
+![](assets/readme/swiping.gif)
 
 ## Future Plans
 1) If no restaurant option is agreed upon by every group participant, Dinder will auto-initialize a new round with 10 new options. 
