@@ -38,6 +38,19 @@
     outline: none;
 }
 
+.search-terms {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+
+.search-terms label {
+    padding: 0 15px;
+}
+
 .session-form h5 {
     font-family: 'Hind';
     font-size: 12px;
@@ -54,4 +67,10 @@
     text-align: center;
     text-decoration: wavy;
     margin-bottom: 10px;
+}
+
+label .cuisine, label .neighborhood {
+    max-width: 200px;
+    margin: 0;
+    padding: 0 20px;
 }

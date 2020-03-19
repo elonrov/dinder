@@ -99,23 +99,25 @@ class SessionForm extends React.Component {
         return (
             <div>
                 <form className="session-form" onSubmit={this.handleSubmit}>
-                    <label>Cuisine
-                        <input
-                            type="text"
-                            placeholder="try 'tacos' or 'dim sum'"
-                            value={this.state.cuisine}
-                            onChange={this.update('cuisine')}
-                        />
-                    </label>
-                    <br/>
-                    <label>Neighborhood
-                        <input
-                            type="text"
-                            placeholder="try 'williamsburg' or '10003'"
-                            value={this.state.location}
-                            onChange={this.update('location')}
-                        />
-                    </label>
+                    <div className="search-terms">
+                        <label className="cuisine">Cuisine
+                            <input
+                                type="text"
+                                placeholder="try 'tacos' or 'dim sum'"
+                                value={this.state.cuisine}
+                                onChange={this.update('cuisine')}
+                            />
+                        </label>
+                        <br/>
+                        <label className="neighborhood">Neighborhood
+                            <input
+                                type="text"
+                                placeholder="try 'williamsburg' or '10003'"
+                                value={this.state.location}
+                                onChange={this.update('location')}
+                            />
+                        </label>
+                    </div>
                     <br />
                     <label>Your email
                         <input
