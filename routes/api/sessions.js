@@ -97,7 +97,7 @@ router.patch("/:sessionId", (req, res) => {
     arg2.restaurants = req.body.restaurants; 
   };
   
-  function sendEmails (completedUsers, winner) {
+  function sendEmails (completedUsers, winner, url) {
       let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -125,6 +125,7 @@ router.patch("/:sessionId", (req, res) => {
           cid: 'logowinner'}],
         context: {
           winner: winner,
+          url: url
         }
       };
 
@@ -150,7 +151,7 @@ router.patch("/:sessionId", (req, res) => {
         return (res.status(422).json({err: err})); 
       } else {
         if (arg2.winner) {
-          sendEmails(req.body.completedUsers, req.body.winner);
+          sendEmails(req.body.completedUsers, req.body.winner, req.body.url);
         }
         return res.json(session);
       }

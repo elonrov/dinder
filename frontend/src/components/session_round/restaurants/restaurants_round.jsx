@@ -153,8 +153,15 @@ class RestaurantRound extends Component{
         winner = potentialWinners[Math.floor(Math.random() * (potentialWinners.length - 1))]
       }
       // console.log(winner);
+      //find url for winner 
+      let url;
+      this.props.session.restaurants.forEach( (restaurant) => {
+        if (restaurant.name === winner) {
+          url = restaurant.sauceUrl;
+        };
+      });
       // send winner up with updateSession request
-      this.props.updateSession({ sessionId: this.props.session._id, completedUsers: this.props.session.completedUsers, winner: winner });
+      this.props.updateSession({ sessionId: this.props.session._id, completedUsers: this.props.session.completedUsers, winner: winner, url: url });
       this.props.history.push(`/session/${this.props.session._id}/thankyou`);
     } else {
       // if no winner (aka round isn't over) but someone tries to go to /winner, redirect them
