@@ -116,7 +116,7 @@ router.patch("/:sessionId", (req, res) => {
       }));
 
       const mailOptions = {
-        from: 'dinder.party@gmail.com',
+        from: 'dinderappaa@gmail.com',
         subject: "Dinder has been chosen!",
         template: 'winner',
         attachments: [{
