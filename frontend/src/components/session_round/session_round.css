@@ -213,10 +213,11 @@ li button:focus {
 }
 
 .error-li {
-  padding: 0;
-  font-family: 'Montserrat';
-  color: rgb(87, 20, 20);
-  font-weight: bold; 
-  margin-top: 15px; 
-
+  font-size: 16px;
+  font-family: Hind;
+  margin: 0;
+  color: crimson;
+  text-align: center;
+  text-decoration: wavy;
+  margin-top: 10px;
 }
