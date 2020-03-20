@@ -52,7 +52,7 @@ class SessionForm extends React.Component {
         for (let email in emails) {
             let curEmail = emails[email];
 
-            if (email in ["location", "cuisine", "errors"]) {
+            if (["location", "cuisine", "errors"].includes(email)) {
                 continue;
             } else if (validEmails.includes(curEmail)) {
                 return false;
@@ -61,7 +61,7 @@ class SessionForm extends React.Component {
                 validEmails.push(curEmail);
             }
         }
-
+        
         return count;
     }
 
