@@ -96,3 +96,15 @@
     margin-top: 40px;
 }
 
+.link:visited {
+    color: white;
+}
+  
+.link:hover {
+    color: #ad189e;
+}
+
+.link {
+    font-weight: 900;
+    color: white;
+}
