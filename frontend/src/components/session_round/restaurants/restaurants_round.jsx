@@ -7,12 +7,22 @@ class RestaurantRound extends Component{
     this.handleX = this.handleX.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleHold = this.handleHold.bind(this);
+    this.handleMove = this.handleMove.bind(this);
+    this.handleRelease = this.handleRelease.bind(this);
     this.checkCode = this.checkCode.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.pickWinner = this.pickWinner.bind(this);
     this.rejections = [];
+    this.mouseTracking = {
+      status: false,
+      x1: 0,
+      x2: 0,
+    };
+    this.mouseDiff = this.mouseTracking.x2 - this.mouseTracking.x1;
     this.state = {
-      sessionCode: ""
+      sessionCode: "",
+      rotateDeg: this.mouseDiff
     };
     this.troll = {
       name: "McDonald's",
@@ -54,6 +64,42 @@ class RestaurantRound extends Component{
             }
           }
       });
+  }
+
+  handleHold(e){
+    e.preventDefault();
+    this.mouseTracking.x1 = e.screenX;
+    this.mouseTracking.status = true;
+  }
+
+  handleMove(e){
+    e.preventDefault();
+    if (this.mouseTracking.status){
+      this.mouseTracking.x2 = e.screenX;
+      this.mouseDiff = (this.mouseTracking.x2 - this.mouseTracking.x1) / 10;
+      this.setState({
+        rotateDeg: (this.mouseDiff > 0) ? Math.min(this.mouseDiff, 25) : Math.max(this.mouseDiff, -25)
+      });
+    }
+  }
+
+  handleRelease(e){
+    e.preventDefault();
+    if (this.mouseTracking.status) {
+      this.mouseTracking.status = false;
+      this.mouseTracking.x2 = e.screenX;
+      if (this.state.rotateDeg === 25){
+        // this.handleCheck();
+        console.log("this.handleCheck", e.currentTarget);
+      } else if (this.state.rotateDeg === -25){
+        // this.handleX();
+        console.log("this.handleX", e.currentTarget);
+      }
+    }
+    // this.setState({
+    //   rotateDeg: 0
+    // });
+    
   }
 
   handleX(e){
@@ -218,12 +264,14 @@ class RestaurantRound extends Component{
     // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
 
+    let rotateStyling = {transform: `rotate(${this.state.rotateDeg}deg)`}
+
     const cards = restaurants.reverse().map((place, idx) => {
       if(idx === restaurants.length - 1){
         return (
           <span key={`LastoCardo`}>
             <li key={`LAST${Date.now()}`} className="cards" id="last-card">
-              <span className="food-info">
+              <span className="food-info" style={rotateStyling}  onMouseDown={this.handleHold} >
                 <h2>DONE!</h2>
                 <h3>Thank you for participating!</h3> <br/>
                 <p>Please wait for the others to finish, an email will be sent out with the final decision within the hour</p>
@@ -232,7 +280,7 @@ class RestaurantRound extends Component{
             </li>
             <li key={`${place.name}${Date.now()}`} className="cards">
               <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
-              <span className="food-info">
+              <span className="food-info" style={rotateStyling} onMouseDown={this.handleHold} onMouseUp={this.handleRelease}>
                 <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
                 <h3>{place.street}</h3>
                 <h4>{place.city}</h4>
@@ -249,7 +297,7 @@ class RestaurantRound extends Component{
         return (
           <li key={`${place.name}${Date.now()}`} className="cards">
             <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
-            <span className="food-info">
+            <span className="food-info" style={rotateStyling} onMouseDown={this.handleHold} onMouseUp={this.handleRelease}>
               <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
               <h3>{place.street}</h3>
               <h4>{place.city}</h4>
@@ -267,7 +315,7 @@ class RestaurantRound extends Component{
     return (
       <div className="session-round">
         {/* <h1>Restaurant Round</h1> */}
-        <ul>
+        <ul onMouseMove={this.handleMove} onMouseUp={this.handleRelease}>
           {cards}
         </ul>
       </div>
