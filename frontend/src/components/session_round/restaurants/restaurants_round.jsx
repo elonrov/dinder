@@ -58,23 +58,26 @@ class RestaurantRound extends Component{
 
   handleX(e){
     e.preventDefault();
-    const newRejs = [...this.rejections, e.target.parentElement.previousElementSibling.firstElementChild.textContent];
+    const newRejs = [...this.rejections, e.currentTarget.nextElementSibling.firstElementChild.textContent];
     this.rejections = newRejs;
-    
-    e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
-    e.target.parentElement.nextElementSibling.setAttribute("id", "BYE-LI");
-    e.target.parentElement.setAttribute("id", "BYE-LI");
-    const targ = e.currentTarget.previousSibling;
+    // card swipe
+    e.currentTarget.nextElementSibling.setAttribute("id", "HIDDEN-LEFT");
+    // button disappear
+    e.currentTarget.nextElementSibling.nextElementSibling.setAttribute("id", "BYE-LI");
+    e.currentTarget.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.nextElementSibling;
     setTimeout(() => targ.classList.add("none"), 500);
     // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
   
   handleCheck(e){
     e.preventDefault();
-    e.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
-    e.target.parentElement.previousElementSibling.setAttribute("id", "BYE-LI");
-    e.target.parentElement.setAttribute("id", "BYE-LI");
-    const targ = e.currentTarget.previousSibling.previousSibling;
+    // card swipe
+    e.currentTarget.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
+    // button disappear
+    e.currentTarget.previousElementSibling.previousElementSibling.setAttribute("id", "BYE-LI");
+    e.currentTarget.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.parentElement;
     setTimeout(() => targ.classList.add("none"), 500);
     // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
@@ -195,7 +198,7 @@ class RestaurantRound extends Component{
         <>
           <form onSubmit={this.checkCode} id="verify-user-form">
             <label className="verification-request"> Please enter your verification code:<br/>
-              <input className="code-input" onChange={this.handleInput}/>
+              <input className="code-input" onChange={this.handleInput} autoFocus/>
             </label>
             <button className="code-submit">submit</button>
           </form>
@@ -228,15 +231,16 @@ class RestaurantRound extends Component{
               </span>
             </li>
             <li key={`${place.name}${Date.now()}`} className="cards">
+              <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
               <span className="food-info">
                 <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
                 <h3>{place.street}</h3>
                 <h4>{place.city}</h4>
-                <p>Rating: {place.rating}</p>
-                <p>Reviews: {place.reviews}</p>
-                <p>Price: {place.dollarSigns}</p>
-                <img src={place.imgUrl} alt="quick-peek" />              </span>
-              <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
+                <img src={place.imgUrl} alt="quick-peek" />
+                <p>Rating: {place.rating ? place.rating : "N/A"}</p>
+                <p>Reviews: {place.reviews ? place.reviews : "0"}</p>
+                <p>Price: {place.dollarSigns ? place.dollarSigns : "N/A"}</p>
+              </span>
               <button className="check" onClick={this.handleCheck}><img src={window.checkMark} alt="check-mark"/></button>
             </li>
           </span>
@@ -244,16 +248,16 @@ class RestaurantRound extends Component{
       } else {
         return (
           <li key={`${place.name}${Date.now()}`} className="cards">
+            <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
             <span className="food-info">
               <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
               <h3>{place.street}</h3>
               <h4>{place.city}</h4>
-              <p>Rating: {place.rating}</p>
-              <p>Reviews: {place.reviews}</p>
-              <p>Price: {place.dollarSigns}</p>
               <img src={place.imgUrl} alt="quick-peek"/>
+              <p>Rating: {place.rating ? place.rating : "N/A"}</p>
+              <p>Reviews: {place.reviews ? place.reviews : "0"}</p>
+              <p>Price: {place.dollarSigns ? place.dollarSigns : "N/A"}</p>
             </span>
-            <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
             <button className="check" onClick={this.handleCheck}><img src={window.checkMark} alt="check-mark"/></button>
           </li>
         )
