@@ -265,7 +265,8 @@ class RestaurantRound extends Component{
     // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
 
-    let rotateStyling = {transform: `rotate(${this.state.rotateDeg}deg)`}
+    // let rotateStyling = {transform: `rotate(${this.state.rotateDeg}deg)`};
+    let rotateStyling = null;
 
     const cards = restaurants.reverse().map((place, idx) => {
       if(idx === restaurants.length - 1){
