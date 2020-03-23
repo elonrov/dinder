@@ -27,7 +27,7 @@ class SessionForm extends React.Component {
 
         for (let key in emails) {
             if (emails[key]) {
-                if (key in ["location", "cuisine", "errors"]) {
+                if (["location", "cuisine", "errors"].includes(key)) {
                     continue;
                 } else if (key === "hostEmail"){ // allows host to be recognized
                     this.props.createUser({
