@@ -12,7 +12,8 @@ Step 4: Based on each participant's preferences, Dinder will pick an option that
 ![](assets/readme/howitworks.png)
 
 ## How it Works, Technically 
-[restate app flow in terms of what is happening in the code, including routes, requests, emails, and API calls]
+Once the host enters their cuisine and location preferences, in addition to valid email addresses, the frontend React component utilizes Axios to send multiple HTTP POST requests to the backend Express framework, creating a new session, as well as records for each of the participants in the dinder party. With the help of Nodemailer, an email is then sent to all participants, informing them that they have been invited to the dinder party. This email contains a link to their swiping session on the dinderparty website and a unique verification code linking a specific user to a specific party, which is to be entered before they begin swiping. Once validated, this user is shown the ten restaurant options (pulled from the Yelp API at the time of creation) as cards that they can approve or reject, based on the descriptions provided. They can also click the name of the restaurant to be taken to the Yelp page for that restaurant. The app records when each participant has completed their swiping session, and when the last participant submits, the real magic of this app unfolds. The dinder app aggregates the approved and rejected restaurants from all participants and decides from the mutually agreed-upon restaurants which one they should go to. Once locked in, a follow-up email is sent to all participants with the winning restaurant and another link to Yelp to get more details and make their reservation.
+[^restating app flow in terms of what is happening in the code, including routes, requests, emails, and API calls]
 
 ## Technologies 
 ### MERN Stack
