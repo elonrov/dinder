@@ -60,6 +60,8 @@ span.food-info {
   border-radius: 5px;
   text-align: center;
   background: linear-gradient(#EEEEEE,#DDDDDD);
+  display: flex; 
+  flex-direction: column; 
 }
 
 span.food-info, span.food-info h2, span.food-info h3, span.food-info h4, span.food-info p , span.food-info img {
@@ -140,7 +142,6 @@ li button:focus {
 }
 
 #submit-session {
-  margin-top: 50px;
   width: 275px;
   height: 50px;
   background-color: white;
@@ -151,6 +152,9 @@ li button:focus {
   border: 2px solid black;
   cursor: pointer;
   width: 20vw;
+  position: relative; 
+  margin: 0 auto; 
+  margin-top: 50px;
 }
 
 #submit-session:hover {
