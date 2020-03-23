@@ -276,7 +276,7 @@ class RestaurantRound extends Component{
               <span className="food-info" style={rotateStyling}  onMouseDown={this.handleHold} >
                 <h2>DONE!</h2>
                 <h3>Thank you for participating!</h3> <br/>
-                <p>Please wait for the others to finish, an email will be sent out with the final decision within the hour</p>
+                <p className="submit-card">Please wait for the others to finish, an email will be sent out with the final decision within the hour</p>
                 <button onClick={this.handleSubmit} id="submit-session">Submit Choices</button>
               </span>
             </li>

@@ -17,15 +17,17 @@ class ThankYou extends React.Component {
                         eat that you all approve of.
                     </h5>
                     </div>
-                    <div className="created-by">Dinder was created by <br />
-                        <a rel="noopener noreferrer" target="_blank" href="http://www.akeemnicholas.com">Akeem Nicholas, </a><br />
-                        <a rel="noopener noreferrer" target="_blank" href="http://www.calvincurnuck.com">Calvin Curnuck, </a><br />
-                        <a rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Elon Rov, </a><br />
-                        <a rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">and Harry Zec. </a><br /><br />Explore dinder's codebase and find more of our work on <a href="github.com">GitHub.</a>
-                        <a rel="noopener noreferrer" target="_blank" href="https://dinderparty.herokuapp.com/#/"><div className="home-link">
-                            about dinder
-                        </div></a>
+                    <div className="created-by">
+                        dinder was created by <br />
+                        <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.akeemnicholas.com">Akeem Nicholas</a> <br />
+                        <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.calvincurnuck.com">Calvin Curnuck</a> <br />
+                        <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Elon Rov</a> <br />and <br />
+                        <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Harry Zec</a> <br />Explore dinder's codebase and find more of our work on 
+                        <a className="link" href="https://github.com/elonrov/dinder"> GitHub</a>.
                     </div>
+                    <a rel="noopener noreferrer" target="_blank" href="https://dinderparty.herokuapp.com/#/">
+                        <div className="home-link">about dinder</div>
+                    </a>
                 </section>
             </div>
         )
