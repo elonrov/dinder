@@ -8,9 +8,9 @@ class RestaurantRound extends Component{
     this.handleX = this.handleX.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleHold = this.handleHold.bind(this);
-    this.handleMove = this.handleMove.bind(this);
-    this.handleRelease = this.handleRelease.bind(this);
+    // this.handleHold = this.handleHold.bind(this);
+    // this.handleMove = this.handleMove.bind(this);
+    // this.handleRelease = this.handleRelease.bind(this);
     this.checkCode = this.checkCode.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.pickWinner = this.pickWinner.bind(this);
@@ -67,41 +67,41 @@ class RestaurantRound extends Component{
       });
   }
 
-  handleHold(e){
-    e.preventDefault();
-    this.mouseTracking.x1 = e.screenX;
-    this.mouseTracking.status = true;
-  }
+  // handleHold(e){
+  //   e.preventDefault();
+  //   this.mouseTracking.x1 = e.screenX;
+  //   this.mouseTracking.status = true;
+  // }
 
-  handleMove(e){
-    e.preventDefault();
-    if (this.mouseTracking.status){
-      this.mouseTracking.x2 = e.screenX;
-      this.mouseDiff = (this.mouseTracking.x2 - this.mouseTracking.x1) / 10;
-      this.setState({
-        rotateDeg: (this.mouseDiff > 0) ? Math.min(this.mouseDiff, 25) : Math.max(this.mouseDiff, -25)
-      });
-    }
-  }
+  // handleMove(e){
+  //   e.preventDefault();
+  //   if (this.mouseTracking.status){
+  //     this.mouseTracking.x2 = e.screenX;
+  //     this.mouseDiff = (this.mouseTracking.x2 - this.mouseTracking.x1) / 10;
+  //     this.setState({
+  //       rotateDeg: (this.mouseDiff > 0) ? Math.min(this.mouseDiff, 25) : Math.max(this.mouseDiff, -25)
+  //     });
+  //   }
+  // }
 
-  handleRelease(e){
-    e.preventDefault();
-    if (this.mouseTracking.status) {
-      this.mouseTracking.status = false;
-      this.mouseTracking.x2 = e.screenX;
-      if (this.state.rotateDeg === 25){
-        // this.handleCheck();
-        console.log("this.handleCheck", e.currentTarget);
-      } else if (this.state.rotateDeg === -25){
-        // this.handleX();
-        console.log("this.handleX", e.currentTarget);
-      }
-    }
-    // this.setState({
-    //   rotateDeg: 0
-    // });
+  // handleRelease(e){
+  //   e.preventDefault();
+  //   if (this.mouseTracking.status) {
+  //     this.mouseTracking.status = false;
+  //     this.mouseTracking.x2 = e.screenX;
+  //     if (this.state.rotateDeg === 25){
+  //       // this.handleCheck();
+  //       console.log("this.handleCheck", e.currentTarget);
+  //     } else if (this.state.rotateDeg === -25){
+  //       // this.handleX();
+  //       console.log("this.handleX", e.currentTarget);
+  //     }
+  //   }
+  //   // this.setState({
+  //   //   rotateDeg: 0
+  //   // });
     
-  }
+  // }
 
   handleX(e){
     e.preventDefault();

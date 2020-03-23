@@ -55,7 +55,7 @@ span.food-info {
   padding: 20px 20px;
   width: 30%;
   height: 60vh;
-  min-height: 525px;
+  min-height: 600px;
   border: 5px solid #FFFFFF;
   border-radius: 5px;
   text-align: center;
@@ -63,14 +63,14 @@ span.food-info {
   display: flex; 
   flex-direction: column; 
 }
-
+/* 
 span.food-info, span.food-info h2, span.food-info h3, span.food-info h4, span.food-info p , span.food-info img {
   cursor: grab;
 }
 
 span.food-info:active, span.food-info h2:active, span.food-info h3:active, span.food-info h4:active, span.food-info p:active, span.food-info img:active {
   cursor: grabbing;
-}
+} */
 
 li button {
   background: transparent;
@@ -142,19 +142,17 @@ li button:focus {
 }
 
 #submit-session {
-  width: 275px;
-  height: 50px;
-  background-color: white;
+  background-color: white; 
+  color: #fa8afc;
   font-family: Baloo Da;
-  box-shadow: 0.5px 0.5px white;
   font-size: 22px;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 2px solid #363738;
+  margin: 0 auto;
+  margin-top: 20px;
+  position: relative;
   cursor: pointer;
   width: 20vw;
-  position: relative; 
-  margin: 0 auto; 
-  margin-top: 50px;
 }
 
 #submit-session:hover {
