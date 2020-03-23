@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../session_round.css';
+import AboutPage from '../../about_modal/about';
 
 class RestaurantRound extends Component{
   constructor(props){
@@ -318,6 +319,7 @@ class RestaurantRound extends Component{
         <ul onMouseMove={this.handleMove} onMouseUp={this.handleRelease}>
           {cards}
         </ul>
+        <AboutPage/>
       </div>
       )
   }
