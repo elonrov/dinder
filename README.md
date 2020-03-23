@@ -32,7 +32,7 @@ We integrated the Yelp API to pull restaurant options based on user-inputted sea
 
 ### 'Swiping' Functionality 
 The 'swiping' functionality was achieved using a combination of JavaScript, HTML, and CSS. 
-[sceenshot of the handle X and handle Check methods in restaurant round]. 
+[screenshot of the handle X and handle Check methods in restaurant round]. 
 ![](assets/readme/swiping.gif)
 
 ## Future Plans
