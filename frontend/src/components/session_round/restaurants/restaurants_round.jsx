@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../session_round.css';
+import AboutPage from '../../about_modal/about';
 
 class RestaurantRound extends Component{
   constructor(props){
@@ -7,12 +8,22 @@ class RestaurantRound extends Component{
     this.handleX = this.handleX.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleHold = this.handleHold.bind(this);
+    this.handleMove = this.handleMove.bind(this);
+    this.handleRelease = this.handleRelease.bind(this);
     this.checkCode = this.checkCode.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.pickWinner = this.pickWinner.bind(this);
     this.rejections = [];
+    this.mouseTracking = {
+      status: false,
+      x1: 0,
+      x2: 0,
+    };
+    this.mouseDiff = this.mouseTracking.x2 - this.mouseTracking.x1;
     this.state = {
-      sessionCode: ""
+      sessionCode: "",
+      rotateDeg: this.mouseDiff
     };
     this.troll = {
       name: "McDonald's",
@@ -56,25 +67,64 @@ class RestaurantRound extends Component{
       });
   }
 
+  handleHold(e){
+    e.preventDefault();
+    this.mouseTracking.x1 = e.screenX;
+    this.mouseTracking.status = true;
+  }
+
+  handleMove(e){
+    e.preventDefault();
+    if (this.mouseTracking.status){
+      this.mouseTracking.x2 = e.screenX;
+      this.mouseDiff = (this.mouseTracking.x2 - this.mouseTracking.x1) / 10;
+      this.setState({
+        rotateDeg: (this.mouseDiff > 0) ? Math.min(this.mouseDiff, 25) : Math.max(this.mouseDiff, -25)
+      });
+    }
+  }
+
+  handleRelease(e){
+    e.preventDefault();
+    if (this.mouseTracking.status) {
+      this.mouseTracking.status = false;
+      this.mouseTracking.x2 = e.screenX;
+      if (this.state.rotateDeg === 25){
+        // this.handleCheck();
+        console.log("this.handleCheck", e.currentTarget);
+      } else if (this.state.rotateDeg === -25){
+        // this.handleX();
+        console.log("this.handleX", e.currentTarget);
+      }
+    }
+    // this.setState({
+    //   rotateDeg: 0
+    // });
+    
+  }
+
   handleX(e){
     e.preventDefault();
-    const newRejs = [...this.rejections, e.target.parentElement.previousElementSibling.firstElementChild.textContent];
+    const newRejs = [...this.rejections, e.currentTarget.nextElementSibling.firstElementChild.textContent];
     this.rejections = newRejs;
-    
-    e.target.parentElement.previousElementSibling.setAttribute("id", "HIDDEN-LEFT");
-    e.target.parentElement.nextElementSibling.setAttribute("id", "BYE-LI");
-    e.target.parentElement.setAttribute("id", "BYE-LI");
-    const targ = e.currentTarget.previousSibling;
+    // card swipe
+    e.currentTarget.nextElementSibling.setAttribute("id", "HIDDEN-LEFT");
+    // button disappear
+    e.currentTarget.nextElementSibling.nextElementSibling.setAttribute("id", "BYE-LI");
+    e.currentTarget.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.nextElementSibling;
     setTimeout(() => targ.classList.add("none"), 500);
     // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
   
   handleCheck(e){
     e.preventDefault();
-    e.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
-    e.target.parentElement.previousElementSibling.setAttribute("id", "BYE-LI");
-    e.target.parentElement.setAttribute("id", "BYE-LI");
-    const targ = e.currentTarget.previousSibling.previousSibling;
+    // card swipe
+    e.currentTarget.previousElementSibling.setAttribute("id", "HIDDEN-RIGHT");
+    // button disappear
+    e.currentTarget.previousElementSibling.previousElementSibling.setAttribute("id", "BYE-LI");
+    e.currentTarget.setAttribute("id", "BYE-LI");
+    const targ = e.currentTarget.parentElement;
     setTimeout(() => targ.classList.add("none"), 500);
     // after .5 secs sets card to display none so page doesn't get wider from ele being moved
   }
@@ -195,7 +245,7 @@ class RestaurantRound extends Component{
         <>
           <form onSubmit={this.checkCode} id="verify-user-form">
             <label className="verification-request"> Please enter your verification code:<br/>
-              <input className="code-input" onChange={this.handleInput}/>
+              <input className="code-input" onChange={this.handleInput} autoFocus/>
             </label>
             <button className="code-submit">submit</button>
           </form>
@@ -215,12 +265,15 @@ class RestaurantRound extends Component{
     // user restaurant matching session
     const restaurants = this.props.session.restaurants || this.troll; 
 
+    // let rotateStyling = {transform: `rotate(${this.state.rotateDeg}deg)`};
+    let rotateStyling = null;
+
     const cards = restaurants.reverse().map((place, idx) => {
       if(idx === restaurants.length - 1){
         return (
           <span key={`LastoCardo`}>
             <li key={`LAST${Date.now()}`} className="cards" id="last-card">
-              <span className="food-info">
+              <span className="food-info" style={rotateStyling}  onMouseDown={this.handleHold} >
                 <h2>DONE!</h2>
                 <h3>Thank you for participating!</h3> <br/>
                 <p className="submit-card">Please wait for the others to finish, an email will be sent out with the final decision within the hour</p>
@@ -228,15 +281,16 @@ class RestaurantRound extends Component{
               </span>
             </li>
             <li key={`${place.name}${Date.now()}`} className="cards">
-              <span className="food-info">
+              <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
+              <span className="food-info" style={rotateStyling} onMouseDown={this.handleHold} onMouseUp={this.handleRelease}>
                 <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
                 <h3>{place.street}</h3>
                 <h4>{place.city}</h4>
-                <p>Rating: {place.rating}</p>
-                <p>Reviews: {place.reviews}</p>
-                <p>Price: {place.dollarSigns}</p>
-                <img src={place.imgUrl} alt="quick-peek" />              </span>
-              <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
+                <img src={place.imgUrl} alt="quick-peek" />
+                <p>Rating: {place.rating ? place.rating : "N/A"}</p>
+                <p>Reviews: {place.reviews ? place.reviews : "0"}</p>
+                <p>Price: {place.dollarSigns ? place.dollarSigns : "N/A"}</p>
+              </span>
               <button className="check" onClick={this.handleCheck}><img src={window.checkMark} alt="check-mark"/></button>
             </li>
           </span>
@@ -244,16 +298,16 @@ class RestaurantRound extends Component{
       } else {
         return (
           <li key={`${place.name}${Date.now()}`} className="cards">
-            <span className="food-info">
+            <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
+            <span className="food-info" style={rotateStyling} onMouseDown={this.handleHold} onMouseUp={this.handleRelease}>
               <h2><a target="_blank" rel="noopener noreferrer" href={place.sauceUrl}>{place.name}</a></h2>
               <h3>{place.street}</h3>
               <h4>{place.city}</h4>
-              <p>Rating: {place.rating}</p>
-              <p>Reviews: {place.reviews}</p>
-              <p>Price: {place.dollarSigns}</p>
               <img src={place.imgUrl} alt="quick-peek"/>
+              <p>Rating: {place.rating ? place.rating : "N/A"}</p>
+              <p>Reviews: {place.reviews ? place.reviews : "0"}</p>
+              <p>Price: {place.dollarSigns ? place.dollarSigns : "N/A"}</p>
             </span>
-            <button className="x-out" onClick={this.handleX}><img src={window.xMark} alt="x-mark"/></button>
             <button className="check" onClick={this.handleCheck}><img src={window.checkMark} alt="check-mark"/></button>
           </li>
         )
@@ -263,9 +317,10 @@ class RestaurantRound extends Component{
     return (
       <div className="session-round">
         {/* <h1>Restaurant Round</h1> */}
-        <ul>
+        <ul onMouseMove={this.handleMove} onMouseUp={this.handleRelease}>
           {cards}
         </ul>
+        <AboutPage/>
       </div>
       )
   }

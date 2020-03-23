@@ -139,7 +139,7 @@ body {
     line-height: 1.2px;
 }
 
-.get-started:hover, .refresh:hover {
+.get-started:hover {
     cursor: pointer;
     background-color: rgb(236, 235, 235);
 }
