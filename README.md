@@ -21,6 +21,7 @@ Dinder is built with a MongoDb database framework on the backend, Express applic
 ### NodeMailer.js
 We imported a module called NodeMailer to support our in-app email needs. NodeMailer is configured with two custom templates: one for the initial invitation to match, and one to announce the winning restaurant. NodeMailer is configured with handlebars templates and custom mail options for variables including session codes, links, attachments, and styling. <br>
 
+![](assets/readme/email.png)
 
 ### Yelp API Integration
 We integrated the Yelp API to pull restaurant options based on user-inputted search criteria. When initializing a dinder party, a host can optionally include a cuisine search term and a geographical search term, to narrow down the list of options Dinder presents to their group. Using these search terms, we request a list of the top 10 reviewed restaurant options from Yelp. <br>
