@@ -35,6 +35,7 @@ class RestaurantRound extends Component{
       street: "Um...",
       city: "Everywhere"
     };
+    this.trolling = false;
   }
 
   handleInput(e){
@@ -198,13 +199,15 @@ class RestaurantRound extends Component{
       if (potentialWinners.length === 1) {
         winner = potentialWinners[0];
       } else if (potentialWinners.length === 0) {
-        winner = this.troll;
+        winner = this.troll.name;
+        this.trolling = true;
       } else {
         winner = potentialWinners[Math.floor(Math.random() * (potentialWinners.length - 1))]
       }
       // console.log(winner);
       //find url for winner 
       let url;
+      if (this.trolling) url = this.troll.sauceUrl;
       this.props.session.restaurants.forEach( (restaurant) => {
         if (restaurant.name === winner) {
           url = restaurant.sauceUrl;
