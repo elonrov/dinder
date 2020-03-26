@@ -22,7 +22,7 @@ class ThankYou extends React.Component {
                         <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.akeemnicholas.com">Akeem Nicholas</a> <br />
                         <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.calvincurnuck.com">Calvin Curnuck</a> <br />
                         <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Elon Rov</a> <br />and <br />
-                        <a className="link" rel="noopener noreferrer" target="_blank" href="http://www.elonrov.com">Harry Zec</a> <br />Explore dinder's codebase and find more of our work on 
+                        <a className="link" rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/harry-zec-7157a4a8/">Harry Zec</a> <br />Explore dinder's codebase and find more of our work on 
                         <a className="link" href="https://github.com/elonrov/dinder"> GitHub</a>.
                     </div>
                     <a rel="noopener noreferrer" target="_blank" href="https://dinderparty.herokuapp.com/#/">
