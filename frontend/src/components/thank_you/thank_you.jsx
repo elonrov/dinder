@@ -25,7 +25,7 @@ class ThankYou extends React.Component {
                         <a className="link" rel="noopener noreferrer" target="_blank" href="https://harryzec.github.io/">Harry Zec</a> <br />Explore dinder's codebase and find more of our work on 
                         <a className="link" href="https://github.com/elonrov/dinder"> GitHub</a>.
                     </div>
-                    <a rel="noopener noreferrer" target="_blank" href="https://dinderparty.herokuapp.com/#/">
+                    <a href="https://dinderparty.herokuapp.com/#/">
                         <div className="home-link">about dinder</div>
                     </a>
                 </section>
