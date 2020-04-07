@@ -4,6 +4,7 @@ body {
     min-height: 100vh;
     background-image: url('../../assets/images/background.png'), linear-gradient(#fb77fe, #f4b0f7);
     background-size: 30%;
+    background-attachment: fixed;
     /* background-repeat: repeat; */
     /* background-image:  ; */
     margin-bottom: 50px;
