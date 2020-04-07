@@ -23,7 +23,8 @@ class RestaurantRound extends Component{
     this.mouseDiff = this.mouseTracking.x2 - this.mouseTracking.x1;
     this.state = {
       sessionCode: "",
-      rotateDeg: this.mouseDiff
+      rotateDeg: this.mouseDiff,
+      loading: false
     };
     this.troll = {
       name: "McDonald's",
@@ -46,6 +47,7 @@ class RestaurantRound extends Component{
 
   checkCode(e){
     e.preventDefault();
+    this.setState({ loading: true });
     const userVerificationData = {
       sessionId: this.props.session._id,
       sessionCode: this.state.sessionCode
@@ -54,17 +56,19 @@ class RestaurantRound extends Component{
     this.props.verifyUser(userVerificationData) // should update state to currentUser but will test
       .then (() => { 
         let emails = this.props.session.completedUsers.map((user) => user.email);
-          if (emails.includes(this.props.currentUser.email)) {
-            this.props.history.push(`/session/${this.props.session._id}/thankyou`);
+        if (emails.includes(this.props.currentUser.email)) {
+          this.props.history.push(`/session/${this.props.session._id}/thankyou`);
+        } else {
+          const sessionId = this.props.history.location.search.slice(1);
+          if (this.props.session.restaurants.length === 0) {
+            this.props.fetchRestaurants(this.props.session)
+              .then(() => this.props.fetchSession(sessionId))
+              .then(() => this.setState({ loading: false }))
           } else {
-            const sessionId = this.props.history.location.search.slice(1);
-            if (this.props.session.restaurants.length === 0) {
-              this.props.fetchRestaurants(this.props.session)
-                .then(() => this.props.fetchSession(sessionId));
-            } else {
-              this.props.fetchSession(sessionId);
-            }
+            this.props.fetchSession(sessionId)
+              .then(() => this.setState({ loading: false }))
           }
+        }
       });
   }
 
@@ -132,6 +136,7 @@ class RestaurantRound extends Component{
 
   handleSubmit(e){
     e.preventDefault();
+    this.setState({ loading: true });
     
     const userData = {
       userId: this.props.currentUser._id,
@@ -144,7 +149,6 @@ class RestaurantRound extends Component{
     
     this.props.updateUser(userData)
     .then(() => {
-
       let currentUser = this.props.currentUser; 
       currentUser.rejections = this.rejections;
       const sessionData = {
@@ -233,6 +237,10 @@ class RestaurantRound extends Component{
   }
 
   render(){
+    if (this.state.loading) {
+      return <i className="fas fa-spinner fa-pulse loading"></i>;
+    }
+
     let sessionErrors = null;
     if (this.props.errors) {
       sessionErrors = this.props.errors.map(err => {
